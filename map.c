@@ -1,6 +1,18 @@
+/*
+*
+*   Nicolas Debras - Malloc world
+*
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
+#define MIN3 -3
+#define MIN2 -2
+#define MIN1 -1
+
 
 typedef struct{
     int rows;
@@ -10,14 +22,83 @@ typedef struct{
 
 }map;
 
-int random(int max) {
+enum {
+    portail_zone2 = MIN3,
+    portail_zone1 = MIN2,
+    wall = MIN1,
+    empty,
+    player,
+    Png,
+    plant_zone1,
+    rock_zone1,
+    tree_zone1,
+    plant_zone2,
+    rock_zone2,
+    tree_zone2,
+    plant_zone3,
+    rock_zone3,
+    tree_zone3};
 
-    int n;
+int RangedRand(int range_min, int range_max) {
+    
 
-    srand(time(NULL));
-    n = rand() % (max);
+    int nombre = nombre = (rand() % (range_max + 1 - range_min)) + range_min;
+    return nombre;
+    
+}
 
-    return n;
+void check_fill(map m, int rajout) {
+
+
+    int c = RangedRand(0, m.column);
+    int r = RangedRand(0, m.rows);
+
+    if (m.map[c][r] != 0)
+        check_fill(m, rajout);
+    else
+        m.map[c][r] = rajout;
+}
+void initialization_map1(map m) {
+
+    check_fill(m, Png);;
+    check_fill(m, portail_zone1);
+
+    int c = 4;
+
+    for(int i = 0; i != c; i++) {
+        check_fill(m, rock_zone1);
+        check_fill(m, tree_zone1);
+        check_fill(m, plant_zone1);
+    }
+}
+void initialization_map2(map m) {
+
+    check_fill(m, Png);
+    check_fill(m, portail_zone1);
+    check_fill(m, portail_zone2);
+
+    int c = RangedRand(3, 5);
+
+    for(int i = 0; i != c; i++) {
+        check_fill(m, rock_zone2);
+        check_fill(m, tree_zone2);
+        check_fill(m, plant_zone2);
+    }   
+
+}
+void initialization_map3(map m) {
+
+    check_fill(m, Png);
+    check_fill(m, portail_zone2);
+
+    int c = RangedRand(3, 5);
+
+    for(int i = 0; i != c; i++) {
+        check_fill(m, rock_zone3);
+        check_fill(m, tree_zone3);
+        check_fill(m, plant_zone3);
+    }   
+
 }
 void print_map(map m) {
 
@@ -53,10 +134,11 @@ int **creation_map(int rows, int column) {
 void start_map(map *m, int level) {
 
 
-    m->rows = random(10);
-    m->column = random(10);
-    printf("%d ", m->rows);
-    printf("%d", m->column);
+    m->rows = RangedRand(5, 10);
+    srand(time(NULL));
+    m->column = RangedRand(5, 10);
+    printf("\n%d ", m->rows);
+    printf("%d \n", m->column);
 
 
     m->level = level;
@@ -70,7 +152,13 @@ int main(void) {
     map map_zone2;
     map map_zone3;
 
+    srand(time(NULL));
+
+    for(int i = 0; i != 10; i++)
+        printf("%d ", RangedRand(5, 10));
+
     start_map(&map_zone1, 1);
+    initialization_map1(map_zone1);
     print_map(map_zone1);
     
     return 0;
