@@ -299,8 +299,9 @@ Obj_Soin* getSoin(int valeur){
 //---------// Memory copy //---------// 
 
 void memcpy_arme(Obj_Arme* tmp1, Obj_Arme* tmp2){
-    printf("error on a %d\n",tmp1->valeur);
+    printf("error on a %d\n",tmp2->valeur);
     tmp2->valeur = tmp1->valeur;
+    printf("error on a %d\n",tmp2->valeur);
     tmp2->degat = tmp1->degat;
     
     if ( tmp1->durabilite == NULL ){
