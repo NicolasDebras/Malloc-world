@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int ARME_TYPE = 0;
-int ARMURE_TYPE = 1;
-int OUTIL_TYPE = 2;
-int RDC_TYPE = 3;
-int SOIN_TYPE = 4;
-int ERROR_CODE = 9999;
+#define ARME_TYPE 0
+#define ARMURE_TYPE 1
+#define OUTIL_TYPE 2
+#define RDC_TYPE 3
+#define SOIN_TYPE 4
+#define ERROR_CODE 9999
 
 //---------// ENUMERATIONS //---------// 
 
@@ -93,15 +93,15 @@ typedef struct Obj_Soin{
 }Obj_Soin;
 
 
-typedef struct Objects{
+typedef struct Object{
     Obj_Arme* arme;
     Obj_Armure* armure;
     Obj_Outil* outil;
     Obj_Ressource_de_craft* ressource_de_craft;
     Obj_Soin* soin;
     int type;
-    struct Objects* next;
-}Objects;
+    struct Object* next;
+}Object;
 
 typedef struct Player
 {
@@ -109,10 +109,10 @@ typedef struct Player
     int* level;
     int* hp_current;
     int* hp_max;
-    Objects* inventor;
+    Object* inventor;
 }Player;
 
-//---------// New Objects Creator //---------// 
+//---------// New Object Creator //---------// 
 
 Obj_Arme* new_arme(Arme valeur, int degat, int* durabilite){
     
@@ -139,7 +139,6 @@ Obj_Outil* new_outil(Outil valeur, int* durabilite){
     tool->valeur = valeur;
     tool->durabilite = malloc(sizeof(int));
     *tool->durabilite = *durabilite;
-    printf("l'erreur est ici avec %d\n",*tool->durabilite);
 
     return tool;
 }
@@ -161,8 +160,8 @@ Obj_Soin* new_soin(Outil valeur, int hp_heal){
     return potion;
 }
 
-Objects* new_Object(){
-    Objects* objet = malloc(sizeof(Objects));
+Object* new_Object(){
+    Object* objet = malloc(sizeof(Object));
 
     objet->arme = malloc(sizeof(Obj_Arme));
     objet->armure = malloc(sizeof(Obj_Armure));
@@ -174,11 +173,11 @@ Objects* new_Object(){
     return objet;
 }
 
-//---------// Objects data base //---------// 
-Objects** objects_list(){
-    Objects** LIST_OBJECTS = malloc(35*sizeof(Objects*));
+//---------// Object data base //---------// 
+Object** Object_list(){
+    Object** LIST_Object = malloc(35*sizeof(Object*));
     for (int i=0; i<35; i++){
-        LIST_OBJECTS[i] = new_Object();
+        LIST_Object[i] = new_Object();
     }
 
     int *_5 = malloc(sizeof(int));
@@ -192,124 +191,122 @@ Objects** objects_list(){
     int *_40 = malloc(sizeof(int));
     *_40 = 40;
 
-    LIST_OBJECTS[0]->type = 0;
-    LIST_OBJECTS[0]->arme = new_arme(WOOD_SWORD,1,_10);
+    LIST_Object[0]->type = 0;
+    LIST_Object[0]->arme = new_arme(WOOD_SWORD,1,_10);
 
-    LIST_OBJECTS[1]->type = 2;
-    LIST_OBJECTS[1]->outil = new_outil(WOODEN_PICKAXE,_10);
-    LIST_OBJECTS[2]->type = 2;
-    LIST_OBJECTS[2]->outil = new_outil(WOODEN_SERPE,_10);
-    LIST_OBJECTS[3]->type = 2;
-    LIST_OBJECTS[3]->outil = new_outil(WOODEN_AX,_10);
-    LIST_OBJECTS[4]->type = 3;
-    LIST_OBJECTS[4]->ressource_de_craft = new_ressource_de_craft(FIR);
-    LIST_OBJECTS[5]->type = 3;
-    LIST_OBJECTS[5]->ressource_de_craft = new_ressource_de_craft(STONE);
-    LIST_OBJECTS[6]->type = 3;
-    LIST_OBJECTS[6]->ressource_de_craft = new_ressource_de_craft(GRASS);
+    LIST_Object[1]->type = 2;
+    LIST_Object[1]->outil = new_outil(WOODEN_PICKAXE,_10);
+    LIST_Object[2]->type = 2;
+    LIST_Object[2]->outil = new_outil(WOODEN_SERPE,_10);
+    LIST_Object[3]->type = 2;
+    LIST_Object[3]->outil = new_outil(WOODEN_AX,_10);
+    LIST_Object[4]->type = 3;
+    LIST_Object[4]->ressource_de_craft = new_ressource_de_craft(FIR);
+    LIST_Object[5]->type = 3;
+    LIST_Object[5]->ressource_de_craft = new_ressource_de_craft(STONE);
+    LIST_Object[6]->type = 3;
+    LIST_Object[6]->ressource_de_craft = new_ressource_de_craft(GRASS);
 
-    LIST_OBJECTS[7]->type = 0;
-    LIST_OBJECTS[7]->arme = new_arme(STONE_SWORD,2,_10);
-    LIST_OBJECTS[8]->type = 0;
-    LIST_OBJECTS[8]->arme = new_arme(STONE_SPEAR,3,_8);
-    LIST_OBJECTS[9]->type = 0;
-    LIST_OBJECTS[9]->arme = new_arme(STONE_HAMMER,4,_5);
-    LIST_OBJECTS[10]->type = 1;
-    LIST_OBJECTS[10]->armure = new_armure(STONE_CHESTPLATE,_10);
-    LIST_OBJECTS[11]->type = 2;
-    LIST_OBJECTS[11]->outil = new_outil(STONE_PICKAXE,_10);
-    LIST_OBJECTS[12]->type = 2;
-    LIST_OBJECTS[12]->outil = new_outil(STONE_SERPE,_10);
-    LIST_OBJECTS[13]->type = 2;
-    LIST_OBJECTS[13]->outil = new_outil(STONE_AX,_10);
-    LIST_OBJECTS[14]->type = 4;
-    LIST_OBJECTS[14]->soin = new_soin(HEAL1,30);
-    LIST_OBJECTS[15]->type = 3;
-    LIST_OBJECTS[15]->ressource_de_craft = new_ressource_de_craft(BEECH);
-    LIST_OBJECTS[16]->type = 3;
-    LIST_OBJECTS[16]->ressource_de_craft = new_ressource_de_craft(IRON);
-    LIST_OBJECTS[17]->type = 3;
-    LIST_OBJECTS[17]->ressource_de_craft = new_ressource_de_craft(LAVENDER);
+    LIST_Object[7]->type = 0;
+    LIST_Object[7]->arme = new_arme(STONE_SWORD,2,_10);
+    LIST_Object[8]->type = 0;
+    LIST_Object[8]->arme = new_arme(STONE_SPEAR,3,_8);
+    LIST_Object[9]->type = 0;
+    LIST_Object[9]->arme = new_arme(STONE_HAMMER,4,_5);
+    LIST_Object[10]->type = 1;
+    LIST_Object[10]->armure = new_armure(STONE_CHESTPLATE,_10);
+    LIST_Object[11]->type = 2;
+    LIST_Object[11]->outil = new_outil(STONE_PICKAXE,_10);
+    LIST_Object[12]->type = 2;
+    LIST_Object[12]->outil = new_outil(STONE_SERPE,_10);
+    LIST_Object[13]->type = 2;
+    LIST_Object[13]->outil = new_outil(STONE_AX,_10);
+    LIST_Object[14]->type = 4;
+    LIST_Object[14]->soin = new_soin(HEAL1,30);
+    LIST_Object[15]->type = 3;
+    LIST_Object[15]->ressource_de_craft = new_ressource_de_craft(BEECH);
+    LIST_Object[16]->type = 3;
+    LIST_Object[16]->ressource_de_craft = new_ressource_de_craft(IRON);
+    LIST_Object[17]->type = 3;
+    LIST_Object[17]->ressource_de_craft = new_ressource_de_craft(LAVENDER);
 
-    LIST_OBJECTS[18]->type = 0;
-    LIST_OBJECTS[18]->arme = new_arme(IRON_SWORD,5,_10);
-    LIST_OBJECTS[19]->type = 0;
-    LIST_OBJECTS[19]->arme = new_arme(IRON_SPEAR,7,_8);
-    LIST_OBJECTS[20]->type = 0;
-    LIST_OBJECTS[20]->arme = new_arme(IRON_HAMMER,4,_5);
-    LIST_OBJECTS[21]->type = 1;
-    LIST_OBJECTS[21]->armure = new_armure(IRON_CHESTPLATE,_20);
-    LIST_OBJECTS[22]->type = 2;
-    LIST_OBJECTS[22]->outil = new_outil(IRON_PICKAXE,_10);
-    LIST_OBJECTS[23]->type = 2;
-    LIST_OBJECTS[23]->outil = new_outil(IRON_SERPE,_10);
-    LIST_OBJECTS[24]->type = 2;
-    LIST_OBJECTS[24]->outil = new_outil(IRON_AX,_10);
-    LIST_OBJECTS[25]->type = 4;
-    LIST_OBJECTS[25]->soin = new_soin(HEAL2,80);
-    LIST_OBJECTS[26]->type = 3;
-    LIST_OBJECTS[26]->ressource_de_craft = new_ressource_de_craft(OAK);
-    LIST_OBJECTS[27]->type = 3;
-    LIST_OBJECTS[27]->ressource_de_craft = new_ressource_de_craft(DIAMOND);
-    LIST_OBJECTS[28]->type = 3;
-    LIST_OBJECTS[28]->ressource_de_craft = new_ressource_de_craft(CHANVRE);
+    LIST_Object[18]->type = 0;
+    LIST_Object[18]->arme = new_arme(IRON_SWORD,5,_10);
+    LIST_Object[19]->type = 0;
+    LIST_Object[19]->arme = new_arme(IRON_SPEAR,7,_8);
+    LIST_Object[20]->type = 0;
+    LIST_Object[20]->arme = new_arme(IRON_HAMMER,4,_5);
+    LIST_Object[21]->type = 1;
+    LIST_Object[21]->armure = new_armure(IRON_CHESTPLATE,_20);
+    LIST_Object[22]->type = 2;
+    LIST_Object[22]->outil = new_outil(IRON_PICKAXE,_10);
+    LIST_Object[23]->type = 2;
+    LIST_Object[23]->outil = new_outil(IRON_SERPE,_10);
+    LIST_Object[24]->type = 2;
+    LIST_Object[24]->outil = new_outil(IRON_AX,_10);
+    LIST_Object[25]->type = 4;
+    LIST_Object[25]->soin = new_soin(HEAL2,80);
+    LIST_Object[26]->type = 3;
+    LIST_Object[26]->ressource_de_craft = new_ressource_de_craft(OAK);
+    LIST_Object[27]->type = 3;
+    LIST_Object[27]->ressource_de_craft = new_ressource_de_craft(DIAMOND);
+    LIST_Object[28]->type = 3;
+    LIST_Object[28]->ressource_de_craft = new_ressource_de_craft(CHANVRE);
 
-    LIST_OBJECTS[29]->type = 0;
-    LIST_OBJECTS[29]->arme = new_arme(DIAMOND_SWORD,10,_10);
-    LIST_OBJECTS[30]->type = 0;
-    LIST_OBJECTS[30]->arme = new_arme(DIAMOND_SPEAR,15,_8);
-    LIST_OBJECTS[31]->type = 0;
-    LIST_OBJECTS[31]->arme = new_arme(DIAMOND_HAMMER,20,_5);
-    LIST_OBJECTS[32]->type = 1;
-    LIST_OBJECTS[32]->armure = new_armure(DIAMOND_CHESTPLATE,_40);
-    LIST_OBJECTS[33]->type = 4;
-    LIST_OBJECTS[33]->soin = new_soin(HEAL3,200);
+    LIST_Object[29]->type = 0;
+    LIST_Object[29]->arme = new_arme(DIAMOND_SWORD,10,_10);
+    LIST_Object[30]->type = 0;
+    LIST_Object[30]->arme = new_arme(DIAMOND_SPEAR,15,_8);
+    LIST_Object[31]->type = 0;
+    LIST_Object[31]->arme = new_arme(DIAMOND_HAMMER,20,_5);
+    LIST_Object[32]->type = 1;
+    LIST_Object[32]->armure = new_armure(DIAMOND_CHESTPLATE,_40);
+    LIST_Object[33]->type = 4;
+    LIST_Object[33]->soin = new_soin(HEAL3,200);
 
-    return LIST_OBJECTS;
+    return LIST_Object;
 }
 
 
-//---------// Getter Objects from data base //---------//
+//---------// Getter Object from data base //---------//
 
 
 Obj_Arme* getArme(int valeur){ 
-    int *_10 = malloc(sizeof(int));
-    *_10 = 10;
-    Obj_Arme* tmp = new_arme(WOOD_SWORD,1,_10);
-    // Obj_Arme* tmp = malloc(sizeof(Obj_Arme));
-    // *tmp = objects_list()[valeur-1].armure;
-    // return tmp;
+    // int *_10 = malloc(sizeof(int));
+    // *_10 = 10;
+    // Obj_Arme* tmp = new_arme(valeur,1,_10);
+    Obj_Arme* tmp = malloc(sizeof(Obj_Arme));
+    tmp = Object_list()[valeur-1][0].arme;
+    return tmp;
 }
 
 Obj_Armure* getArmure(int valeur){
-    int *_10 = malloc(sizeof(int));
-    *_10 = 10;
-    Obj_Armure* tmp = new_armure(STONE_CHESTPLATE,_10);
-    // Obj_Armure* tmp = malloc(sizeof(Obj_Armure));
-    // *tmp = objects_list()[valeur-1].armure;
-    // return tmp;
+    // int *_10 = malloc(sizeof(int));
+    // *_10 = 10;
+    // Obj_Armure* tmp = new_armure(valeur,_10);
+    Obj_Armure* tmp = malloc(sizeof(Obj_Armure));
+    tmp = Object_list()[valeur-1][0].armure;
+    return tmp;
 }
 
-// Obj_Outil* getOutils(int valeur){
-//     Obj_Outil* tmp = malloc(sizeof(Obj_Outil));
-//     *tmp = *objects_list()[valeur-1].outil;
-//     return tmp;
-// }
+Obj_Outil* getOutils(int valeur){
+    Obj_Outil* tmp = malloc(sizeof(Obj_Outil));
+    tmp = Object_list()[valeur-1][0].outil;
+    return tmp;
+}
+Obj_Ressource_de_craft* getRDC(int valeur){
+    Obj_Ressource_de_craft* tmp = malloc(sizeof(Obj_Ressource_de_craft));
+    tmp = Object_list()[valeur-1][0].ressource_de_craft;
+    return tmp;
+}
+Obj_Soin* getSoin(int valeur){
+    Obj_Soin* tmp = malloc(sizeof(Obj_Soin));
+    tmp = Object_list()[valeur-1][0].soin;
+    return tmp;
+}
 
-// Obj_Ressource_de_craft* getRDC(int valeur){
-//     Obj_Ressource_de_craft* tmp = malloc(sizeof(Obj_Ressource_de_craft));
-//     *tmp = *objects_list()[valeur-1].ressource_de_craft;
-//     return tmp;
-// }
-
-// Obj_Soin* getSoin(int valeur){
-//     Obj_Soin* tmp = malloc(sizeof(Obj_Soin));
-//     *tmp = *objects_list()[valeur-1].soin;
-//     return tmp;
-// }
-
-Objects* getObject(int type, int valeur){
-    Objects* tmp = new_Object();
+Object* getObject(int type, int valeur){
+    Object* tmp = new_Object();
 
     if (type == ARME_TYPE){
         tmp->arme = getArme(valeur);
@@ -319,86 +316,24 @@ Objects* getObject(int type, int valeur){
         tmp->armure= getArmure(valeur);;
         tmp->type = ARMURE_TYPE;
     }
-    // else if (type == OUTIL_TYPE){
-    //     tmp->outil= getOutils(valeur);;
-    //     tmp->type = ARMURE_TYPE;
-    // }
-    // else if (type == RDC_TYPE){
-    //     tmp->type = ARME_TYPE;
-    // }
-    // else if (type == SOIN_TYPE){
-    //     tmp->soin = getSoin(valeur);
-    //     tmp->type = ARME_TYPE;
-    // }
+    else if (type == OUTIL_TYPE){
+        tmp->outil= getOutils(valeur);
+        tmp->type = ARMURE_TYPE;
+    }
+    else if (type == RDC_TYPE){
+        tmp->type = ARME_TYPE;
+    }
+    else if (type == SOIN_TYPE){
+        tmp->soin = getSoin(valeur);
+        tmp->type = ARME_TYPE;
+    }
     return tmp;
 }
 
-//DON'T NEED THAT
-//---------// Memory copy //---------// 
-
-// void memcpy_arme(Obj_Arme* tmp1, Obj_Arme* tmp2){
-    
-//     tmp2->valeur = tmp1->valeur;
-//     tmp2->degat = tmp1->degat;
-    
-//     if ( tmp1->durabilite == NULL ){
-//         tmp2->durabilite = NULL;
-//     }
-//     else{
-//         *tmp2->durabilite = *tmp1->durabilite;
-//     }
-// }
-
-// void memcpy_armure(Obj_Armure* tmp1, Obj_Armure* tmp2){
-//     tmp2->valeur = tmp1->valeur;
-//     if ( tmp1->resistance == NULL ){
-//         tmp2->resistance = NULL;
-//     }
-//     else{
-//         *tmp2->resistance = *tmp1->resistance;
-//     }
-// }
-
-// void memcpy_rdc(Obj_Ressource_de_craft* tmp1, Obj_Ressource_de_craft* tmp2){
-//     tmp2->valeur = tmp1->valeur;
-//     if ( tmp1->quantity == NULL ){
-//         tmp2->quantity = NULL;
-//     }
-//     else{
-//         *tmp2->quantity = *tmp1->quantity;
-//     }
-// }
-
-// void memcpy_outil(Obj_Outil* tmp1, Obj_Outil* tmp2){
-//     tmp2->valeur = tmp1->valeur;
-//     if ( tmp1->durabilite == NULL ){
-//         tmp2->durabilite = NULL;
-//     }
-//     else{
-//         *tmp2->durabilite = *tmp1->durabilite;
-//     }
-// }
-
-// void memcpy_soin(Obj_Soin* tmp1, Obj_Soin* tmp2){
-//     tmp2->valeur = tmp1->valeur;
-//     tmp2->hp_heal = tmp1->hp_heal;
-// }
-
-// void memcpy_object(Objects* tmp1, Objects* tmp2){
-    
-//     memcpy_arme(tmp1->arme,tmp2->arme);
-    
-//     memcpy_armure(tmp1->armure,tmp2->armure);
-//     memcpy_outil(tmp1->outil,tmp2->outil);
-//     memcpy_rdc(tmp1->ressource_de_craft,tmp2->ressource_de_craft);
-//     memcpy_soin(tmp1->soin,tmp2->soin);
-//     tmp2->type = tmp1->type;
-// }
-
 //---------// Check functions //---------// 
 
-int objectSize(Objects* inventory){
-    Objects* tmp = inventory;
+int inventorySize(Object* inventory){
+    Object* tmp = inventory;
 
     int counter = 0;
     while (inventory != NULL)
@@ -415,9 +350,9 @@ int objectSize(Objects* inventory){
     return counter-1;
 }
 
-int countInventoryArme(Objects* inventory){
+int countInventoryArme(Object* inventory){
 
-    Objects* tmp = inventory;
+    Object* tmp = inventory;
 
     int counter = 0;
     while (inventory != NULL){
@@ -432,24 +367,46 @@ int countInventoryArme(Objects* inventory){
     return counter;
 }
 
-int quantityRDCInc(Objects* inventory,int type, int valeur){
-    Objects* tmp = inventory;
+Object* appendObject(Object* head, Object* last){
+    while(head->next != NULL) {
+        head = head->next;
+    }
+    head->next = last;
+}
 
+Object* quantityRDCInc(Object* inventory,int type, int valeur){
+    Object* tmp = inventory;
+
+    int status = 0;;
     while (inventory != NULL){
         if ( inventory->ressource_de_craft != NULL && 
             inventory->ressource_de_craft->valeur == valeur){
-            (*inventory->ressource_de_craft->quantity)++;
+            (*inventory->ressource_de_craft->quantity) = (*inventory->ressource_de_craft->quantity) +1 ;
+            printf("Craft n°%d was added to your inventory, we have %d of this craft\n",
+            inventory->ressource_de_craft->valeur, *inventory->ressource_de_craft->quantity);
             inventory = tmp;
-            return 1;//As True
+            status = 1;//As True
         }
         inventory = inventory->next;
     }
     inventory = tmp;
-    return 0;//As false
+    if (status == 0){
+        while(inventory->next != NULL) {
+            inventory = inventory->next;
+        }
+        inventory->next = getObject(type, valeur);
+
+        
+    (*inventory->ressource_de_craft->quantity) = (*inventory->ressource_de_craft->quantity) +1 ;        
+        printf("Craft n°%d was added to your inventory, we have %d of this craft\n",
+            inventory->ressource_de_craft->valeur, *inventory->ressource_de_craft->quantity);
+    }
+    inventory = tmp;
+    return inventory;//As false
 }
 
-int isArmeInInventory(Objects* inventory,int type, int valeur){
-    Objects* tmp = inventory;
+int isArmeInInventory(Object* inventory,int type, int valeur){
+    Object* tmp = inventory;
 
     while (inventory != NULL){
         if ( inventory->arme != NULL && 
@@ -464,71 +421,63 @@ int isArmeInInventory(Objects* inventory,int type, int valeur){
 
 //---------// Add object in Inventory //---------// 
 
-Objects* addarme(Objects* inventory, int type, int valeur){
+Object* addarme(Object* inventory, int type, int valeur){
     int nb_weapon = countInventoryArme(inventory);
     int our_weapon = isArmeInInventory(inventory,type,valeur);
-    int size = objectSize(inventory);
-    Objects* tmp = inventory;
-
-    if ( size < 10 && nb_weapon < 4 && our_weapon==0){
+    int size = inventorySize(inventory);
+    Object* tmp = inventory;
+    
+    if ( size < 10 && nb_weapon <= 3 && !our_weapon){
         
         while(inventory->next != NULL) {
             inventory = inventory->next;
         }
         inventory->next = getObject(type, valeur);
-        printf("on a l'arme %d \n",inventory->next->arme->valeur);
+        printf("Object n°%d was added to your inventory\n",inventory->next->arme->valeur);
     }
     else{
-        printf("We cannot insert any weapon more!\n");
+        printf("We cannot insert more weapon!\n");
         printf("There is %d objets in inventory and %d Weapons\n",size, nb_weapon);
     }
     inventory = tmp;
-    printf("on a %d objets\n",objectSize(inventory));
 
     return inventory;
 }
 
-void addcraft(Objects* inventory,int type, int valeur){
+Object* addcraft(Object* inventory,int type, int valeur){
 
-    int size = objectSize(inventory);
+    int size = inventorySize(inventory);
 
     if ( size < 10 ){
         
-        int RDC_STATUS = quantityRDCInc(inventory, type, valeur);
-        if (  RDC_STATUS == 1 ){
-            printf("--Ressource Append Success\n");
-        }
-        else{
-            printf("--No place avaible for this ressource\n");
-        }
-        return;
+        inventory = quantityRDCInc(inventory, type, valeur);
+        return inventory;
     }
     else{
-        printf("We cannot insert any ressource more!\n");
+        printf("We cannot insert more ressources!\n");
         printf("There is %d objets in inventory.\n",size);
-        return;
+        return inventory;
     }
 }
 
-Objects* addobject(Objects* inventory, int type, int valeur){
+Object* addobject(Object* inventory, int type, int valeur){
 
-    int size = objectSize(inventory);
-    Objects* tmp = inventory;
+    int size = inventorySize(inventory);
+    Object* tmp = inventory;
 
     if ( size < 10 ){
         while(inventory->next != NULL) {
             inventory = inventory->next;
         }
         inventory->next = getObject(type, valeur);
-        
-        printf("on a l'armure %d \n",inventory->next->armure->valeur);
+        printf("Object n°%d was added to your inventory\n",valeur);
+
     }
     else{
-        printf("We cannot insert any weapon more!\n");
+        printf("We cannot insert more weapon !\n");
         printf("There is %d objets in inventory\n",size);
     }
     inventory = tmp;
-    printf("on a %d objets\n",objectSize(inventory));
 
     return inventory;
 }
@@ -536,16 +485,16 @@ Objects* addobject(Objects* inventory, int type, int valeur){
 
 //---------// Initialize the player/ New game //---------// 
 
-Objects* init_inventor(Objects* inventory){
+Object* init_inventor(Object* inventory){
     
     inventory = new_Object();
     
     inventory = addarme(inventory, ARMURE_TYPE, WOOD_SWORD);
     inventory = addobject(inventory, ARMURE_TYPE,STONE_CHESTPLATE);//for test
-    //addcraft(inventory, objectSize, RDC_TYPE, OAK);
-    //addobject(inventory, objectSize, OUTIL_TYPE,WOODEN_AX);
-    //addobject(inventory, objectSize, OUTIL_TYPE,WOODEN_SERPE);
-    // addobject(inventory, objectSize, OUTIL_TYPE,WOODEN_PICKAXE);
+    //inventory = addcraft(inventory, RDC_TYPE, OAK);
+    inventory = addobject(inventory, OUTIL_TYPE,WOODEN_AX);
+    inventory = addobject(inventory, OUTIL_TYPE,WOODEN_SERPE);
+    inventory = addobject(inventory, OUTIL_TYPE,WOODEN_PICKAXE);
 
     return inventory;
 }
@@ -560,7 +509,7 @@ Player* init_player(){
     p->inventor = init_inventor(p->inventor);
 
     *p->xp = 0;
-    *p->level = 0;
+    *p->level = 1;
     *p->hp_current = 0;
     *p->hp_max = 100;
       
@@ -574,12 +523,10 @@ int main(){
     printf("Le joueur a l'arme %d et l'armure %d\n",
        a->inventor->arme->valeur, a->inventor->next->armure->valeur);
     
-    
-
     // printf("Le joueur a l'outil %d \n",
     //     a->inventor[0]->outil->valeur);
 
 
-    printf("Le joueur a %d objets dans son inventaire.\n", objectSize(a->inventor));
+    printf("Le joueur a %d objets dans son inventaire.\n", inventorySize(a->inventor));
     return 0;
 }

@@ -47,7 +47,11 @@ int main(){
     appendNode(a, a2);
     appendNode(a, a3);
 
-    printf("On a %d et le premier element contient %d \n", nodeSize(a), a->value);
+    printf("On a %d et le premier element contient %d et a2 = %d \n", nodeSize(a), a->value, a->next->next->value);
+
+    a2->value = 34;
+
+    printf("On a %d et le premier element contient %d et a2 = %d \n", nodeSize(a), a->value, a->next->next->value);
     free(a);
     free(a1);
     free(a2);
