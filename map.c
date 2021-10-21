@@ -55,10 +55,10 @@ void check_fill(map m, int rajout) {
     int c = RangedRand(0, m.column-1);
     int r = RangedRand(0, m.rows-1);
 
-    if (m.map[c][r] != 0)
+    if (m.map[r][c] != 0)
         check_fill(m, rajout);
     else
-        m.map[c][r] = rajout;
+        m.map[r][c] = rajout;
 }
 void initialization_map1(map m) {
 
