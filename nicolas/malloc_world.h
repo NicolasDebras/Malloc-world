@@ -4,9 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MIN3 -3
-#define MIN2 -2
-#define MIN1 -1
+
+/* - struct monster - Nicolas Debras */
 
 typedef struct monster{
 
@@ -19,13 +18,24 @@ typedef struct monster{
     int armor;
 }monster;
 
+/* - struct map - Nicolas Debras */
+
 typedef struct{
     int rows;
     int column;
     int **map;
     int level;
+    int player_x;
+    int player_y;
 
 }map;
+
+/* - enum for fill map - Nicolas Debras */
+
+#define MIN3 -3
+#define MIN2 -2
+#define MIN1 -1
+
 enum {
     portail_zone2 = MIN3,
     portail_zone1 = MIN2,
@@ -41,7 +51,26 @@ enum {
     tree_zone2,
     plant_zone3,
     rock_zone3,
-    tree_zone3};
+    tree_zone3
+};
+
+/* - prototype map.c - Nicolas Debras */
+
+void start_map(map *m, int level);
+int **creation_map(int rows, int column);
+void fill_map(int rows, int column, int **map);
+void print_map(map m);
+void initialization_map3(map m);
+void initialization_map2(map m);
+void initialization_map1(map m);
+void check_fill(map m, int rajout);
+int RangedRand(int range_min, int range_max);
+
+/* - prototype movement.c - Nicolas Debras */
+
+void movement(map m);
+
+/* - prototype creation_monster.c - Nicolas Debras */
 
 void creation_monster();
 monster *init_monster(char name[50], int pv, int level_monster, int n, int degats, int armor);

@@ -6,6 +6,7 @@
 
 #include "malloc_world.h"
 
+
 int RangedRand(int range_min, int range_max) {
     
     int nombre = 0; 
@@ -27,6 +28,7 @@ void check_fill(map m, int rajout) {
 }
 void initialization_map1(map m) {
 
+    m.map[m.player_x][m.player_y] = 1;
     check_fill(m, Png);;
     check_fill(m, portail_zone1);
 
@@ -100,11 +102,12 @@ int **creation_map(int rows, int column) {
 }
 void start_map(map *m, int level) {
 
-
     m->rows = RangedRand(5, 10);
     m->column = RangedRand(5, 10);
     printf("Ligne : %d\n", m->rows);
     printf("Colonne : %d\n", m->column);
+    m->player_y = RangedRand(0, m->rows-1);
+    m->player_x = RangedRand(0, m->column-1);
 
 
     m->level = level;
@@ -123,6 +126,7 @@ int main(int argc, char *argv[]) {
     start_map(&map_zone1, 1);
     initialization_map1(map_zone1);
     print_map(map_zone1);
+    movement(map_zone1);
     
     return 0;
 }
