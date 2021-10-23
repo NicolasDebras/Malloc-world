@@ -1,28 +1,40 @@
 /*
- * Filename: movement_tab.c
+ * Filename: movement.c
  * Created Date: Wednesday, October 20th 2021, 2:43:52 pm
  * Author: DEBRAS Nicolas 
  * 
  * Copyright (c) 2021 
  */
+
 #include "malloc_world.h"
 
 
+void movement(map m1, map m2, map m3, int level){
 
-void movement(map m){
+    map m;
+
+    if (level == 1) {
+        m = m1;
+    }else if ( level == 2) {
+        m = m2;
+    } else if ( level == 3) {
+        m = m3;
+    }
 
     char c;
+    char input[255];
     int movement_tab[1];
-    //printf("Ceci est un test ");
-
-    printf("\nLe player se trouve a la cases : %d et %d\n", m.player_x, m.player_y); 
     
     while (1) {
         print_map(m);
-        system("pause");
-        scanf("\nVeuillez saisir un déplacement (z q d s) : ", &c);
+        scanf("%s", &input);
+
+        c = input[0];
 
         //conditions 
+        movement_tab[0] = 0;
+        movement_tab[1] = 0;
+
         if (c == 'z' && (m.player_x-1) >= 0 ) {
             movement_tab[0] = -1;
             movement_tab[1] = 0;
@@ -39,22 +51,34 @@ void movement(map m){
             movement_tab[0] = 1;
             movement_tab[1] = 0;
         } else {
-            printf("crash ou break");
+            printf("crash ou break, %s", input);
             break;
         }
         
         //check
         if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] == 0 ) {
             m.map[m.player_x][m.player_y] = 0;
-            m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] = 1;
+            m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] = player;
+            m.player_x = m.player_x + movement_tab[0];
+            m.player_y = m.player_y + movement_tab[1];
         } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] == Png) {
             printf("\n||||| RENCONCTRE AVEC LE PNG|||||\n");
         } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] >= plant_zone1 && m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] <= tree_zone3) {
-            printf("\n||||| RENCONCTRE AVEC UN ELEMENT UTILE|||||\n");
+            printf("\n||||| RENCONCTRE AVEC UN ELEMENT UTILE |||||\n");
+        } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] > -1) {
+            printf("\n||||| CHANGEMENT DE MAP |||||\n");
+            if (m.level == 1) {
+                movement(m1, m2, m3, 2);
+                break;
+            } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] == -1 ) {
+                movement(m2, m, m3, 1);
+                break;
+
+            }
         } else
             printf("\n||||| RENCONCTRE AVEC UN MONSTRE|||||\n");
         
-        system("clear");
+        //system("clear");
     }
     
 }

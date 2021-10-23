@@ -1,8 +1,11 @@
 /*
-*
-*   Nicolas Debras - Malloc world
-*
-*/
+ * Filename: map.c
+ * Created Date: Sunday, October 17th 2021, 9:47:55 pm
+ * Author: Nicolas Debras
+ * 
+ * Copyright (c) 2021 
+ */
+
 
 #include "malloc_world.h"
 
@@ -124,9 +127,12 @@ int main(int argc, char *argv[]) {
     srand(time(NULL));
 
     start_map(&map_zone1, 1);
+    start_map(&map_zone2, 2);
+    start_map(&map_zone3, 3);
     initialization_map1(map_zone1);
-    print_map(map_zone1);
-    movement(map_zone1);
+    initialization_map2(map_zone2);
+    initialization_map3(map_zone3);
+    movement(map_zone1, map_zone2, map_zone3);
     
     return 0;
 }
