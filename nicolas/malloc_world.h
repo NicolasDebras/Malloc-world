@@ -1,3 +1,12 @@
+/*
+ * Filename: malloc_world.h
+ * Created Date: Friday, October 22nd 2021, 2:01:58 pm
+ * Author: Nicolas Debras
+ * 
+ * Copyright (c) 2021 
+ */
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdio.h>
@@ -68,7 +77,7 @@ int RangedRand(int range_min, int range_max);
 
 /* - prototype movement.c - Nicolas Debras */
 
-void movement(map m);
+void movement(map m1, map m2, map m3, int level);
 
 /* - prototype creation_monster.c - Nicolas Debras */
 
