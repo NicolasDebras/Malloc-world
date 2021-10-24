@@ -77,7 +77,7 @@ int RangedRand(int range_min, int range_max);
 
 /* - prototype movement.c - Nicolas Debras */
 
-void movement(map m1, map m2, map m3, int level);
+void movement(map m,map m1, map m2, map m3);
 
 /* - prototype creation_monster.c - Nicolas Debras */
 

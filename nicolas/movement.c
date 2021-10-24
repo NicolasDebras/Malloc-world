@@ -9,17 +9,7 @@
 #include "malloc_world.h"
 
 
-void movement(map m1, map m2, map m3, int level){
-
-    map m;
-
-    if (level == 1) {
-        m = m1;
-    }else if ( level == 2) {
-        m = m2;
-    } else if ( level == 3) {
-        m = m3;
-    }
+void movement(map m, map m1, map m2, map m3){
 
     char c;
     char input[255];
@@ -35,6 +25,7 @@ void movement(map m1, map m2, map m3, int level){
         movement_tab[0] = 0;
         movement_tab[1] = 0;
 
+        //mettre dans une focntion 
         if (c == 'z' && (m.player_x-1) >= 0 ) {
             movement_tab[0] = -1;
             movement_tab[1] = 0;
@@ -55,28 +46,34 @@ void movement(map m1, map m2, map m3, int level){
             break;
         }
         
-        //check
+        //mouvemant
         if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] == 0 ) {
+            // faire une fonction
             m.map[m.player_x][m.player_y] = 0;
             m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] = player;
             m.player_x = m.player_x + movement_tab[0];
             m.player_y = m.player_y + movement_tab[1];
         } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] == Png) {
             printf("\n||||| RENCONCTRE AVEC LE PNG|||||\n");
+            // focntion rencontre avec le png 
         } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] >= plant_zone1 && m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] <= tree_zone3) {
             printf("\n||||| RENCONCTRE AVEC UN ELEMENT UTILE |||||\n");
-        } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] > -1) {
+            //focntion element utile 
+        } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] < -1) {
             printf("\n||||| CHANGEMENT DE MAP |||||\n");
+            // faire une fonction changement map
             if (m.level == 1) {
-                movement(m1, m2, m3, 2);
+                // mettre le player sur la seconde map (fonction : check autour de la zone du portail des zero afin de placer le player )
+                movement(m2, m1, m2, m3);
                 break;
             } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] == -1 ) {
-                movement(m2, m, m3, 1);
+                movement(m2, m1, m2, m3);
                 break;
 
             }
         } else
             printf("\n||||| RENCONCTRE AVEC UN MONSTRE|||||\n");
+            // fonction combat de monstre 
         
         //system("clear");
     }
