@@ -62,77 +62,99 @@ Object** Object_list(){
         LIST_Object[i] = new_Object();
     }
 
-    LIST_Object[0]->type = 0;
+    LIST_Object[0]->type = ARME_TYPE;
+    LIST_Object[0]->isSelected = NOT_SELECTED;
     LIST_Object[0]->arme = new_arme(WOOD_SWORD,1,10);
 
-    LIST_Object[1]->type = 2;
+    LIST_Object[1]->type = OUTIL_TYPE;
+    LIST_Object[1]->isSelected = NOT_SELECTED;
     LIST_Object[1]->outil = new_outil(WOODEN_PICKAXE,10);
-    LIST_Object[2]->type = 2;
+    LIST_Object[2]->type = OUTIL_TYPE;
+    LIST_Object[2]->isSelected = NOT_SELECTED;
     LIST_Object[2]->outil = new_outil(WOODEN_SERPE,10);
-    LIST_Object[3]->type = 2;
+    LIST_Object[3]->type = OUTIL_TYPE;
+    LIST_Object[3]->isSelected = NOT_SELECTED;
     LIST_Object[3]->outil = new_outil(WOODEN_AX,10);
-    LIST_Object[4]->type = 3;
+    LIST_Object[4]->type = RDC_TYPE;
     LIST_Object[4]->ressource_de_craft = new_ressource_de_craft(FIR);
-    LIST_Object[5]->type = 3;
+    LIST_Object[5]->type = RDC_TYPE;
     LIST_Object[5]->ressource_de_craft = new_ressource_de_craft(STONE);
-    LIST_Object[6]->type = 3;
+    LIST_Object[6]->type = RDC_TYPE;
     LIST_Object[6]->ressource_de_craft = new_ressource_de_craft(GRASS);
 
-    LIST_Object[7]->type = 0;
+    LIST_Object[7]->type = ARME_TYPE;
+    LIST_Object[7]->isSelected = NOT_SELECTED;
     LIST_Object[7]->arme = new_arme(STONE_SWORD,2,10);
-    LIST_Object[8]->type = 0;
+    LIST_Object[8]->type = ARME_TYPE;
+    LIST_Object[8]->isSelected = NOT_SELECTED;
     LIST_Object[8]->arme = new_arme(STONE_SPEAR,3,8);
-    LIST_Object[9]->type = 0;
+    LIST_Object[9]->type = ARME_TYPE;
+    LIST_Object[9]->isSelected = NOT_SELECTED;
     LIST_Object[9]->arme = new_arme(STONE_HAMMER,4,5);
-    LIST_Object[10]->type = 1;
+    LIST_Object[10]->type = ARMURE_TYPE;
+    LIST_Object[10]->isSelected = NOT_SELECTED;
     LIST_Object[10]->armure = new_armure(STONE_CHESTPLATE,10);
-    LIST_Object[11]->type = 2;
+    LIST_Object[11]->type = OUTIL_TYPE;
+    LIST_Object[11]->isSelected = NOT_SELECTED;
     LIST_Object[11]->outil = new_outil(STONE_PICKAXE,10);
-    LIST_Object[12]->type = 2;
+    LIST_Object[12]->type = OUTIL_TYPE;
+    LIST_Object[12]->isSelected = NOT_SELECTED;
     LIST_Object[12]->outil = new_outil(STONE_SERPE,10);
-    LIST_Object[13]->type = 2;
+    LIST_Object[13]->type = OUTIL_TYPE;
+    LIST_Object[13]->isSelected = NOT_SELECTED;
     LIST_Object[13]->outil = new_outil(STONE_AX,10);
-    LIST_Object[14]->type = 4;
+    LIST_Object[14]->type = SOIN_TYPE;
     LIST_Object[14]->soin = new_soin(HEAL1,30);
-    LIST_Object[15]->type = 3;
+    LIST_Object[15]->type = RDC_TYPE;
     LIST_Object[15]->ressource_de_craft = new_ressource_de_craft(BEECH);
-    LIST_Object[16]->type = 3;
+    LIST_Object[16]->type = RDC_TYPE;
     LIST_Object[16]->ressource_de_craft = new_ressource_de_craft(IRON);
-    LIST_Object[17]->type = 3;
+    LIST_Object[17]->type = RDC_TYPE;
     LIST_Object[17]->ressource_de_craft = new_ressource_de_craft(LAVENDER);
 
-    LIST_Object[18]->type = 0;
+    LIST_Object[18]->type = ARME_TYPE;
+    LIST_Object[18]->isSelected = NOT_SELECTED;
     LIST_Object[18]->arme = new_arme(IRON_SWORD,5,10);
-    LIST_Object[19]->type = 0;
+    LIST_Object[19]->type = ARME_TYPE;
+    LIST_Object[19]->isSelected = NOT_SELECTED;
     LIST_Object[19]->arme = new_arme(IRON_SPEAR,7,8);
-    LIST_Object[20]->type = 0;
+    LIST_Object[20]->type = ARME_TYPE;
+    LIST_Object[20]->isSelected = NOT_SELECTED;
     LIST_Object[20]->arme = new_arme(IRON_HAMMER,4,5);
-    LIST_Object[21]->type = 1;
+    LIST_Object[21]->type = ARMURE_TYPE;
+    LIST_Object[21]->isSelected = NOT_SELECTED;
     LIST_Object[21]->armure = new_armure(IRON_CHESTPLATE,20);
-    LIST_Object[22]->type = 2;
+    LIST_Object[22]->type = OUTIL_TYPE;
+    LIST_Object[22]->isSelected = NOT_SELECTED;
     LIST_Object[22]->outil = new_outil(IRON_PICKAXE,10);
-    LIST_Object[23]->type = 2;
+    LIST_Object[23]->type = OUTIL_TYPE;
+    LIST_Object[23]->isSelected = NOT_SELECTED;
     LIST_Object[23]->outil = new_outil(IRON_SERPE,10);
-    LIST_Object[24]->type = 2;
+    LIST_Object[24]->type = OUTIL_TYPE;
+    LIST_Object[24]->isSelected = NOT_SELECTED;
     LIST_Object[24]->outil = new_outil(IRON_AX,10);
-    LIST_Object[25]->type = 4;
+    LIST_Object[25]->type = SOIN_TYPE;
     LIST_Object[25]->soin = new_soin(HEAL2,80);
-    LIST_Object[26]->type = 3;
+    LIST_Object[26]->type = RDC_TYPE;
     LIST_Object[26]->ressource_de_craft = new_ressource_de_craft(OAK);
-    LIST_Object[27]->type = 3;
+    LIST_Object[27]->type = RDC_TYPE;
     LIST_Object[27]->ressource_de_craft = new_ressource_de_craft(DIAMOND);
-    LIST_Object[28]->type = 3;
+    LIST_Object[28]->type = RDC_TYPE;
     LIST_Object[28]->ressource_de_craft = new_ressource_de_craft(HEMP);
 
-    LIST_Object[29]->type = 0;
+    LIST_Object[29]->type = ARME_TYPE;
+    LIST_Object[29]->isSelected = NOT_SELECTED;
     LIST_Object[29]->arme = new_arme(DIAMOND_SWORD,10,10);
-    LIST_Object[30]->type = 0;
+    LIST_Object[30]->type = ARME_TYPE;
+    LIST_Object[30]->isSelected = NOT_SELECTED;
     LIST_Object[30]->arme = new_arme(DIAMOND_SPEAR,15,8);
-    LIST_Object[31]->type = 0;
+    LIST_Object[31]->type = ARME_TYPE;
+    LIST_Object[31]->isSelected = NOT_SELECTED;
     LIST_Object[31]->arme = new_arme(DIAMOND_HAMMER,20,5);
-    LIST_Object[32]->type = 1;
+    LIST_Object[32]->type = ARMURE_TYPE;
+    LIST_Object[32]->isSelected = NOT_SELECTED;
     LIST_Object[32]->armure = new_armure(DIAMOND_CHESTPLATE,40);
-    LIST_Object[33]->type = 4;
+    LIST_Object[33]->type = SOIN_TYPE;
     LIST_Object[33]->soin = new_soin(HEAL3,200);
 
     return LIST_Object;
@@ -142,7 +164,7 @@ Object** Object_list(){
 //---------// Getter Object from data base //---------//
 
 
-Obj_Arme* getArme(int objectId){ 
+Obj_Arme* getDBArme(int objectId){ 
     Obj_Arme* tmp = malloc(sizeof(Obj_Arme));
     tmp = Object_list()[objectId-1][0].arme;
     printf("Weapon n°%d Damage: %d durability: %d\n",
@@ -150,28 +172,28 @@ Obj_Arme* getArme(int objectId){
                 tmp->degat, tmp->durabilite);
     return tmp;
 }
-Obj_Armure* getArmure(int objectId){
+Obj_Armure* getDBArmure(int objectId){
     Obj_Armure* tmp = malloc(sizeof(Obj_Armure));
     tmp = Object_list()[objectId-1][0].armure;
     printf("Armor n°%d Resistance: %d\n",
                 tmp->objectId,tmp->resistance);
     return tmp;
 }
-Obj_Outil* getOutils(int objectId){
+Obj_Outil* getDBOutils(int objectId){
     Obj_Outil* tmp = malloc(sizeof(Obj_Outil));
     tmp = Object_list()[objectId-1][0].outil;
     printf("Tool n°%d durability: %d\n",
                 tmp->objectId, tmp->durabilite);
     return tmp;
 }
-Obj_Ressource_de_craft* getRDC(int objectId){
+Obj_Ressource_de_craft* getDBRDC(int objectId){
     Obj_Ressource_de_craft* tmp = malloc(sizeof(Obj_Ressource_de_craft));
     tmp = Object_list()[objectId-1][0].ressource_de_craft;
     printf("Ressource n°%d quantity: %d\n",
                 tmp->objectId, tmp->quantity);
     return tmp;
 }
-Obj_Soin* getSoin(int objectId){
+Obj_Soin* getDBSoin(int objectId){
     Obj_Soin* tmp = malloc(sizeof(Obj_Soin));
     tmp = Object_list()[objectId-1][0].soin;
     printf("Potion n°%d hp_heal: %d\n",
@@ -179,30 +201,34 @@ Obj_Soin* getSoin(int objectId){
     return tmp;
 }
 
-Object* getObject(int type, int objectId){
+Object* getDBObject(int type, int objectId){
     Object* tmp = new_Object();
 
     if (type == ARME_TYPE){
-        tmp->arme = getArme(objectId);
+        tmp->arme = getDBArme(objectId);
         tmp->type = ARME_TYPE;
     }
     else if (type == ARMURE_TYPE){
-        tmp->armure= getArmure(objectId);;
+        tmp->armure= getDBArmure(objectId);;
         tmp->type = ARMURE_TYPE;
     }
     else if (type == OUTIL_TYPE){
-        tmp->outil= getOutils(objectId);
+        tmp->outil= getDBOutils(objectId);
         tmp->type = OUTIL_TYPE;
     }
     else if (type == RDC_TYPE){
-        tmp->ressource_de_craft = getRDC(objectId);
+        tmp->ressource_de_craft = getDBRDC(objectId);
         tmp->type = RDC_TYPE;
     }
     else if (type == SOIN_TYPE){
-        tmp->soin = getSoin(objectId);
+        tmp->soin = getDBSoin(objectId);
         tmp->type = SOIN_TYPE;
     }
     return tmp;
+}
+
+int getDBObjectType(int objectId){
+    return Object_list()[objectId-1][0].type;
 }
 
 //---------// Check functions //---------// 
@@ -261,7 +287,7 @@ Object* quantityRDCInc(Object* inventory,int type, int objectId){
     if (status == 0){
         if ( inventory->type == -1 ){
             
-            tmp = getObject(type, objectId);
+            tmp = getDBObject(type, objectId);
             tmp->ressource_de_craft->quantity = tmp->ressource_de_craft->quantity + 1;        
             
             printf("Craft n°%d was added to your inventory, we have %d of this craft\n",
@@ -273,7 +299,7 @@ Object* quantityRDCInc(Object* inventory,int type, int objectId){
             tmp = tmp->next;
         }
         
-        tmp->next = getObject(type, objectId);
+        tmp->next = getDBObject(type, objectId);
         tmp->next->ressource_de_craft->quantity = tmp->next->ressource_de_craft->quantity + 1;        
         
         printf("Craft n°%d was added to your inventory, we have %d of this craft\n",
@@ -300,7 +326,7 @@ Object* addarme(Object* inventory, int type, int objectId){
     if ( size < 11 && nb_weapon <= 3 && our_weapon!=1){
         if ( inventory->type == -1 ){
 
-            inventory = getObject(type, objectId);
+            inventory = getDBObject(type, objectId);
 
             printf("Object n°%d was added to your inventory\n",inventory->arme->objectId);
             
@@ -310,7 +336,7 @@ Object* addarme(Object* inventory, int type, int objectId){
             while(tmp->next != NULL) {
                 tmp = tmp->next;
             }
-            tmp->next = getObject(type, objectId);
+            tmp->next = getDBObject(type, objectId);
             printf("Object n°%d was added to your inventory\n",tmp->next->arme->objectId);    
         }
     }
@@ -351,7 +377,7 @@ Object* addobject(Object* inventory, int type, int objectId){
     if ( size < 11 ){
 
         if ( inventory->type == -1 ){
-            inventory = getObject(type, objectId);
+            inventory = getDBObject(type, objectId);
 
             printf("Object n°%d was added to your inventory\n",objectId);
 
@@ -360,7 +386,7 @@ Object* addobject(Object* inventory, int type, int objectId){
         while(tmp->next != NULL) {
             tmp = tmp->next;
         }
-        tmp->next = getObject(type, objectId);
+        tmp->next = getDBObject(type, objectId);
         printf("Object n°%d was added to your inventory\n",objectId);
 
     }
@@ -372,7 +398,7 @@ Object* addobject(Object* inventory, int type, int objectId){
     return inventory;
 }
 
-Object* appendNewobject(Object* inventory, int objectId, int objectType){
+Object* appendNewObject(Object* inventory, int objectId, int objectType){
     switch (objectType)
     {
         case ARME_TYPE:
@@ -387,7 +413,8 @@ Object* appendNewobject(Object* inventory, int objectId, int objectType){
     }
     return inventory;
 }
-//---------// Utils functions //---------// 
+
+//---------// Search objects functions //---------// 
 
 Object* searchObjectById(Object* inventory, int objectId){
     Object* tmp = inventory;
@@ -403,7 +430,7 @@ Object* searchObjectById(Object* inventory, int objectId){
         tmp = tmp->next;
     }
     if (status == 0){
-        //printf("This object is not in the inventory\n");
+        printf("searchObjectById Exception: This object is not in the inventory\n");
         return NULL;
     }
     return tmp;
@@ -428,8 +455,50 @@ Object* searchObjectByType(Object* inventory, int Objecttype){
     return tmp;
 }
 
-int getObjectType(int objectId){
-    return Object_list()[objectId][0].type;
+Object* searchSelectedObjectByType(Object* inventory, int objectType){
+    Object* tmp = inventory;
+    int status = 0;
+
+    while ( tmp!=NULL ){
+        if ( tmp->type == objectType && tmp->isSelected == SELECTED ){
+            status = 1;
+            break;
+        }
+        tmp = tmp->next;
+    }
+    if (status == 0){
+        printf("searchSelectedObjectByType Exception: There is no object of this type in the inventory\n");
+        return NULL;
+    }
+    return tmp;
+}
+
+//---------// Utils functions //---------// 
+
+Object* selectObject(Object* inventory, int objectId){
+    Object* tmp = searchObjectById(inventory, objectId);
+
+    if ( tmp == NULL ){
+        printf("SelectObject Exception: This object is not in the inventory\n");
+        return NULL;
+    }
+    if ( tmp->type != ARMURE_TYPE && tmp->type != ARME_TYPE && tmp->type != OUTIL_TYPE ){
+        printf("**SelectObject Exception: Wrong type of object,  You must select a weapon or Armor or a tool!\n");
+        return NULL;
+    }
+
+    Object* tmp2 = searchSelectedObjectByType(inventory, tmp->type); 
+    if ( tmp2 != NULL && tmp2!=tmp ){
+        tmp2->isSelected = NOT_SELECTED;
+    }
+    if ( tmp->isSelected == SELECTED ){
+        printf("**SelectObject Exception: This object is already selected!\n");
+        return inventory;
+    }
+    else{
+        tmp->isSelected = SELECTED;
+        return inventory;
+    }
 }
 
 Object* deleteObject(Object* inventory, int objectId){
@@ -489,17 +558,17 @@ void print_inventory(Object* inventory){
             switch (tmp->type){
 
             case ARME_TYPE:
-                printf("Weapon n°%d Damage: %d durability: %d\n",
+                printf("Weapon n°%d Damage: %d durability: %d isSelected: %d\n",
                 tmp->arme->objectId,
-                tmp->arme->degat, tmp->arme->durabilite);
+                tmp->arme->degat, tmp->arme->durabilite, tmp->isSelected);
                 break;
             case ARMURE_TYPE:
-                printf("Armor n°%d Resistance: %d\n",
-                tmp->armure->objectId,tmp->armure->resistance);
+                printf("Armor n°%d Resistance: %d isSelected: %d\n",
+                tmp->armure->objectId,tmp->armure->resistance, tmp->isSelected);
                 break;
             case OUTIL_TYPE:
-                printf("Tool n°%d durability: %d\n",
-                tmp->outil->objectId, tmp->outil->durabilite);
+                printf("Tool n°%d durability: %d isSelected: %d\n",
+                tmp->outil->objectId, tmp->outil->durabilite, tmp->isSelected);
                 break;
             case RDC_TYPE:
                 printf("Ressource n°%d quantity: %d\n",
@@ -516,20 +585,75 @@ void print_inventory(Object* inventory){
             tmp = tmp->next;
         }
     }
+    printf("\n");
 }
 
+void print_player(Player * player){
+    printf("----*Player Descriptions*----\n");
+    printf("-- XP: %d\n", player->xp);
+    printf("-- Level: %d\n", player->level);
+    printf("-- HP_CURRENT: %d\n", player->hp_current);
+    printf("-- HP_MAX: %d\n", player->hp_max);
+    printf("----*----*----*----*----*----\n\n");
+}
+
+//---------// Object Getters from inventory functions //---------// 
+
+Object* getSelectedWeapon(Object* inventory){
+    Object* tmp = searchSelectedObjectByType(inventory, ARME_TYPE);
+    if ( tmp == NULL){
+        printf("getSelectedWeapon Exception: No selected weapon found!");
+        return NULL;
+    }
+    return tmp;
+}
+
+Object* getSelectedArmor(Object* inventory){
+    Object* tmp = searchSelectedObjectByType(inventory, ARMURE_TYPE);
+    if ( tmp == NULL){
+        printf("getSelectedArmor Exception: No selected Armor found!");
+        return NULL;
+    }
+    return tmp;
+}
+
+Object* getSelectedTool(Object* inventory){
+    Object* tmp = searchSelectedObjectByType(inventory, OUTIL_TYPE);
+    if ( tmp == NULL){
+        printf("getSelectedTool Exception: No selected Tool found!");
+        return NULL;
+    }
+    return tmp;
+}
+
+Player* useHealPotion(Player* p, int objectId){
+    Object* tmp = searchObjectById(p->inventory, objectId);
+    printf("heal1 hp : %d\n", tmp->soin->hp_heal);
+    if ( tmp == NULL ){
+        printf("**useHealPotion Exception: Heal Potion not found!\n");
+        return NULL;
+    }
+    if ( (p->hp_current + tmp->soin->hp_heal) >= p->hp_max){
+        p->hp_current = p->hp_max;
+        return p;
+    }
+    else{
+        p->hp_current = p->hp_current + tmp->soin->hp_heal;
+        return p;
+    }
+}
 
 //---------// Crafting Recipes Data Bases //---------// 
 
-int* crafWeaponArmorRecipe(int objectId){
+int* craftWeaponRecipe(int objectId){
     int craft1objectId = 0;
     int craft1Quantity = 1; 
     int craft2objectId = 2; 
     int craft2Quantity = 3;
     int* recipeDatas = malloc(4*sizeof(int));
 
-    switch (objectId)
-    {   //SWORDS
+    switch (objectId){   
+        //SWORDS
         case WOOD_SWORD:
             recipeDatas[craft1objectId] = FIR;
             recipeDatas[craft1Quantity] = 3;
@@ -592,6 +716,18 @@ int* crafWeaponArmorRecipe(int objectId){
             recipeDatas[craft2objectId] = DIAMOND;
             recipeDatas[craft2Quantity] = 8;
             break;
+    }
+    return recipeDatas;
+}
+
+int* craftArmorRecipe(int objectId){
+    int craft1objectId = 0;
+    int craft1Quantity = 1; 
+    int craft2objectId = 2; 
+    int craft2Quantity = 3;
+    int* recipeDatas = malloc(4*sizeof(int));
+
+    switch (objectId){
         //CHESTPLATES
         case STONE_CHESTPLATE:
             recipeDatas[craft1objectId] = STONE;
@@ -611,8 +747,8 @@ int* crafWeaponArmorRecipe(int objectId){
             recipeDatas[craft2objectId] = -1;
             recipeDatas[craft2Quantity] = -1;
             break;
-        }
-        return recipeDatas;
+    }
+    return recipeDatas;
 }
 
 int* craftToolRecipe(int objectId){
@@ -672,12 +808,15 @@ int* craftSoinRecipe(int objectId ){
 }
 
 int* craftObjectRecipe(int objectId){
-    int objectType = getObjectType(objectId);
+    int objectType = getDBObjectType(objectId);
 
     switch (objectType)
     {
         case ARME_TYPE:
-            return crafWeaponArmorRecipe(objectId);
+            return craftWeaponRecipe(objectId);
+            break;
+         case ARMURE_TYPE:
+            return craftArmorRecipe(objectId);
             break;
         case OUTIL_TYPE:
             return craftToolRecipe(objectId);
@@ -730,7 +869,7 @@ Object* craftObject(Object* inventory, int objectId){
     }
 
     int* objectRecipe = craftObjectRecipe(objectId);
-    int objectType = getObjectType(objectId);
+    int objectType = getDBObjectType(objectId);
 
     Object* craft1 = searchObjectById(inventory, objectRecipe[0]);
     if ( craft1 == NULL || craft1->ressource_de_craft->quantity < objectRecipe[1] ){
@@ -739,7 +878,7 @@ Object* craftObject(Object* inventory, int objectId){
         return inventory;
     }
 
-    inventory = appendNewobject(inventory, objectId, objectType);
+    inventory = appendNewObject(inventory, objectId, objectType);
 
     if ( craft1->ressource_de_craft->quantity - objectRecipe[1] == 0 ){
         deleteObject(inventory, objectRecipe[0]);
@@ -756,7 +895,7 @@ Object* craftObject(Object* inventory, int objectId){
             printf("***Help:To repair your weapon use the function repair craft.\n");
             return inventory;
         }
-        inventory = appendNewobject(inventory, objectId, objectType);
+        inventory = appendNewObject(inventory, objectId, objectType);
         if ( craft2->ressource_de_craft->quantity - objectRecipe[3] == 0 ){
             deleteObject(inventory, objectRecipe[2]);
         }
@@ -766,7 +905,6 @@ Object* craftObject(Object* inventory, int objectId){
     }
     return inventory;
 }
-
 
 //---------// Initialize the player/ New game //---------// 
 
@@ -794,7 +932,7 @@ Player* init_player(){
     p->inventory = init_inventor(p->inventory);
     p->xp = 0;
     p->level = 1;
-    p->hp_current = 0;
+    p->hp_current = 100;
     p->hp_max = 100;
       
     return p;
@@ -816,14 +954,27 @@ int main(){
     // print_inventory(a->inventory);
     printf("\n");
 
-    printf("Le joueur a %d objets dans son inventaire.\n\n", inventorySize(a->inventory));
+    print_player(a);
+    printf("\n");
 
+    printf("Le joueur a %d objets dans son inventaire.\n\n", inventorySize(a->inventory));
 
     // a->inventory = deleteObject(a->inventory, WOOD_SWORD);
     // printf("\n");
     // a->inventory = repairAllObject(a->inventory);
     // a->inventory = craftObject(a->inventory, WOODEN_PICKAXE);
+
+    // a->hp_current = a->hp_current - 40;
+    // print_player(a);
+    // a = useHealPotion(a, HEAL1);
+    // print_player(a);
+
+    a->inventory = selectObject(a->inventory,STONE_SWORD);
+    printf("L'arme %d a été sélectionné.\n",getSelectedWeapon(a->inventory)->arme->objectId);
+
     print_inventory(a->inventory);
+
+    printf("armetype : %d and outiltype: %d\n",getDBObjectType(WOOD_SWORD), getDBObjectType(STONE_AX));
 
     printf("Le joueur a %d objets dans son inventaire. après suppression\n", inventorySize(a->inventory));
 

@@ -6,6 +6,8 @@
 #define OUTIL_TYPE 2
 #define RDC_TYPE 3
 #define SOIN_TYPE 4
+#define SELECTED 1
+#define NOT_SELECTED 0
 #define ERROR_CODE 9999
 
 //---------// ENUMERATIONS //---------// 
@@ -100,6 +102,7 @@ typedef struct Object{
     Obj_Ressource_de_craft* ressource_de_craft;
     Obj_Soin* soin;
     int type;
+    int isSelected;
     struct Object* next;
 }Object;
 
@@ -127,12 +130,13 @@ Object** Object_list();
 
 //---------// Getter Object from data base //---------//
 
-Obj_Arme* getArme(int objectId);
-Obj_Armure* getArmure(int objectId);
-Obj_Outil* getOutils(int objectId);
-Obj_Ressource_de_craft* getRDC(int objectId);
-Obj_Soin* getSoin(int objectId);
-Object* getObject(int type, int objectId);
+Obj_Arme* getDBArme(int objectId);
+Obj_Armure* getDBArmure(int objectId);
+Obj_Outil* getDBOutils(int objectId);
+Obj_Ressource_de_craft* getDBRDC(int objectId);
+Obj_Soin* getDBSoin(int objectId);
+Object* getDBObject(int type, int objectId);
+int getDBObjectType(int objectId);
 
 //---------// Check functions //---------// 
 
@@ -145,26 +149,38 @@ int isArmeInInventory(Object* inventory,int type, int objectId);
 
 Object* addarme(Object* inventory, int type, int objectId);
 Object* addcraft(Object* inventory,int type, int objectId);
-Object* addobject(Object* inventory, int type, int objectId);
-Object* appendNewobject(Object* inventory, int objectId, int objectType);
+Object* addOtherObject(Object* inventory, int type, int objectId);
+Object* appendNewObject(Object* inventory, int objectId, int objectType);
 
-//---------// Utils functions //---------// 
+//---------// Search objects functions //---------// 
 
 Object* searchObjectById(Object* inventory, int objectId);
 Object* searchObjectByType(Object* inventory, int Objecttype);
-int getObjectType(int objectId);
+Object* searchSelectedObjectByType(Object* inventory, int objectType);
+
+//---------// Utils functions //---------// 
+
+Object* selectObject(Object* inventory, int objectId);
 Object* deleteObject(Object* inventory, int objectId);
 void print_inventory(Object* inventory);
+void print_player(Player * player);
 
+//---------// Object Getters from inventory functions //---------// 
 
+Object* getSelectedWeapon(Object* inventory);
+Object* getSelectedArmor(Object* inventory);
+Object* getSelectedTool(Object* inventory);
+Player* useHealPotion(Player* p, int objectId);
 
 //---------// Crafting Recipes Data Bases //---------// 
-int* crafWeaponArmorRecipe(int objectId);
+int* craftWeaponRecipe(int objectId);
+int* craftArmorRecipe(int objectId);
 int* crafToolRecipe(int objectId);
 int* crafSoinRecipe(int objectId);
-int* crafObjectRecipe(int objectId);
+int* craftObjectRecipe(int objectId);
 
 //---------// Repair and Craft //---------// 
+
 Object* repairAllObject(Object* inventory);
 Object* craftObject(Object* inventory, int objectId);
 
