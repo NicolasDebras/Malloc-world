@@ -7,7 +7,7 @@
  */
 
 //foncyion leacture et affiche du png en code ascii 
-void read_print_trader() {
+void read_print_png() {
 
 }
 
@@ -17,7 +17,7 @@ void print_info() {
 }
 
 //fonction principal
-void trader_interaction() {
+void png_interaction() {
 
     read_print_trader();
     print_info();
