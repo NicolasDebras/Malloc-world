@@ -14,7 +14,10 @@ void movement(map m, map m1, map m2, map m3){
     char c;
     char input[255];
     int movement_tab[1];
-    
+    if (m.level > 1) {
+            printf("toto");
+            m.map[0][0] = player;
+        }
     while (1) {
         print_map(m);
         scanf("%s", &input);
@@ -63,7 +66,9 @@ void movement(map m, map m1, map m2, map m3){
             printf("\n||||| CHANGEMENT DE MAP |||||\n");
             // faire une fonction changement map
             if (m.level == 1) {
-                // mettre le player sur la seconde map (fonction : check autour de la zone du portail des zero afin de placer le player )
+                // mettre le player sur la seconde map (fonction : check autour de la zone du portail des zero afin de placer le player                     
+                m2.player_x = 0;
+                m2.player_y = 0;
                 movement(m2, m1, m2, m3);
                 break;
             } else if (m.map[m.player_x+movement_tab[0]][m.player_y+movement_tab[1]] == -1 ) {
