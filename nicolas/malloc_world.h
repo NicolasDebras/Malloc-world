@@ -14,6 +14,7 @@
 #include <time.h>
 
 
+
 /* - struct monster - Nicolas Debras */
 
 typedef struct monster{
@@ -83,3 +84,7 @@ void movement(map m,map m1, map m2, map m3);
 
 void creation_monster();
 monster *init_monster(char name[50], int pv, int level_monster, int n, int degats, int armor);
+
+/* - prototype png.c - Nicolas Debras */
+
+void png_interaction();
