@@ -1,2 +1,8 @@
 .gitignore
-*stuctures
+stuctures
+test.c
+eee.txt
+DBtest.c
+DBtest
+ObjectsRecipe.txt
+inventoryDB.txt
