@@ -63,6 +63,7 @@ int** getMapFromSaveFile(int map_index){
     int zone_3_indicator = 0;
     char* map_string1 = "";
     int can_print = 0;
+    int first_line_debug = 0;
     char *all_strings = malloc(sizeof(char) * 1000);
     FILE* map_file = fopen("save_files/save_map.txt","r");
 
@@ -82,176 +83,120 @@ int** getMapFromSaveFile(int map_index){
                 }
                 if(all_strings[i] != ' '){
                     if(zone_2_indicator == 0 && zone_3_indicator == 0){
-                        if(all_strings[i] == '\n') map_string1 = strncat(map_string1,"|.|",3);
-                        else map_string1 = strncat(map_string1,&all_strings[i],1);
+                        if(map_index == 1){
+                            if(all_strings[i] == '\n') map_string1 = strncat(map_string1,"|.|",3);
+                            else map_string1 = strncat(map_string1,&all_strings[i],1);
+
+                        }
                     }
                     else if(zone_2_indicator == 1 && zone_3_indicator == 0){
-                        if(all_strings[i] == '\n') map_string1 = strncat(map_string1,"|..|",4);
-                        else map_string1 = strncat(map_string1,&all_strings[i],1);
+                        if(map_index == 2) {
+                            if (all_strings[i] == '\n' && first_line_debug == 1) map_string1 = strncat(map_string1, "|.|", 3);
+                            else map_string1 = strncat(map_string1, &all_strings[i], 1);
+                            first_line_debug = 1;
+                        }
                     }
                     else if(zone_2_indicator == 1 && zone_3_indicator == 1){
-                        if(all_strings[i] == '\n') map_string1 = strncat(map_string1,"|...|",5);
-                        else map_string1 = strncat(map_string1,&all_strings[i],1);
+                        if(map_index == 3) {
+                            if (all_strings[i] == '\n' && first_line_debug == 1) map_string1 = strncat(map_string1, "|.|", 3);
+                            else map_string1 = strncat(map_string1, &all_strings[i], 1);
+                            first_line_debug = 1;
+                        }
                     }
 
                 }
                 else{
-                    map_string1 = strncat(map_string1,"|",1);
+                    if(zone_2_indicator == 0 && zone_3_indicator == 0 && map_index == 1) map_string1 = strncat(map_string1,"|",1);
+                    else if(zone_2_indicator == 1 && zone_3_indicator == 0 && map_index == 2) map_string1 = strncat(map_string1,"|",1);
+                    else if(zone_2_indicator == 1 && zone_3_indicator == 1 && map_index == 3) map_string1 = strncat(map_string1,"|",1);
                 }
             }
             if(all_strings[i] == '\n' && all_strings[i-1] == '-') can_print = 1;
             if(all_strings[i] == '\n' && all_strings[i+1] == '-' && all_strings[i+2] == '-' && all_strings[i-1] != '=') can_print = 0;
         }
+        strncat(map_string1,"\0",1);
+        if (map_string1[0] == '\n') map_string1++;
+        //printf("\nPremier Character : [%c]",map_string1[0]);
+        //printf("\nMAP : %s",map_string1);
+        if(map_index == 3){
+            map_string1[strlen(map_string1)-3] = '\0';
+            //printf("\nMAP : %s",map_string1);
+        }
 
-        printf("%s",map_string1);
-        if(map_index == 1) {
-            int increment = 0;
-            int power = 1;
-            int rows = 1;
-            int columns = 0;
-            int find_columns = 0;
-            while (map_string1[increment] != '.' || map_string1[increment + 1] != '.') {
-                int current_number = 0;
-                if (map_string1[increment] != '.') {
-                    while (map_string1[increment] != '|') {
-                        if (map_string1[increment] == '-') {
-                            increment++;
-                        }
+        int increment = 0;
+        int power = 1;
+
+        int rows;
+        rows = 1;
+        int columns = 0;
+        int find_columns = 0;
+        int size = strlen(map_string1);
+        //printf("\nSize : %d",size);
+
+        while (increment < size){
+            int current_number = 0;
+            if (map_string1[increment] != '.') {
+                while (map_string1[increment] != '|') {
+                    if (map_string1[increment] == '-') {
                         increment++;
                     }
-                    find_columns++;
-                } else {
-                    rows++;
-                    if (columns == 0) columns = find_columns;
-                }
-                increment++;
-            }
-
-            //printf("\nIl y a %d colonnes et %d lignes",columns,rows);
-
-            int **map_1 = createMap(rows, columns);
-
-            increment = 0;
-            power = 1;
-            rows = 0;
-            columns = -1;
-            int negative = 1;
-            while (map_string1[increment] != '.' || map_string1[increment + 1] != '.') {
-                int current_number = 0;
-                if (map_string1[increment] != '.') {
-                    while (map_string1[increment] != '|') {
-                        if (map_string1[increment] == '-') {
-                            increment++;
-                            negative = -1;
-                        }
-                        int current_caracter_to_int = map_string1[increment] - '0';
-                        printf("\nDEBUG -> Chiffre : %d", current_caracter_to_int);
-                        current_number *= power;
-                        current_number += current_caracter_to_int;
-                        printf("\nDEBUG -> Current number : %d\n", current_number);
-                        power *= 10;
-                        increment++;
-                    }
-                    columns++;
-                } else {
-                    rows++;
-                    columns = -1;
-                    current_number = -999;
                     increment++;
                 }
-                current_number *= negative;
-                printf("\nColonne : [%d] Ligne : [%d]\n", columns, rows);
-
-                if (columns != -1) map_1[rows][columns] = current_number;
-                power = 1;
-                negative = 1;
-                increment++;
+                find_columns++;
+            } else {
+                rows++;
+                if (columns == 0) columns = find_columns;
             }
-
-            printMap(map_1, rows + 1, columns + 1);
+            increment++;
         }
-        else if(map_index == 2){
-            int increment = 0;
-            int power = 1;
-            int rows = 1;
-            int columns = 0;
-            int find_columns = 0;
-            int use_zone_2 = 0;
-            int array_index = 0;
-            while (!(map_string1[increment] == '.' && map_string1[increment+1] == '.' && map_string1[increment+2] == '.')) {
-                int current_number = 0;
-                if(use_zone_2 == 1){
-                    if (map_string1[increment] != '.') {
-                        while (map_string1[increment] != '|') {
-                            if (map_string1[increment] == '-') {
-                                increment++;
-                            }
-                            increment++;
-                        }
-                        find_columns++;
-                    } else {
-                        rows++;
-                        //printf("\nLigne +1 = %d, value_index = %d",rows,increment);
+
+        //printf("\nIl y a %d colonnes et %d lignes",columns,rows);
+        int **map_1 = createMap(rows, columns);
+        int get_columns = columns;
+        int get_rows = rows;
+        increment = 0;
+        power = 1;
+        rows = 0;
+        columns = -1;
+        int negative = 1;
+        int while_condition = 0;
+
+        while (map_string1[increment+1] != '\0' || map_string1[increment] != '\0'){
+            int current_number = 0;
+            if (map_string1[increment] != '.') {
+                while (map_string1[increment] != '|' && increment<size-1) {
+                    //printf("\n**HERE** %d",increment);
+                    if (map_string1[increment] == '-') {
                         increment++;
-                        if (columns == 0) columns = find_columns;
+                        negative = -1;
                     }
-                }
-                else if (map_string1[increment] == '.' && map_string1[increment + 1] == '.'){
-                    use_zone_2 = 1;
+                    int current_caracter_to_int = map_string1[increment] - '0';
+                    //printf("\nDEBUG -> Chiffre : %d * power[%d]", current_caracter_to_int,power);
+                    current_number *= power;
+                    current_number += current_caracter_to_int;
+                    //printf("\nDEBUG -> Current number : %d\n", current_number);
+                    power *= 10;
                     increment++;
                 }
-                increment++;
-            }
-            columns--;
-            printf("\nIl y a %d colonnes et %d lignes",columns,rows);
-            int **map_1 = createMap(rows, columns);
-            int map_rows = rows;
-            int map_columns = columns;
-            increment = 0;
-            power = 1;
-            rows = 0;
-            columns = 0;
-            int negative = 1;
-            int tab_index = 0;
-            use_zone_2 = 0;
-            while (map_string1[increment] != '.' || map_string1[increment + 1] != '.' || map_string1[increment + 2] != '.') {
-                int current_number = 0;
-                if(use_zone_2 == 1) {
-                    if (map_string1[increment] != '.') {
-                        while (map_string1[increment] != '|') {
-                            if (map_string1[increment] == '-') {
-                                increment++;
-                                negative = -1;
-                            }
-                            int current_caracter_to_int = map_string1[increment] - '0';
-                            printf("\nDEBUG -> Chiffre : %d", current_caracter_to_int);
-                            current_number *= power;
-                            current_number += current_caracter_to_int;
-                            power *= 10;
-                            increment++;
-                        }
-                        columns++;
-                    } else {
-                        rows++;
-                        columns = -1;
-                        current_number = -999;
-                        increment++;
-                    }
-                    current_number *= negative;
-                    printf("\nColonne : [%d] Ligne : [%d]\n", columns, rows-1);
-                    if (columns != -1 && rows < map_rows-1 && columns < map_columns){
-                        map_1[rows-1][columns] = current_number;
-                        printf("\nDEBUG -> Current number : %d\n", current_number);
-                    }
-                }
-                if (map_string1[increment] == '.' && map_string1[increment + 1] == '.') use_zone_2 = 1;
-                power = 1;
-                negative = 1;
-                increment++;
-            }
 
-            printMap(map_1, map_rows, map_columns);
+                columns++;
+            } else {
+                rows++;
+                columns = -1;
+                current_number = -999;
+                increment++;
+            }
+            current_number *= negative;
+            //printf("\nColonne : [%d] Ligne : [%d]\n", columns, rows);
+            if (columns != -1 && columns < get_columns) map_1[rows][columns] = current_number;
+            power = 1;
+            negative = 1;
+            increment++;
+            //if(map_string1[increment] != '|' && map_string1[increment + 1] != '\0') while_condition = 1;
         }
+
+        //printMap(map_1, rows + 1, get_columns);
+        map = map_1;
         fclose(map_file);
     }
     else printf("Erreur à l'ouverture du fichier");
@@ -269,7 +214,15 @@ int main() {
     int rows_3 = 7;
     int columns_3 = 4;
 
-    int** map_test = getMapFromSaveFile(2);
+    int** get_map_1 = getMapFromSaveFile(1);
+    printf("\nMAP 1 :\n");
+    printMap(get_map_1, 6, 5);
+    int** get_map_2 = getMapFromSaveFile(2);
+    printf("\nMAP 2 :\n");
+    printMap(get_map_2, 2, 5);
+    int** get_map_3 = getMapFromSaveFile(3);
+    printf("\nMAP 3 :\n");
+    printMap(get_map_3, 8, 4);
 
     int** map_1 = createMap(rows_1,columns_1);
     int** map_2 = createMap(rows_2,columns_2);
