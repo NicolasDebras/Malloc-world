@@ -20,8 +20,8 @@ ressource_collect *add_element(ressource_collect *old, int nb, int type, int lev
         new[i] = old[i];
     }
     new[nb].level = level;
-    new[nb].type = pos_x;
-    new[nb].pos_x = pos_y;
+    new[nb].type = type;
+    new[nb].pos_x = pos_x;
     new[nb].pos_y = pos_y;
     new[nb].repop_turn = repop_turn;
 
@@ -29,28 +29,30 @@ ressource_collect *add_element(ressource_collect *old, int nb, int type, int lev
 
 
 }
-void delete(ressource_collect *r){
+void delete(ressource_collect *r, int nb){
 
-    for (int i = 0; i != 254; i++) {
+    for (int i = 0; i != nb; i++) {
         r[i] = r[i+1];
     } 
 
 }
 
-void check_repop_turn(ressource_collect *r, map *m1, map *m2, map *m3, int turn){
+void check_repop_turn(ressource_collect *r, map *m1, map *m2, map *m3, int turn, int nb){
 
-    if (r[0].repop_turn == turn) {
-        if (r[0].level == 1) {
-            m1->map[r[0].pos_x][r[0].pos_y] = r[0].type;
-            delete(r);
-        } else if (r[0].level == 2) {
-            m2->map[r[0].pos_x][r[0].pos_y] = r[0].type;
-            delete(r);
-        } else {
-            m3->map[r[0].pos_x][r[0].pos_y] = r[0].type;
-            delete(r);
+    if (nb > 0) {
+        if (r[0].repop_turn <= turn) {
+            if (r[0].level == 1) {
+                m1->map[r[0].pos_x][r[0].pos_y] = r[0].type;
+                delete(r, nb);
+            } else if (r[0].level == 2) {
+                m2->map[r[0].pos_x][r[0].pos_y] = r[0].type;
+                delete(r, nb);
+            } else {
+                m3->map[r[0].pos_x][r[0].pos_y] = r[0].type;
+                delete(r, nb);
+            }
+
         }
-
     }
 
 }

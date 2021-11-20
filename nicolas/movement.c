@@ -125,6 +125,7 @@ void movement(map m1, map m2, map m3) {
             
         } else
             printf("\n||||| RENCONCTRE AVEC UN MONSTRE|||||\n");
+        check_repop_turn(collect, &m1, &m2, &m3, n_tour, nb);
         n_tour = n_tour + 1;
     }
 }
