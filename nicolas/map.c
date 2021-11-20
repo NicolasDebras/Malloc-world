@@ -107,7 +107,7 @@ void start_map(map *m, int level) {
 
     m->rows = RangedRand(5, 10);
     m->column = RangedRand(5, 10);
-    m->player_y = RangedRand(0, m->rows-1);
+    m->player_y = RangedRand(0, m->rows-2);
     m->player_x = RangedRand(0, m->column-1);
 
 
