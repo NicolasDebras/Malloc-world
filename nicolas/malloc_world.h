@@ -106,4 +106,4 @@ void png_interaction();
 /* - prototype png.c - Nicolas Debras */
 
 ressource_collect *collect_ressources(int ressources, map *m, int pos_x, int pos_y, int turn, ressource_collect *old, int nb);
-void check_repop_turn(ressource_collect *r, map *m1, map *m2, map *m3, int turn);
+void check_repop_turn(ressource_collect *r, map *m1, map *m2, map *m3, int turn, int nb);
