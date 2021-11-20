@@ -15,7 +15,7 @@ void read_print_png() {
     FILE* fichier = NULL;
     char chaine[255] = "";
  
-    fichier = fopen("marchant.txt", "r");
+    fichier = fopen("file/marchant.txt", "r");
  
     if (fichier != NULL) {
         while (fgets(chaine, 255, fichier) != NULL) {
