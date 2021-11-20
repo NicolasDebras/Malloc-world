@@ -1,54 +1,48 @@
  #include "malloc_World.h"
 
-
-monster *init_monster(char name[50], int pv, int level_monster, int n, int degats, int armor) {
-
-    monster *m = malloc(sizeof(monster));
-    
-    strcat(m->name, name);
-    m->pv = pv;
-    m->level_monster = level_monster;
-    m->n = n;
-    m->degats  = degats;
-    m->armor = armor;
-
-    return m;
-    
-}
-
-
-char **creation_monster() {
+monster *creation_monster() {
 
     FILE *file = fopen("file/monstre.txt", "r");
-    char nombre[2];
-    char **chaine;
+    char *nombre = malloc(sizeof(char)*10);
+    monster *ret;
 
     if ( file != NULL) {
-        fgets(nombre, 4, file);
-        chaine = malloc(sizeof(char*)*atoi(nombre)*6);
-
-        for (int cpt = 0; cpt =! (atoi(nombre)*6); cpt++ )
-            chaine[cpt] = malloc(sizeof(char)*255);
-
+        fgets(nombre, 255, file);
+        ret = malloc(sizeof(monster*) * atoi(nombre));
         int i = 0;
+        int cpt = 0;
+        char chaine[6][255];
+
         while (fgets(chaine[i], 255, file) != NULL) 
         {
-            printf("%s", chaine[i]);
-            i = i + 1;
+            if (i == 5) {
+                i = 0;
+                strcpy(ret[cpt].name, chaine[0]);
+                ret[cpt].pv = atoi(chaine[1]);
+                ret[cpt].level_monster = atoi(chaine[2]);
+                ret[cpt].n = atoi(chaine[3]);
+                ret[cpt].degats  = atoi(chaine[4]);
+                ret[cpt].armor = atoi(chaine[5]);
+                cpt = cpt + 1;
+            } else
+                i = i + 1;
         }
     } else 
         printf("erreur dans la lecture du fichier des monstres");
-
-    return chaine;
+    return ret;
 }
 
 int main(int argc, char *argv[]) {
 
 
-    printf("Ceci est un test\n");
-    char **c = creation_monster();
+    monster *ret = creation_monster();
 
-    printf("ceci est un test %s", c[3]);
+    printf("Name struct 1 : %s", ret[1].name);
+    printf("pv struct 1 : %d\n", ret[1].pv);
+    printf("level struct 1 : %d\n", ret[1].level_monster);
+    printf("n struct 1 : %d\n", ret[1].n);
+    printf("degats struct 1 : %d\n", ret[1].degats);
+    printf("armor struct 1 : %d\n", ret[1].armor);
     return 0;
 }
     
