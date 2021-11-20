@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 
 
@@ -39,6 +40,17 @@ typedef struct{
     int player_y;
 
 }map;
+
+/* - struct collected ressour - Nicolas Debras */
+
+typedef struct{
+    int type;
+    int level;
+    int pos_x;
+    int pos_y;
+    int repop_turn;
+
+}ressource_collect;
 
 /* - enum for fill map - Nicolas Debras */
 
@@ -78,13 +90,18 @@ int RangedRand(int range_min, int range_max);
 
 /* - prototype movement.c - Nicolas Debras */
 
-void movement(map m,map m1, map m2, map m3);
+void movement(map m1, map m2, map m3);
+void movement_player(map *m, int *movement_tab);
 
 /* - prototype creation_monster.c - Nicolas Debras */
 
-void creation_monster();
+monster *creation_monster();
 monster *init_monster(char name[50], int pv, int level_monster, int n, int degats, int armor);
 
 /* - prototype png.c - Nicolas Debras */
 
 void png_interaction();
+
+/* - prototype png.c - Nicolas Debras */
+
+ressource_collect *collect_ressources(int ressources, map *m, int pos_x, int pos_y, int turn, ressource_collect *old, int nb);
