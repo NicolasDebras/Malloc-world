@@ -40,21 +40,21 @@ void print_info() {
 // a completer avec toutes les differents uppgrade possible
 void print_menu_up_tool() {
 
-    printf("votre choix : \n");
+    printf("MENU CRAFT : \n");
     printf("1 : CRAFTER ELEMENTS\n");
     printf("2 : REPARATION\n");
     printf("3 : VOTRE BANQUE\n");
     printf("4 : QUITTER\n");
     printf("\n\n\n");
     printf("Veuillez saisir le numéro de votre choix ");
-    int c = atoi(input_char());
+    int c = (int)input_char() - 48;
     // fonction de craft @soulte92
 
 }
 
 int selected_choose(int c)
 {
-
+    printf("%d", c);
     if (c == 1) {
         print_menu_up_tool();
         return 0;
@@ -82,7 +82,7 @@ void png_interaction() {
     read_print_png();
     while(1) {
         print_info();
-        int c = atoi(input_char());
+        int c = (int)input_char() - 48;
         if (selected_choose(c) == 1)
             break;
     }
