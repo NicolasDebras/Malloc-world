@@ -10,6 +10,8 @@
 
 void movement_check(int *movement_tab, map m, char c)
 {
+    movement_tab[0] = 0;
+    movement_tab[1] = 0;
 
     if (c == 'z' && (m.player_x - 1) >= 0)
     {
@@ -41,63 +43,87 @@ void movement_player(map *m, int *movement_tab){
 
 }
 
-void movement(map m, map m1, map m2, map m3)
-{
+void find_portal(map *m, int portal){
+
+    int x = 0;
+    int y = 0;
+    int check = 0;
+
+    for(int i = 0; i != m->rows; i++) {
+        for(int d = 0; d != m->column; d++) {
+            if (m->map[i][d] == portal) {
+                check = check + 1;
+            } if (m->map[i][d] == 0 && check ==  1) {
+                m->player_x = i;
+                m->player_y = d;
+                check = check + 1;
+            }
+        }
+    }
+    m->map[m->player_x][m->player_y] = player;
+}
+map *change_map(map *m, map *m1, map *m2, map *m3, int x, int y) {
+
+    printf("\n||||| CHANGEMENT DE MAP |||||\n");
+
+    if (m->level == 1)
+    {
+        find_portal(m2, m->map[x][y]);
+        return m2;
+    }
+    else if (m->map[x][y] == -2 && m->level == 2) {
+        return m1;
+    } else if (m->map[x][y] == -3 && m->level == 2) {
+        find_portal(m3, m->map[x][y]);
+        return m3;
+    } else 
+        return m2;
+
+}
+char input_char() {
 
     char c;
     char input[255];
+
+    scanf("%s", &input);
+    c = input[0];
+
+    return c;
+}
+
+void movement(map m1, map m2, map m3) {
+
     int *movement_tab = malloc(sizeof(int) * 2);
+    map *m = malloc(sizeof(map));
+    m = &m1;
+    int n_tour = 0;
+    int x;
+    int y;
+    int nb = 0;
+    ressource_collect *collect;
 
-    if (m.level > 1)
-        m.map[0][0] = player;
-    while (1)
-    {
-        print_map(m);
-        scanf("%s", &input);
+    while (1) {
+        print_map(*m);      
+        movement_check(movement_tab, *m, input_char());
+        
+        x = m->player_x + movement_tab[0];
+        y = m->player_y + movement_tab[1];
 
-        c = input[0];
-
-        //conditions
-        movement_tab[0] = 0;
-        movement_tab[1] = 0;
-
-        movement_check(movement_tab, m, c);
-
-        //mouvemant
-        if (m.map[m.player_x + movement_tab[0]][m.player_y + movement_tab[1]] == 0)
-        {
-            movement_player(&m, movement_tab);
-        }
-        else if (m.map[m.player_x + movement_tab[0]][m.player_y + movement_tab[1]] == Png) {    
+        if (m->map[x][y] == 0) {
+            movement_player(m, movement_tab);
+        } else if (m->map[x][y] == Png) {    
             png_interaction();
         }
-        else if (m.map[m.player_x + movement_tab[0]][m.player_y + movement_tab[1]] >= plant_zone1 && m.map[m.player_x + movement_tab[0]][m.player_y + movement_tab[1]] <= tree_zone3)
+        else if (m->map[x][y] >= plant_zone1 && m->map[x][y] <= tree_zone3)
         {
-            printf("\n||||| RENCONCTRE AVEC UN ELEMENT UTILE |||||\n");
-            //focntion element utile
-        }
-        else if (m.map[m.player_x + movement_tab[0]][m.player_y + movement_tab[1]] < -1)
-        {
-            printf("\n||||| CHANGEMENT DE MAP |||||\n");
-            // faire une fonction changement map
-            if (m.level == 1)
-            {
-                // mettre le player sur la seconde map (fonction : check autour de la zone du portail des zero afin de placer le player
-                m2.player_x = 0;
-                m2.player_y = 0;
-                movement(m2, m1, m2, m3);
-                break;
-            }
-            else if (m.map[m.player_x + movement_tab[0]][m.player_y + movement_tab[1]] == -1)
-            {
-                movement(m2, m1, m2, m3);
-                break;
-            }
-        }
-        else
-            printf("\n||||| RENCONCTRE AVEC UN MONSTRE|||||\n");
-        // fonction combat de monstre
+            collect = collect_ressources(m->map[x][y], m, x, y, n_tour, collect, nb);
+            nb = nb + 1;
+        } else if (m->map[x][y] < -1) {
 
-        //system("clear");
+            m = change_map(m,&m1,&m2,&m3, x, y);
+            
+        } else
+            printf("\n||||| RENCONCTRE AVEC UN MONSTRE|||||\n");
+        n_tour = n_tour + 1;
     }
 }

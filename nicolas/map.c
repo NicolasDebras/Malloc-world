@@ -130,7 +130,7 @@ int main(int argc, char *argv[]) {
     initialization_map1(map_zone1);
     initialization_map2(map_zone2);
     initialization_map3(map_zone3);
-    movement(map_zone1, map_zone1, map_zone2, map_zone3);
+    movement(map_zone1, map_zone2, map_zone3);
     
     return 0;
 }
