@@ -58,28 +58,19 @@ void check_repop_turn(ressource_collect *r, map *m1, map *m2, map *m3, int turn)
 ressource_collect *collect_ressources(int ressources, map *m, int pos_x, int pos_y, int turn, ressource_collect *old, int nb) {
 
     ressource_collect *new;
-    int movement_tab[1];
 
-    movement_tab[0] = pos_x;
-    movement_tab[1] = pos_y;
 
     printf("\n||||| RENCONCTRE AVEC UN ELEMENT UTILE |||||\n");
 
     if (m->level == 1) {
         new = add_element(old, nb, ressources, m->level, pos_x, pos_y, turn+10);
-        movement_player(m, movement_tab);
-        printf("ceci est un essai : %d\n" , new[nb].repop_turn);
-        //fonction qui ajoute des ressources dans l'inventaire
+        //fonction qui ajoute des ressources dans l'inventaire @soulte92
     } else if (m->level == 2 ) {
         new = add_element(old, nb, ressources, m->level, pos_x, pos_y, turn+10);
-        movement_player(m, movement_tab);
-        printf("ceci est un essai : %d\n" , new[nb].repop_turn);
-        //fonction qui ajoute des ressources dans l'inventaire
+        //fonction qui ajoute des ressources dans l'inventaire  @soulte92
     } else {
         new = add_element(old, nb, ressources, m->level, pos_x, pos_y, turn+10);
-        movement_player(m, movement_tab);
-        printf("ceci est un essai : %d\n" , new[nb].repop_turn);
-        //fonction qui ajoute des ressources dans l'inventaire
+        //fonction qui ajoute des ressources dans l'inventaire @soulte92
     }
     return new;
 

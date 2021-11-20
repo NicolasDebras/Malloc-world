@@ -117,6 +117,7 @@ void movement(map m1, map m2, map m3) {
         else if (m->map[x][y] >= plant_zone1 && m->map[x][y] <= tree_zone3)
         {
             collect = collect_ressources(m->map[x][y], m, x, y, n_tour, collect, nb);
+            movement_player(m, movement_tab);
             nb = nb + 1;
         } else if (m->map[x][y] < -1) {
 
