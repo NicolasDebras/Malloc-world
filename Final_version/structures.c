@@ -242,7 +242,7 @@ Object* quantityRDCInc(Object* inventory,int type, int objectId){
     Object* rdc = searchObjectById(inventory, objectId);
     if ( rdc != NULL ){
         rdc->ressource_de_craft->quantity = rdc->ressource_de_craft->quantity + 1; 
-        printf("Craft n°%d was added to your inventory, we have %d of this craft\n",
+        printf("Ressource Craft n°%d was added to your inventory, we have %d of this craft\n",
             tmp->ressource_de_craft->objectId, tmp->ressource_de_craft->quantity);
 
         return inventory;
@@ -253,7 +253,7 @@ Object* quantityRDCInc(Object* inventory,int type, int objectId){
         tmp = getDBObject(type, objectId);
         tmp->ressource_de_craft->quantity = tmp->ressource_de_craft->quantity + 1;        
         
-        printf("Craft n°%d was added to your inventory, we have %d of this craft\n",
+        printf("Ressource Craft n°%d was added to your inventory, we have %d of this craft\n",
             tmp->ressource_de_craft->objectId, tmp->ressource_de_craft->quantity);
         
         return tmp;
@@ -264,7 +264,7 @@ Object* quantityRDCInc(Object* inventory,int type, int objectId){
     tmp->next = getDBObject(type, objectId);
     tmp->next->ressource_de_craft->quantity = tmp->next->ressource_de_craft->quantity + 1;        
     
-    printf("Craft n°%d was added to your inventory, we have %d of this craft\n",
+    printf("Ressource Craft n°%d was added to your inventory, we have %d of this craft\n",
         tmp->next->ressource_de_craft->objectId, tmp->next->ressource_de_craft->quantity);    
     
     return inventory;//As false
@@ -671,30 +671,19 @@ void print_player(Player* player){
 
 //---------// Initialize the player/ New game //---------// 
 
-Object* init_inventor(Object* inventory){
+Object* init_inventor(){
     
+
+    Object* inventory;
+
     inventory = new_Object();
     
-    inventory = addarme(inventory, ARME_TYPE, DIAMOND_HAMMER);
-    inventory = addOtherObject(inventory, ARMURE_TYPE,STONE_CHESTPLATE);
+    inventory = addarme(inventory, ARME_TYPE, WOOD_SWORD);
+    inventory->isSelected = SELECTED;
 
-    inventory = addcraft(inventory, RDC_TYPE, FIR);
-    inventory = addcraft(inventory, RDC_TYPE, FIR);
-    inventory = addcraft(inventory, RDC_TYPE, FIR);
-
-    inventory = addcraft(inventory, RDC_TYPE, BEECH);
-    inventory = addcraft(inventory, RDC_TYPE, BEECH);
-
-    inventory = addcraft(inventory, RDC_TYPE, IRON);
-    inventory = addcraft(inventory, RDC_TYPE, IRON);
-    inventory = addcraft(inventory, RDC_TYPE, IRON);
-    inventory = addcraft(inventory, RDC_TYPE, IRON);
-
-    inventory = addOtherObject(inventory, OUTIL_TYPE,IRON_PICKAXE);
+    inventory = addOtherObject(inventory, OUTIL_TYPE,WOODEN_PICKAXE);
     inventory = addOtherObject(inventory, OUTIL_TYPE,WOODEN_SERPE);
     inventory = addOtherObject(inventory, OUTIL_TYPE,WOODEN_AX);
-
-    inventory = addOtherObject(inventory, SOIN_TYPE, HEAL1);
     
     return inventory;
 }
@@ -702,7 +691,7 @@ Object* init_inventor(Object* inventory){
 Player* init_player(){
     Player* p = malloc(sizeof(Player));
 
-    p->inventory = init_inventor(p->inventory);
+    p->inventory = init_inventor();
     p->xp = 0;
     p->level = 1;
     p->hp_current = 100;

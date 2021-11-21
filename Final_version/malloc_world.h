@@ -324,5 +324,5 @@ int receiveDamage(Player* player, monster* monster);
 
 //---------// Initialize the player/ New game //---------// 
 
-Object* init_inventor(Object* inventory);
+Object* init_inventor();
 Player* init_player();

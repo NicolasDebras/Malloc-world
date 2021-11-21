@@ -85,7 +85,7 @@ char input_char() {
     char c;
     char input[255];
 
-    scanf("%s", &input);
+    scanf("%s", input);
     c = input[0];
 
     return c;
