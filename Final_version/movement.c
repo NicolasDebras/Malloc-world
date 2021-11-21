@@ -111,6 +111,8 @@ void movement(map m1, map m2, map m3) {
     int y;
     int nb = 0;
     ressource_collect *collect;
+    Player *p = init_player();
+    Object *obj = new_Object();
 
     while (1) {
         print_map(*m);      
@@ -126,7 +128,8 @@ void movement(map m1, map m2, map m3) {
         }
         else if (m->map[x][y] >= plant_zone1 && m->map[x][y] <= tree_zone3)
         {
-            collect = collect_ressources(m->map[x][y], m, x, y, n_tour, collect, nb);
+            collect = collect_ressources(m->map[x][y], m, x, y, n_tour, collect, nb, p);
+            print_inventory(p->inventory);
             movement_player(m, movement_tab);
             nb = nb + 1;
         } else if (m->map[x][y] < -1) {
@@ -136,7 +139,7 @@ void movement(map m1, map m2, map m3) {
         } else
             printf("\n||||| RENCONCTRE AVEC UN MONSTRE|||||\n");
         check_repop_turn(collect, &m1, &m2, &m3, n_tour, nb);
-        clear();
+        //clear();
         n_tour = n_tour + 1;
     }
 }

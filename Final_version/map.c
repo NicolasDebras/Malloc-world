@@ -10,6 +10,8 @@
 #include "malloc_world.h"
 
 
+
+
 int RangedRand(int range_min, int range_max) {
     
     int nombre = 0; 

@@ -1,4 +1,4 @@
-#include "inventory.h"
+#include "malloc_world.h"
 
 //---------// New Object Creator //---------// 
 

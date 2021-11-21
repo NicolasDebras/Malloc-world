@@ -57,7 +57,7 @@ void check_repop_turn(ressource_collect *r, map *m1, map *m2, map *m3, int turn,
 
 }
 
-ressource_collect *collect_ressources(int ressources, map *m, int pos_x, int pos_y, int turn, ressource_collect *old, int nb) {
+ressource_collect *collect_ressources(int ressources, map *m, int pos_x, int pos_y, int turn, ressource_collect *old, int nb, Player *p) {
 
     ressource_collect *new;
 
@@ -66,12 +66,15 @@ ressource_collect *collect_ressources(int ressources, map *m, int pos_x, int pos
 
     if (m->level == 1) {
         new = add_element(old, nb, ressources, m->level, pos_x, pos_y, turn+10);
+        collectCrafts(p->inventory, RangedRand(3, 5),ressources);
         //fonction qui ajoute des ressources dans l'inventaire @soulte92
     } else if (m->level == 2 ) {
         new = add_element(old, nb, ressources, m->level, pos_x, pos_y, turn+10);
+        collectCrafts(p->inventory, RangedRand(3, 5),ressources);
         //fonction qui ajoute des ressources dans l'inventaire  @soulte92
     } else {
         new = add_element(old, nb, ressources, m->level, pos_x, pos_y, turn+10);
+        collectCrafts(p->inventory, RangedRand(3, 5),ressources);
         //fonction qui ajoute des ressources dans l'inventaire @soulte92
     }
     return new;
