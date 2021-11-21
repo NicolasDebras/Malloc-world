@@ -91,6 +91,16 @@ char input_char() {
     return c;
 }
 
+void clear(){
+    #if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
+        system("clear");
+    #endif
+
+    #if defined(_WIN32) || defined(_WIN64)
+        system("cls");
+    #endif
+}
+
 void movement(map m1, map m2, map m3) {
 
     int *movement_tab = malloc(sizeof(int) * 2);
@@ -126,6 +136,7 @@ void movement(map m1, map m2, map m3) {
         } else
             printf("\n||||| RENCONCTRE AVEC UN MONSTRE|||||\n");
         check_repop_turn(collect, &m1, &m2, &m3, n_tour, nb);
+        clear();
         n_tour = n_tour + 1;
     }
 }

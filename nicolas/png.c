@@ -28,7 +28,7 @@ void read_print_png() {
 // fonction qui affiche les diff info et option dispo avec le png
 void print_info() {
 
-    printf("votre choix : \n");
+    printf("\nVotre choix : \n");
     printf("1 : CRAFTER ELEMENTS\n");
     printf("2 : REPARATION\n");
     printf("3 : VOTRE BANQUE\n");
@@ -40,7 +40,7 @@ void print_info() {
 // a completer avec toutes les differents uppgrade possible
 void print_menu_up_tool() {
 
-    printf("MENU CRAFT : \n");
+    printf("\nMENU CRAFT : \n");
     printf("1 : CRAFTER ELEMENTS\n");
     printf("2 : REPARATION\n");
     printf("3 : VOTRE BANQUE\n");
@@ -48,7 +48,7 @@ void print_menu_up_tool() {
     printf("\n\n\n");
     printf("Veuillez saisir le numéro de votre choix ");
     int c = (int)input_char() - 48;
-    // fonction de craft @soulte92
+    // fonction de craft @soulte92 
 
 }
 
