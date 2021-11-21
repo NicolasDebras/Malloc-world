@@ -1,0 +1,9 @@
+Weapon    n°19 Durability: 10 Damage: 5  IsSelected: 0
+Armor     n°11 Resistance: 10
+Ressource n°5  Quantity:   3
+Ressource n°16 Quantity:   2
+Ressource n°17 Quantity:   4
+Tool      n°23 Durability: 10
+Tool      n°3  Durability: 10
+Tool      n°4  Durability: 10
+Potion    n°15 Hp_heal:    30
