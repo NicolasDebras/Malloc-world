@@ -228,3 +228,19 @@ int receiveDamage(Player* player, Monster* monster);
 
 Object* init_inventor(Object* inventory);
 Player* init_player();
+
+Object** extractDBObjects();
+int* extractDBObjectsRecipe(int objectId);
+void inventoryDBExtractor(Object* inventory);
+
+void savePlayer(Player* player, char filename[]);
+void saveInventory(Object* inventory, char filename[]);
+void saveChest(Object* chest, char filename[]);
+void saveAllGameProperties(Player* p, Object* chest, char filename[]);
+
+Object* initTestInventory8();
+
+Player* extractorPlayerFromSaveFile(char filename[]);
+Object* extractorInventoryFromSaveFile(char filename[]);
+Object* extractChestFromSaveFile(char filename[]);
+void extractFromSaveFile(Player *p, Object* chest, char filename[]);

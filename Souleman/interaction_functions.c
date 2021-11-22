@@ -1,4 +1,4 @@
-#include "structures.h"
+#include "structures.c"
 
 //---------// Chest Functions //---------// 
 
@@ -268,7 +268,6 @@ Object* collectCrafts(Object* inventory, int quantity, int objectId){
     }
     for (int i=0; i<quantity; i++){
         if ( tmp->ressource_de_craft->quantity < 20 ){
-            printf("is ####\n");
             inventory = addcraft(inventory, RDC_TYPE, objectId);
         }
     }

@@ -1,4 +1,4 @@
-#include "interaction_functions.h"
+#include "inventory.h"
 
 Object* initTestInventory1(){
     Object* inventory = new_Object();
