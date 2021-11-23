@@ -100,46 +100,52 @@ void clear(){
         system("cls");
     #endif
 }
+Declaration *init_d() {
+    
+    Declaration *new = malloc(sizeof(Declaration));
+
+    new->movement_tab = malloc(sizeof(int) * 2);
+    new->nb = 0;
+    new->n_tour = 0;
+    new->p = init_player();
+    new->chest = new_Object();
+    new->chest = init_inventor();
+
+    return new;
+}
 
 void movement(map m1, map m2, map m3) {
 
-    int *movement_tab = malloc(sizeof(int) * 2);
     map *m = malloc(sizeof(map));
     m = &m1;
-    int n_tour = 0;
-    int x;
-    int y;
-    int nb = 0;
-    ressource_collect *collect;
-    Player *p = init_player();
-    Object *obj = new_Object();
+    Declaration *d = init_d();
+
 
     while (1) {
         print_map(*m);      
-        movement_check(movement_tab, *m, input_char());
+        movement_check(d->movement_tab, *m, input_char());
         
-        x = m->player_x + movement_tab[0];
-        y = m->player_y + movement_tab[1];
+        d->x = m->player_x + d->movement_tab[0];
+        d->y = m->player_y + d->movement_tab[1];
 
-        if (m->map[x][y] == 0) {
-            movement_player(m, movement_tab);
-        } else if (m->map[x][y] == Png) {    
+        if (m->map[d->x][d->y] == 0) {
+            movement_player(m, d->movement_tab);
+        } else if (m->map[d->x][d->y] == Png) {    
             png_interaction();
         }
-        else if (m->map[x][y] >= plant_zone1 && m->map[x][y] <= tree_zone3)
+        else if (m->map[d->x][d->y] >= plant_zone1 && m->map[d->x][d->y] <= tree_zone3)
         {
-            collect = collect_ressources(m->map[x][y], m, x, y, n_tour, collect, nb, p);
-            print_inventory(p->inventory);
-            movement_player(m, movement_tab);
-            nb = nb + 1;
-        } else if (m->map[x][y] < -1) {
-
-            m = change_map(m,&m1,&m2,&m3, x, y);
-            
+            d->collect = collect_ressources(m->map[d->x][d->y], m, d->x, d->y, d->n_tour, d->collect, d->nb, d->p);
+            movement_player(m, d->movement_tab);
+            d->nb = d->nb + 1;
+        } else if (m->map[d->x][d->y] < -1) {
+            m = change_map(m,&m1,&m2,&m3, d->x, d->y);  
         } else
             printf("\n||||| RENCONCTRE AVEC UN MONSTRE|||||\n");
-        check_repop_turn(collect, &m1, &m2, &m3, n_tour, nb);
+        check_repop_turn(d->collect, &m1, &m2, &m3, d->n_tour, d->nb);
+        saveAllGameProperties(d->p, d->chest, "Data_Bases/saveInventory.txt");
+        print_inventory(d->p->inventory);
         //clear();
-        n_tour = n_tour + 1;
+        d->n_tour = d->n_tour + 1;
     }
 }

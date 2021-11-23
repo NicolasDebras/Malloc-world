@@ -14,6 +14,8 @@
 #include <time.h>
 #include <string.h>
 
+#define INVENTORY_TYPE 0
+#define STORAGE_TYPE 1
 #define ARME_TYPE 0
 #define ARMURE_TYPE 1
 #define OUTIL_TYPE 2
@@ -196,6 +198,20 @@ enum {
     tree_zone3
 };
 
+
+typedef struct 
+{
+    int *movement_tab;
+    int n_tour;
+    int x;
+    int y;
+    int nb;
+    ressource_collect *collect;
+    Player *p;
+    Object *chest;
+} Declaration;
+
+
 /* - prototype map.c - Nicolas Debras */
 
 void start_map(map *m, int level);
@@ -326,3 +342,9 @@ int receiveDamage(Player* player, monster* monster);
 
 Object* init_inventor();
 Player* init_player();
+
+
+void saveAllGameProperties(Player* p, Object* chest, char filename[]);
+void saveChest(Object* chest, char filename[]);
+void saveInventory(Object* inventory, char filename[]);
+void savePlayer(Player* player, char filename[]);

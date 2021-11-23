@@ -181,6 +181,7 @@ Object* getDBObject(int type, int objectId){
         tmp->arme = getDBArme(objectId);
         tmp->type = ARME_TYPE;
         tmp->category = getDBObjectCategory(objectId);
+        tmp->isSelected = NOT_SELECTED;
     }
     else if (type == ARMURE_TYPE){
         tmp->armure= getDBArmure(objectId);;
@@ -242,9 +243,6 @@ Object* quantityRDCInc(Object* inventory,int type, int objectId){
     Object* rdc = searchObjectById(inventory, objectId);
     if ( rdc != NULL ){
         rdc->ressource_de_craft->quantity = rdc->ressource_de_craft->quantity + 1; 
-        printf("Ressource Craft n°%d was added to your inventory, we have %d of this craft\n",
-            tmp->ressource_de_craft->objectId, tmp->ressource_de_craft->quantity);
-
         return inventory;
     }
 
@@ -253,19 +251,13 @@ Object* quantityRDCInc(Object* inventory,int type, int objectId){
         tmp = getDBObject(type, objectId);
         tmp->ressource_de_craft->quantity = tmp->ressource_de_craft->quantity + 1;        
         
-        printf("Ressource Craft n°%d was added to your inventory, we have %d of this craft\n",
-            tmp->ressource_de_craft->objectId, tmp->ressource_de_craft->quantity);
-        
         return tmp;
     }
     while(tmp->next != NULL) {
         tmp = tmp->next;
     }
     tmp->next = getDBObject(type, objectId);
-    tmp->next->ressource_de_craft->quantity = tmp->next->ressource_de_craft->quantity + 1;        
-    
-    printf("Ressource Craft n°%d was added to your inventory, we have %d of this craft\n",
-        tmp->next->ressource_de_craft->objectId, tmp->next->ressource_de_craft->quantity);    
+    tmp->next->ressource_de_craft->quantity = tmp->next->ressource_de_craft->quantity + 1;         
     
     return inventory;//As false
 }
@@ -698,6 +690,101 @@ Player* init_player(){
     p->hp_max = 100;
       
     return p;
+}
+
+void savePlayer(Player* player, char filename[]){
+    FILE* f = fopen(filename,"w");
+
+    fprintf(f,"=== PLAYER ===\n");
+    fprintf(f,"{%d}\n", player->level);
+    fprintf(f,"{%d}/{XP_NEXT}\n", player->xp);
+    fprintf(f,"{%d}/{%d}\n", player->hp_current, player->hp_max);
+
+    fclose(f);
+}
+
+void saveInventory(Object* inventory, char filename[]){
+    FILE* f = fopen("Data_Bases/saveInventory.txt","a+");
+    int inventorylength = inventorySize(inventory);
+    Object* tmp = inventory;
+    
+    fprintf(f,"-- INVENTORY --\n");
+    
+    if ( inventorylength > 0 && inventorylength < 10 ){
+        while( tmp != NULL ){
+            switch (tmp->type){
+
+            case ARME_TYPE:
+                fprintf(f,"{%d}@{%d}@{%d}\n",tmp->arme->degat,
+                tmp->arme->objectId, tmp->arme->durabilite);
+                break;
+            case ARMURE_TYPE:
+                fprintf(f,"{1}@{%d}@{%d}\n",tmp->armure->objectId,
+                tmp->armure->resistance);
+                break;
+            case OUTIL_TYPE:
+                fprintf(f,"{1}@{%d}@{%d}\n",tmp->outil->objectId, 
+                tmp->outil->durabilite);
+                break;
+            case RDC_TYPE:
+                fprintf(f,"{%d}@{%d}@{0}\n",tmp->ressource_de_craft->quantity, 
+                tmp->ressource_de_craft->objectId);
+                break;
+            case SOIN_TYPE:
+                fprintf(f,"{%d}@{%d}@{0}\n",tmp->soin->hp_heal, 
+                tmp->soin->objectId);
+                break;
+            default:
+                printf("***print_inventory Exception: Unkown Type of object");
+                break;
+            }
+            tmp = tmp->next;
+        }
+    }
+    if ( 10 - inventorylength > 0 ){
+        for (int i = 0; i<10 - inventorylength; i++){
+            fprintf(f,"{0}@{0}@{0}\n");
+        }
+    }
+    fclose(f);
+}
+void saveChest(Object* chest, char filename[]){
+    FILE* f = fopen(filename,"a");
+    Object* tmp = chest;
+    
+    fprintf(f,"-- STORAGE --\n");
+
+    while( tmp != NULL ){
+        switch (tmp->type){
+        case ARME_TYPE:
+            fprintf(f,"{1}@{%d}\n",tmp->arme->objectId);
+            break;
+        case ARMURE_TYPE:
+            fprintf(f,"{1}@{%d}\n",tmp->armure->objectId);
+            break;
+        case OUTIL_TYPE:
+            fprintf(f,"{1}@{%d}\n",tmp->outil->objectId);
+            break;
+        case RDC_TYPE:
+            fprintf(f,"{%d}@{%d}\n",tmp->ressource_de_craft->quantity, 
+            tmp->ressource_de_craft->objectId);
+            break;
+        case SOIN_TYPE:
+            fprintf(f,"{1}@{%d}\n", tmp->soin->objectId);
+            break;
+        default:
+            printf("***print_inventory Exception: Unkown Type of object");
+            break;
+        }
+        tmp = tmp->next;
+    }
+    fclose(f);
+}
+
+void saveAllGameProperties(Player* p, Object* chest, char filename[]){
+    savePlayer(p,filename);
+    saveInventory(p->inventory,filename);
+    saveChest(chest, filename);
 }
 
 
