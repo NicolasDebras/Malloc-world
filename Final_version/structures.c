@@ -653,7 +653,7 @@ void print_inventory(Object* inventory){
 }
 
 void print_player(Player* player){
-    printf("----*Player Descriptions*----\n");
+    printf("----* PLAYER STATUS *----\n");
     printf("-- XP: %d\n", player->xp);
     printf("-- Level: %d\n", player->level);
     printf("-- HP_CURRENT: %d\n", player->hp_current);

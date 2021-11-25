@@ -300,6 +300,10 @@ Object* lessObjectCapacity(Object* object, int lesscapacity){
     return object;
 }
 
+int getToolForRessourceCollecte(Object* inventory, int objectIdToCollect, int mapZone){
+
+}
+
 //---------// Attacks player-monster //---------// 
 
 int receiveDamage(Player* player, Monster* monster){

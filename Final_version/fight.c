@@ -89,7 +89,12 @@ int battle_phase(monster *m_fighter, int dodge, Player *p) {
             printf("Pour changer d'arme, veuillez saisir l'idée de l'arme : ");
             int d = input(); // le joueur input l'id de l'arme 
             selectWeapon(p->inventory); //Est ce qu'il return qqch d'utile @soulte92 ? et comment je décide de la bonne arme 
-       
+            
+            /* selectObject(Object* inventory, int objectId);
+                voilà le bon prototype, tu mets l'id de ton arme en question, et ça retourne l'inventaire à la fin.
+                je pense que tu pourra ne pas faire un truc du genre p->inventory = selectObject...
+                sinon, retourne null si le process échoue.
+            */
         }
         else if (c == 2) {
             // J'ai rajouté des echeer critique (vive dofus), je trouvais ça drole mdrr

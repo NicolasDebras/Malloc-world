@@ -184,7 +184,7 @@ Object* getDBObject(int type, int objectId){
         tmp->isSelected = NOT_SELECTED;
     }
     else if (type == ARMURE_TYPE){
-        tmp->armure= getDBArmure(objectId);;
+        tmp->armure= getDBArmure(objectId);
         tmp->type = ARMURE_TYPE;
     }
     else if (type == OUTIL_TYPE){

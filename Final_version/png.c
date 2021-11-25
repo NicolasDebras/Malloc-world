@@ -7,7 +7,7 @@
  */
 #include "malloc_world.h"
 
-//foncyion leacture et affiche du png en code ascii 
+//fonction leacture et affiche du png en code ascii 
 void read_print_png() {
 
     printf("\n||||| RENCONCTRE AVEC LE PNG|||||\n");
@@ -61,14 +61,41 @@ int selected_choose(int c)
 
     }
     else if (c == 2) {
+        /* 
+        Object*  repairAllObject(Object* inventory)
+        prototye de la fonction de réparation, retourne l'inventaire à la fin
+         */
         // fonction de reparation @soulte92
         return 0;
     }
     else if (c == 3) {
+        /*
+        Object* craftObject(Object* inventory, int objectId)
+        retourne l'inventaire
+        */
         //banque @soulte92 
         return 0;
     }
     else if (c == 4) {
+        /*
+        Stokage: 
+            option1 récupération du coffre:
+            Object** getObjectFromChest(Object* chest, Object* inventory, int objectId)
+            Attention: Retourne un tableau de liste d'object taille 2
+            result (ici notre tableau de retour):
+                result[0] = inventory;
+                result[1] = chest;
+            il faudra bien réaffecter respective l'invetory et le chest
+            !!! Faire attention, ce ne sont pas les indices et valeurs de retour !!!!
+            option2 Déposer dans le coffre:
+            Object** addObjectToChest(Object* inventory,Object* chest, int objectId)
+            Attention: Retourne un tableau de liste d'object taille 2
+            result (ici notre tableau de retour):
+                result[0] = chest;
+                result[1] = inventory;
+            il faudra bien réaffecter respective l'invetory et le chest
+
+        */
         // banque @soulte92
         return 1;
     }

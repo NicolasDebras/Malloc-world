@@ -39,6 +39,16 @@ Object** addObjectToChest(Object* inventory,Object* chest, int objectId){
 }
 
 Object** getObjectFromChest(Object* chest, Object* inventory, int objectId){
+     /* 
+    Get an object from the chest to the inventory by the object id
+    Parameters: 
+        - Fistsly the chest (source)
+        - Secondly the inventory (destination)
+        - at last the object id
+    Returns a table pour object two object list:
+        - at first the inventory
+        - and at second the chest
+    */
     Object* tmp = searchObjectById(chest, objectId);
     Object** result = malloc(2*sizeof(Object*));
     if ( tmp == NULL ){
@@ -243,9 +253,7 @@ Object* craftObject(Object* inventory, int objectId){
             craft2->ressource_de_craft->quantity = craft2->ressource_de_craft->quantity - objectRecipe[3];
         }
     }
-    
     inventory = appendNewObject(inventory, objectId);
-    
     return inventory;
 }
 
@@ -268,7 +276,6 @@ Object* collectCrafts(Object* inventory, int quantity, int objectId){
     }
     for (int i=0; i<quantity; i++){
         if ( tmp->ressource_de_craft->quantity < 20 ){
-            printf("is ####\n");
             inventory = addcraft(inventory, RDC_TYPE, objectId);
         }
     }
@@ -332,7 +339,7 @@ int receiveDamage(Player* player, monster* monster){
     }
     else{
         player->hp_current = player->hp_current - lessedDamage;
-        printf("*** HEART ***\n");
+        printf("*** HEART Player ***\n");
         return 1;
     }
 }
@@ -372,12 +379,14 @@ int attackMonster(Player* player, monster* monster){
     if ( monster->pv <= lessedDamage ){
         monster->pv = 0;
         player->xp = player->xp + monster->xp_profit;
+        weapon->arme->durabilite = weapon->arme->durabilite -1;
         printf("*** The monster died ***\n");
         return 0;
     }
     else{
         monster->pv = monster->pv - lessedDamage;
-        printf("*** HEART ***\n");
+        weapon->arme->durabilite = weapon->arme->durabilite -1;
+        printf("*** HEART Monster ***\n");
         return 1;
     }
 }

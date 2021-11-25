@@ -414,15 +414,42 @@ Object* extractChestFromSaveFile(char filename[]){
     return chest;
 }
 
-int* checkMap1Size(char filename[], int map1Index){
-
+int* checkMapSize(char filename[], int map1Index, char* mapStr){
+    FILE *f = fopen(filename, "r");
+    int a = fseek(f, map1Index, SEEK_SET);
+    
+    // char* tmpStr = malloc(14*sizeof(char));
+    // tmpStr = fgets(tmpStr, 14,f);
+    // printf("on a trouvé %d\n %s %s\n", strcmp(tmpStr,mapStr)==10, tmpStr, mapStr);
+    int columns = 0;
+    int rows = 0;
+    int totalNumber = 0;
+    int tmp;
+    while (fgetc(f)!=atoi('-')){
+        printf("error here %d\n", a);
+        fseek(f, -13, SEEK_CUR);
+        while (fgetc(f) != '\n'){}
+        rows++;
+    }
+    // fseek(f, map1Index, SEEK_SET);
+    // while ( strcmp(fgets(tmpStr, 14,f),mapStr) == 0){
+    //     fseek(f, -13, SEEK_CUR);
+    //     fscanf(f, "%d", &tmp);
+    //     totalNumber++;
+    // }
+    // columns = totalNumber/rows;
+    int *tab = malloc(2*sizeof(int));
+    // tab[0] = rows;
+    // tab[1] = columns;
+    // fclose(f);
+    return tab;
 }
 
-int* checkMap2Size(char filename[], int map1Index){
+int* checkMap2Size(char filename[], int map2Index){
     
 }
 
-int* checkMap3Size(char filename[], int map1Index){
+int* checkMap3Size(char filename[], int map3Index){
     
 }
 
@@ -431,13 +458,18 @@ int* checkMap3Size(char filename[], int map1Index){
 void extractMapFromSaveFile(char filename[]){
     FILE *f = fopen(filename, "r");
 
-    char* mapStr = malloc(11*sizeof(char));
-    char* map1Str = malloc(12*sizeof(char));
-    char* map2Str = malloc(12*sizeof(char));
-    char* map3Str = malloc(12*sizeof(char));
+    char* mapStr = malloc(12*sizeof(char));
+    char* map1Str = malloc(13*sizeof(char));
+    char* map2Str = malloc(13*sizeof(char));
+    map2Str = "-- ZONE 2 --\n";
+    char* map3Str = malloc(13*sizeof(char));
+    map3Str = "-- ZONE 3 --\n";
 
     while (fgetc(f) != '\n'){}
     while (fgetc(f) != '\n'){}
+
+    int currenIndex = ftell(f);
+    
 
 }
 
@@ -462,14 +494,19 @@ int main(){
     // Player* p = initTestPlayer8();
     // saveAllGameProperties(p, inventory, "Data_Bases/saveInventory.txt");
 
+    char* map2Str = malloc(14*sizeof(char));
+    map2Str = "-- ZONE2 --";
+
+    int *res = checkMapSize("test.txt",0,map2Str);
+    printf("on a %d et %d \n", res[0], res[1]);
     
-    Object* chest2 = extractChestFromSaveFile("Data_Bases/saveInventory.txt");
+    // Object* chest2 = extractChestFromSaveFile("Data_Bases/saveInventory.txt");
     // Player* p2 = extractorPlayerFromSaveFile("Data_Bases/saveInventory.txt");
     // p2->inventory = extractorInventoryFromSaveFile("Data_Bases/saveInventory.txt");
 
     // print_player(p2);
     // print_inventory(p2->inventory);
-    print_inventory(chest2);
+    // print_inventory(chest2);
 
     
 
