@@ -206,6 +206,7 @@ typedef struct
     int x;
     int y;
     int nb;
+    int nb_monster;
     ressource_collect *collect;
     Player *p;
     Object *chest;
@@ -229,6 +230,7 @@ int RangedRand(int range_min, int range_max);
 void movement(map m1, map m2, map m3);
 void movement_player(map *m, int *movement_tab);
 char input_char();
+void clear();
 
 /* - prototype creation_monster.c - Nicolas Debras */
 
@@ -348,3 +350,6 @@ void saveAllGameProperties(Player* p, Object* chest, char filename[]);
 void saveChest(Object* chest, char filename[]);
 void saveInventory(Object* inventory, char filename[]);
 void savePlayer(Player* player, char filename[]);
+
+
+int input();

@@ -47,11 +47,27 @@ int print_run_action(int dodge, monster *m_fighter) {
     return 0;
 
 }
+int print_fight_action(Player *p, monster *m_fighter) {
+
+    if (RangedRand(0, 100) != 42)
+        attackMonster(p, m_fighter);
+    else {
+        printf("\n-- Echec critique --\n");
+        printf("\n --- Le nombre vous chaarge ---\n");
+        if (receiveDamage(p, m_fighter) == 0)
+            return 0;
+        printf("\n\n ---- Vie du joueur = %d ---- \n", p->hp_current);
+    }
+    return 10;
+
+}
 int input() {
 
-    char input_char[0];
+    char input_char[2];
 
-    int c = atoi(scanf("%s", input));
+    scanf("%s", input_char);
+
+    int c = atoi(input_char);
 
     return c;
     
@@ -74,21 +90,18 @@ int battle_phase(monster *m_fighter, int dodge, Player *p) {
             printf("\n\n ---- Vie du joueur = %d ---- \n", p->hp_current);
         }
         printf("---- ATTAQUE DU JOUEUR ---- ");
-        int c = atoi(input_str());
+        int c = input();
 
-        while (c != 1 || c != 2 || c != 3)
-        {
+        while (c != 1 || c != 2 || c != 3) {
             c = input();
         }
         
         if (c == 1) {
-            //changement d'arme 
-            // j'ai décide que c'était punitif donc perte d'un tour de combat
-
             print_inventory(p->inventory);
             printf("Pour changer d'arme, veuillez saisir l'idée de l'arme : ");
-            int d = input(); // le joueur input l'id de l'arme 
-            selectWeapon(p->inventory); //Est ce qu'il return qqch d'utile @soulte92 ? et comment je décide de la bonne arme 
+            int d = input(); 
+            selectWeapon(p->inventory); 
+            selectObject(p->inventory, d);
             
             /* selectObject(Object* inventory, int objectId);
                 voilà le bon prototype, tu mets l'id de ton arme en question, et ça retourne l'inventaire à la fin.
@@ -97,29 +110,15 @@ int battle_phase(monster *m_fighter, int dodge, Player *p) {
             */
         }
         else if (c == 2) {
-            // J'ai rajouté des echeer critique (vive dofus), je trouvais ça drole mdrr
-
-            
-            if (RangedRand(0, 1000) != 42)
-                attackMonster(p, m_fighter);
-            else {
-                printf("\n-- Echec critique --\n");
-                printf("\n --- Le nombre vous chaarge ---\n");
-                if (receiveDamage(p, m_fighter) == 0)
-                    return 0;
-                printf("\n\n ---- Vie du joueur = %d ---- \n", p->hp_current);
-            }
-
+            if(print_fight_action(p, m_fighter) == 1)
+                return 1;
 
         }
         else if (c == 3) {
-
             if (print_run_action(dodge, m_fighter) == 2)
                 return 2;
         }
-
     }
-
 }
 
 int strat_fight(monster *liste, Declaration *d, int n_fighter, int level_map) {
