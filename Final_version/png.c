@@ -65,7 +65,7 @@ int correct_input_int_4() {
         return c;
     } else {
         printf("mauvais input \n");
-        c = correct_input_int();
+        c = correct_input_int_4();
     }
 }
 
@@ -101,7 +101,6 @@ int selected_choose(int c, Player *p)
                 result[0] = chest;
                 result[1] = inventory;
             il faudra bien réaffecter respective l'invetory et le chest
-
         */
         return 0;
     }

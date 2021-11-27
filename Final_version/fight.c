@@ -161,6 +161,8 @@ int strat_fight(Declaration *d, int level_map) {
         dodge = 2;
 
 
-    return battle_phase(fighter_monster, dodge, d->p);
-
+    int d = battle_phase(fighter_monster, dodge, d->p);
+    if (d->p->xp >= (d->p->level *100) )
+        //fonc
+    return d;
 }
