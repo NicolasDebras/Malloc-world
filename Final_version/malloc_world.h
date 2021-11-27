@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <math.h>
 
 #define INVENTORY_TYPE 0
 #define STORAGE_TYPE 1
@@ -360,3 +361,5 @@ void savePlayer(Player* player, char filename[]);
 
 
 int input();
+
+int calculateLessedByPercent(int number, int nbPercent);
