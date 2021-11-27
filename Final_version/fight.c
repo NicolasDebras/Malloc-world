@@ -81,7 +81,32 @@ int input() {
     return c;
     
 }
+int correct_input_int() {
 
+    int c = input();
+
+    if (c == 1|| c == 2 || c == 3) {
+        return c;
+    } else {
+        printf("mauvais input \n");
+        c = correct_input_int();
+    }
+}
+int print_menu_action() {
+
+    printf("---- ACTION DU JOUEUR ---- \n\n\n");
+    printf("**************************************\n");
+    printf("*         Action possible            *\n");
+    printf("*                                    *\n");
+    printf("* 1 : changement d'arme              *\n");
+    printf("*                                    *\n");
+    printf("* 2 : attaquer                       *\n");
+    printf("*                                    *\n");
+    printf("* 3 : fuir                           *\n");
+    printf("**************************************\n");
+    return correct_input_int();
+
+}
 
 int battle_phase(monster *m_fighter, int dodge, Player *p) {
 
@@ -98,19 +123,12 @@ int battle_phase(monster *m_fighter, int dodge, Player *p) {
             printf("\n\n ---- Vous n'avez pas reussi a esquiver l'attaque du monstre ---- \n");
             printf("\n\n ---- Vie du joueur = %d ---- \n", p->hp_current);
         }
-        printf("---- ATTAQUE DU JOUEUR ---- ");
-        int c = input();
-
-        while (c != 1 || c != 2 || c != 3) {
-            c = input();
-        }
-        
+        int c = print_menu_action();
         if (c == 1) {
             print_inventory(p->inventory);
             printf("Pour changer d'arme, veuillez saisir l'idée de l'arme : ");
             int d = input(); 
-            selectObject(p->inventory, d);
-            
+            selectObject(p->inventory, d);            
             /* selectObject(Object* inventory, int objectId);
                 voilà le bon prototype, tu mets l'id de ton arme en question, et ça retourne l'inventaire à la fin.
                 je pense que tu pourra ne pas faire un truc du genre p->inventory = selectObject...
@@ -120,7 +138,6 @@ int battle_phase(monster *m_fighter, int dodge, Player *p) {
         else if (c == 2) {
             if(print_fight_action(p, m_fighter) == 1)
                 return 1;
-
         }
         else if (c == 3) {
             if (print_run_action(dodge, m_fighter) == 2)
@@ -129,11 +146,11 @@ int battle_phase(monster *m_fighter, int dodge, Player *p) {
     }
 }
 
-int strat_fight(monster *liste, Declaration *d, int n_fighter, int level_map) {
+int strat_fight(Declaration *d, int level_map) {
 
 
     clear();
-    monster *fighter_monster = init_fighter(liste, d->nb_monster, n_fighter);
+    monster *fighter_monster = init_fighter(d->liste_monster, d->nb_monster, d->n_fighter);
     int dodge = 0;
 
     if (level_map == 1) {

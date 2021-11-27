@@ -8,7 +8,7 @@
 
 #include "malloc_world.h"
 
-void movement_check(int *movement_tab, map m, char c)
+int movement_check(int *movement_tab, map m, char c)
 {
     movement_tab[0] = 0;
     movement_tab[1] = 0;
@@ -33,6 +33,11 @@ void movement_check(int *movement_tab, map m, char c)
         movement_tab[0] = 1;
         movement_tab[1] = 0;
     }
+    else if (c == 'v')
+    {
+        return 1;
+    }
+    return 0;
 }
 void movement_player(map *m, int *movement_tab){
 
@@ -111,8 +116,20 @@ Declaration *init_d() {
     new->chest = new_Object();
     new->chest = init_inventor();
     new->liste_monster = creation_monster();
+    new->n_fighter = 8; // a changer 
 
     return new;
+}
+char corect_input() {
+    
+    char c = input_char();
+
+    if (c == 'z'|| c == 's' || c == 'd'|| c == 'q'|| c == 'v') {
+        return c;
+    } else {
+        printf("mauvais input \n");
+        c = corect_input();
+    }
 }
 
 void movement(map m1, map m2, map m3) {
@@ -124,7 +141,8 @@ void movement(map m1, map m2, map m3) {
 
     while (1) {
         print_map(*m);      
-        movement_check(d->movement_tab, *m, input_char());
+        if (movement_check(d->movement_tab, *m, corect_input()) == 1)
+            break;
         
         d->x = m->player_x + d->movement_tab[0];
         d->y = m->player_y + d->movement_tab[1];
@@ -141,8 +159,13 @@ void movement(map m1, map m2, map m3) {
             d->nb = d->nb + 1;
         } else if (m->map[d->x][d->y] < -1) {
             m = change_map(m,&m1,&m2,&m3, d->x, d->y);  
-        } else
-            printf("\n||||| RENCONCTRE AVEC UN MONSTRE|||||\n");
+        } else if (m->map[d->x][d->y] >= 12 && m->map[d->x][d->y] <= 99) {
+            if (strat_fight(d, m->level) == 0)
+                break;
+            movement_player(m, d->movement_tab);
+        } else {
+            printf("\n||||| RENCONCTRE AVEC UN MUR |||||\n");
+        }
         check_repop_turn(d->collect, &m1, &m2, &m3, d->n_tour, d->nb);
         saveAllGameProperties(d->p, d->chest, "Data_Bases/saveInventory.txt");
         print_inventory(d->p->inventory);

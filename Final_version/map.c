@@ -43,6 +43,9 @@ void initialization_map1(map m) {
         check_fill(m, rock_zone1);
         check_fill(m, tree_zone1);
         check_fill(m, plant_zone1);
+        check_fill(m, 12);
+        check_fill(m, 13);
+        check_fill(m, 14);
     }
 }
 void initialization_map2(map m) {
@@ -57,6 +60,9 @@ void initialization_map2(map m) {
         check_fill(m, rock_zone2);
         check_fill(m, tree_zone2);
         check_fill(m, plant_zone2);
+        check_fill(m, 15);
+        check_fill(m, 16);
+        check_fill(m, 17);
     }   
 
 }
@@ -71,6 +77,11 @@ void initialization_map3(map m) {
         check_fill(m, rock_zone3);
         check_fill(m, tree_zone3);
         check_fill(m, plant_zone3);
+        check_fill(m, 18);
+        check_fill(m, 19);
+        check_fill(m, 20);
+        check_fill(m, 21);
+        check_fill(m, 99);
     }   
 
 }
@@ -107,8 +118,8 @@ int **creation_map(int rows, int column) {
 }
 void start_map(map *m, int level) {
 
-    m->rows = RangedRand(5, 10);
-    m->column = RangedRand(5, 10);
+    m->rows = RangedRand(6, 12);
+    m->column = RangedRand(6, 12);
     m->player_y = RangedRand(0, m->rows-2);
     m->player_x = RangedRand(0, m->column-1);
 

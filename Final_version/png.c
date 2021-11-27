@@ -57,6 +57,17 @@ void print_menu_up_tool(Player *p) {
     */
 
 }
+int correct_input_int_4() {
+
+    int c = input();
+
+    if (c == 1|| c == 2 || c == 3 || c == 4) {
+        return c;
+    } else {
+        printf("mauvais input \n");
+        c = correct_input_int();
+    }
+}
 
 int selected_choose(int c, Player *p)
 {
@@ -108,7 +119,7 @@ void png_interaction(Player *p) {
     read_print_png();
     while(1) {
         print_info();
-        int c = input();
+        int c = correct_input_int_4();
         if (selected_choose(c, p) == 1)
             break;
     }

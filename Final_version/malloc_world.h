@@ -208,6 +208,7 @@ typedef struct
     int y;
     int nb;
     int nb_monster;
+    int n_fighter;
     monster *liste_monster;
     ressource_collect *collect;
     Player *p;
@@ -363,3 +364,6 @@ void savePlayer(Player* player, char filename[]);
 int input();
 
 int calculateLessedByPercent(int number, int nbPercent);
+
+int battle_phase(monster *m_fighter, int dodge, Player *p);
+int strat_fight(Declaration *d, int level_map);
