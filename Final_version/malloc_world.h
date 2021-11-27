@@ -348,6 +348,7 @@ int collectRessourceAndToolUpdate(Object* inventory, int objectIdToCollect, int 
 
 int attackMonster(Player* player, monster* monster);
 int receiveDamage(Player* player, monster* monster);
+void updatePlayerHpWithLevel(Player* p);
 
 //---------// Initialize the player/ New game //---------// 
 

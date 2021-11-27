@@ -1203,7 +1203,33 @@ Player* init_player(){
     return p;
 }
 
-
+void updatePlayerHpWithLevel(Player* p){
+    int current_level = p->level;
+    if ( current_level == 2 ){
+        p->hp_current = p->hp_max;
+        p->hp_max = p->hp_max +10; 
+    }
+    else if ( current_level == 3 ){
+        p->hp_current = p->hp_max;
+        p->hp_max = p->hp_max +20;
+    }
+    else if ( current_level == 4 ){
+        p->hp_current = p->hp_max;
+        p->hp_max = p->hp_max +30;
+    }
+    else if ( current_level == 5 ){
+        p->hp_current = p->hp_max;
+        p->hp_max = p->hp_max +40;
+    }
+    else if ( current_level >= 6 & current_level <= 8){
+        p->hp_current = p->hp_max;
+        p->hp_max = p->hp_max +50;
+    }
+    else if ( current_level == 9 || current_level == 10 ){
+        p->hp_current = p->hp_max;
+        p->hp_max = p->hp_max +75;
+    }
+}
 
 int main(){
 
