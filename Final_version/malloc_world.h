@@ -207,6 +207,7 @@ typedef struct
     int y;
     int nb;
     int nb_monster;
+    monster *liste_monster;
     ressource_collect *collect;
     Player *p;
     Object *chest;

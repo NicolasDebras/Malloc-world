@@ -1,6 +1,9 @@
 #include "malloc_world.h"
 
 //---------// Chest Functions //---------// 
+int calculateLessedByPercent(){
+    return 1;
+}
 
 Object** addObjectToChest(Object* inventory,Object* chest, int objectId){
     /* 

@@ -110,6 +110,7 @@ Declaration *init_d() {
     new->p = init_player();
     new->chest = new_Object();
     new->chest = init_inventor();
+    new->liste_monster = creation_monster();
 
     return new;
 }

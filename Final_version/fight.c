@@ -11,6 +11,16 @@
 
 #include "malloc_world.h"
 
+void print_info_monster (monster *m) {
+
+    printf(" -- STATUT DU MONSTRE -- \n");
+    printf("Name  : %s", m->name);
+    printf("pv : %d\n", m->pv);
+    printf("degats : %d\n", m->degats);
+    printf("armor : %d\n", m->armor);
+
+}
+
 monster *init_fighter(monster *liste, int nb, int n_fighter) {
 
     monster *m = malloc(sizeof(monster)); 
@@ -29,19 +39,12 @@ monster *init_fighter(monster *liste, int nb, int n_fighter) {
     m->pv = liste[i].pv;
     m->degats = liste[i].degats;
     m->xp_profit = liste[i].xp_profit;
+    print_info_monster(m);
 
     return m;
 }
 
-void print_info(monster *m) {
 
-    printf(" -- STATUT DU MONSTRE -- \n");
-    printf("Name  : %s", m->name);
-    printf("pv : %d\n", m->pv);
-    printf("degats : %d\n", m->degats);
-    printf("armor : %d\n", m->armor);
-
-}
 int print_run_action(int dodge, monster *m_fighter) {
 
     printf("\n\n ---- Vous avez %d de chance de fuir %s ---- \n\n", dodge-1, m_fighter->name);
