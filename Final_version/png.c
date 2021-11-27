@@ -38,7 +38,7 @@ void print_info() {
 
 }
 // a completer avec toutes les differents uppgrade possible
-void print_menu_up_tool() {
+void print_menu_up_tool(Player *p) {
 
     printf("\nMENU CRAFT : \n");
     printf("1 : CRAFTER ELEMENTS\n");
@@ -47,36 +47,32 @@ void print_menu_up_tool() {
     printf("4 : QUITTER\n");
     printf("\n\n\n");
     printf("Veuillez saisir le numéro de votre choix ");
-    int c = (int)input_char() - 48;
+    int c = input();
+    p->inventory = craftObject(p->inventory, c);
     // fonction de craft @soulte92 
+
+    /*
+        Object* craftObject(Object* inventory, int objectId)
+        retourne l'inventaire
+    */
 
 }
 
-int selected_choose(int c)
+int selected_choose(int c, Player *p)
 {
     printf("%d", c);
     if (c == 1) {
-        print_menu_up_tool();
+        print_menu_up_tool(p);
         return 0;
 
     }
     else if (c == 2) {
-        /* 
-        Object*  repairAllObject(Object* inventory)
-        prototye de la fonction de réparation, retourne l'inventaire à la fin
-         */
-        // fonction de reparation @soulte92
+        repairAllObject(p->inventory);
         return 0;
     }
     else if (c == 3) {
-        /*
-        Object* craftObject(Object* inventory, int objectId)
-        retourne l'inventaire
-        */
         //banque @soulte92 
-        return 0;
-    }
-    else if (c == 4) {
+
         /*
         Stokage: 
             option1 récupération du coffre:
@@ -96,7 +92,9 @@ int selected_choose(int c)
             il faudra bien réaffecter respective l'invetory et le chest
 
         */
-        // banque @soulte92
+        return 0;
+    }
+    else if (c == 4) {
         return 1;
     }
     else
@@ -104,13 +102,14 @@ int selected_choose(int c)
 }
 
 //fonction principal
-void png_interaction() {
+void png_interaction(Player *p) {
 
+    clear();
     read_print_png();
     while(1) {
         print_info();
-        int c = (int)input_char() - 48;
-        if (selected_choose(c) == 1)
+        int c = input();
+        if (selected_choose(c, p) == 1)
             break;
     }
     
