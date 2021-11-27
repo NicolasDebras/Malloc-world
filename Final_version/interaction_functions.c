@@ -301,11 +301,125 @@ Object* lessObjectCapacity(Object* object, int lesscapacity){
         else{
             object->outil->durabilite = object->outil->durabilite - lesscapacity;
         }
+        break;
     default:
         printf("***lessObject Capacity Exception: Cannot less the capacity of this object.\n");
         break;
     }
     return object;
+}
+
+Object** toolsGetterFromInventory(Object* inventory){
+    Object** tools = malloc(3*sizeof(Object));
+
+    tools[0] = searchObjectByCategory(inventory, PICKAXE_CATEGORY);
+    tools[1] = searchObjectByCategory(inventory, AX_CATEGORY);
+    tools[2] = searchObjectByCategory(inventory, SERPE_CATEGORY);
+
+    return tools;
+}
+
+int collectAndToolUpdateMap1(Object* inventory, int objectIdToCollect, int quantity, Object** tools){
+    if (objectIdToCollect == STONE){
+        if ( tools[0] != NULL && tools[0]->outil->objectId >= WOODEN_PICKAXE && 
+                tools[0]->outil->durabilite >= calculateLessedByPercent(tools[0]->outil->durabilite, 10)){
+            lessObjectCapacity(tools[0], calculateLessedByPercent(tools[0]->outil->durabilite, 10));
+            collectCrafts(inventory, quantity, objectIdToCollect);
+            return 1;
+        }
+    }
+    else if (objectIdToCollect == FIR){
+        if ( tools[1] != NULL && tools[1]->outil->objectId >= WOODEN_AX && 
+                tools[0]->outil->durabilite >=  calculateLessedByPercent(tools[1]->outil->durabilite, 10) ){
+            lessObjectCapacity(tools[1], calculateLessedByPercent(tools[1]->outil->durabilite, 10));
+            collectCrafts(inventory, quantity, objectIdToCollect);
+            return 1;
+        }
+    }
+    else if (objectIdToCollect == GRASS){
+        if ( tools[2] != NULL && tools[2]->outil->objectId >= WOODEN_SERPE && 
+                tools[2]->outil->durabilite >= calculateLessedByPercent(tools[2]->outil->durabilite, 10) ){
+            lessObjectCapacity(tools[2], calculateLessedByPercent(tools[2]->outil->durabilite, 10));
+            collectCrafts(inventory, quantity, objectIdToCollect);
+            return 1;
+        }
+    }
+    printf("***collectAndToolUpdate Exception: Invalid ressource in map zone! or tool broken or unfound tool\n");
+    return 0;
+}
+
+int collectAndToolUpdateMap2(Object* inventory, int objectIdToCollect, int quantity, Object** tools){
+    if (objectIdToCollect == IRON){
+        if ( tools[0] != NULL && tools[0]->outil->objectId >= STONE_PICKAXE && 
+            tools[0]->outil->durabilite >= calculateLessedByPercent(tools[0]->outil->durabilite, 20) ){
+            lessObjectCapacity(tools[0], calculateLessedByPercent(tools[0]->outil->durabilite, 20));
+            collectCrafts(inventory, quantity, objectIdToCollect);
+            return 1;
+        }
+    }
+    else if (objectIdToCollect == BEECH){
+        if ( tools[1] != NULL && tools[1]->outil->objectId >= STONE_AX && 
+            tools[1]->outil->durabilite >= calculateLessedByPercent(tools[1]->outil->durabilite, 20)){
+            lessObjectCapacity(tools[1], calculateLessedByPercent(tools[1]->outil->durabilite, 20));
+            collectCrafts(inventory, quantity, objectIdToCollect);
+            return 1;
+        }
+    }
+    else if (objectIdToCollect == LAVENDER){
+        if ( tools[2] != NULL && tools[2]->outil->objectId >= STONE_SERPE && 
+            tools[2]->outil->durabilite >= calculateLessedByPercent(tools[2]->outil->durabilite, 20)){
+            lessObjectCapacity(tools[2], calculateLessedByPercent(tools[2]->outil->durabilite, 20));
+            collectCrafts(inventory, quantity, objectIdToCollect);
+            return 1;
+        }
+    }
+    printf("***collectAndToolUpdate Exception: Invalid ressource in map zone! or tool broken or unfound tool\n");
+    return 0;
+}
+
+int collectAndToolUpdateMap3(Object* inventory, int objectIdToCollect, int quantity, Object** tools){
+    if (objectIdToCollect == DIAMOND){
+        if ( tools[0] != NULL && tools[0]->outil->objectId >= IRON_PICKAXE && 
+            tools[0]->outil->durabilite >= calculateLessedByPercent(tools[0]->outil->durabilite, 40) ){
+            lessObjectCapacity(tools[0], calculateLessedByPercent(tools[0]->outil->durabilite, 40));
+            collectCrafts(inventory, quantity, objectIdToCollect);
+            return 1;
+        }
+    }
+    else if (objectIdToCollect == OAK){
+        if ( tools[1] != NULL && tools[1]->outil->objectId >= IRON_AX && 
+            tools[1]->outil->durabilite >= calculateLessedByPercent(tools[1]->outil->durabilite, 40)){
+            lessObjectCapacity(tools[1], calculateLessedByPercent(tools[1]->outil->durabilite, 40));
+            collectCrafts(inventory, quantity, objectIdToCollect);
+            return 1;
+        }
+    }
+    else if (objectIdToCollect == HEMP){
+        if ( tools[2] != NULL && tools[2]->outil->objectId >= IRON_SERPE && 
+            tools[2]->outil->durabilite >= calculateLessedByPercent(tools[2]->outil->durabilite, 40)){
+            lessObjectCapacity(tools[2], calculateLessedByPercent(tools[2]->outil->durabilite, 40));
+            collectCrafts(inventory, quantity, objectIdToCollect);
+            return 1;
+        }
+    }
+    printf("***collectAndToolUpdate Exception: Invalid ressource in map zone! or tool broken or unfound tool\n");
+    return 0;
+}
+
+int collectRessourceAndToolUpdate(Object* inventory, int objectIdToCollect, int quantity, int mapZone){
+    Object** tools = toolsGetterFromInventory(inventory);
+
+    switch (mapZone){
+    case 1:
+        return collectAndToolUpdateMap1(inventory, objectIdToCollect, quantity, tools);
+        break;
+    case 2:
+        return collectAndToolUpdateMap2(inventory, objectIdToCollect, quantity, tools);
+        break;
+    case 3:
+        return collectAndToolUpdateMap3(inventory, objectIdToCollect, quantity, tools);
+        break;
+    }
 }
 
 //---------// Attacks player-monster //---------// 

@@ -332,6 +332,12 @@ Object* craftObject(Object* inventory, int objectId);
 
 Object* collectCrafts(Object* inventory, int quantity, int objectId);
 Object* lessObjectCapacity(Object* object, int lesscapacity);
+Object** toolsGetterFromInventory(Object* inventory);
+int collectAndToolUpdateMap1(Object* inventory, int objectIdToCollect, int quantity, Object** tools);
+int collectAndToolUpdateMap2(Object* inventory, int objectIdToCollect, int quantity, Object** tools);
+int collectAndToolUpdateMap3(Object* inventory, int objectIdToCollect, int quantity, Object** tools);
+int collectRessourceAndToolUpdate(Object* inventory, int objectIdToCollect, int quantity, int mapZone);
+
 
 //---------// Attacks player-monster //---------// 
 
