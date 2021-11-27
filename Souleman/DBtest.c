@@ -1,4 +1,4 @@
-#include "interaction_functions.c"
+#include "inventory.h"
 
 Object** extractDBObjects(){
     Object** objectsList = malloc(34*sizeof(Object*));
@@ -489,32 +489,32 @@ Player* initTestPlayer8(){
     return p;
 }
 
-int main(){
-    // Object* inventory = initTestInventory8();
-    // Player* p = initTestPlayer8();
-    // saveAllGameProperties(p, inventory, "Data_Bases/saveInventory.txt");
+// int main(){
+//     // Object* inventory = initTestInventory8();
+//     // Player* p = initTestPlayer8();
+//     // saveAllGameProperties(p, inventory, "Data_Bases/saveInventory.txt");
 
-    char* map2Str = malloc(14*sizeof(char));
-    map2Str = "-- ZONE2 --";
+//     char* map2Str = malloc(14*sizeof(char));
+//     map2Str = "-- ZONE2 --";
 
-    int *res = checkMapSize("test.txt",0,map2Str);
-    printf("on a %d et %d \n", res[0], res[1]);
+//     int *res = checkMapSize("test.txt",0,map2Str);
+//     printf("on a %d et %d \n", res[0], res[1]);
     
-    // Object* chest2 = extractChestFromSaveFile("Data_Bases/saveInventory.txt");
-    // Player* p2 = extractorPlayerFromSaveFile("Data_Bases/saveInventory.txt");
-    // p2->inventory = extractorInventoryFromSaveFile("Data_Bases/saveInventory.txt");
+//     // Object* chest2 = extractChestFromSaveFile("Data_Bases/saveInventory.txt");
+//     // Player* p2 = extractorPlayerFromSaveFile("Data_Bases/saveInventory.txt");
+//     // p2->inventory = extractorInventoryFromSaveFile("Data_Bases/saveInventory.txt");
 
-    // print_player(p2);
-    // print_inventory(p2->inventory);
-    // print_inventory(chest2);
+//     // print_player(p2);
+//     // print_inventory(p2->inventory);
+//     // print_inventory(chest2);
 
     
 
-    //inventoryDBExtractor(inventory);
+//     //inventoryDBExtractor(inventory);
 
-    // char* age_char = " -013.2 ";
-    // int age_int = atoi(age_char);
-    // printf("age: %d\n",age_int);
+//     // char* age_char = " -013.2 ";
+//     // int age_int = atoi(age_char);
+//     // printf("age: %d\n",age_int);
 
-    return 0;
-}
+//     return 0;
+// }

@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include <math.h>
 
 #define ARME_TYPE 0
 #define ARMURE_TYPE 1
@@ -189,6 +190,7 @@ Object* searchObjectByCategory(Object* inventory, int objectCategory);
 Object* selectObject(Object* inventory, int objectId);
 Object* deleteObject(Object* inventory, int objectId);
 Object* objectMemCpy(Object* object);
+int calculateLessedByPercent(int number, int nbPercent);
 void print_inventory(Object* inventory);
 void print_player(Player * player);
 
@@ -218,6 +220,11 @@ Object* craftObject(Object* inventory, int objectId);
 
 Object* collectCrafts(Object* inventory, int quantity, int objectId);
 Object* lessObjectCapacity(Object* object, int lesscapacity);
+Object** toolsGetterFromInventory(Object* inventory);
+int collectAndToolUpdateMap1(Object* inventory, int objectIdToCollect, int quantity, Object** tools);
+int collectAndToolUpdateMap2(Object* inventory, int objectIdToCollect, int quantity, Object** tools);
+int collectAndToolUpdateMap3(Object* inventory, int objectIdToCollect, int quantity, Object** tools);
+int collectRessourceAndToolUpdate(Object* inventory, int objectIdToCollect, int quantity, int mapZone);
 
 //---------// Attacks player-monster //---------// 
 

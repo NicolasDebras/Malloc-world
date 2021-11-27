@@ -650,26 +650,26 @@ void testAttacksFunctions(){
 
 }
     
-int main(){
+// int main(){
 
-    testNewObjectCreatorfunctions();
-    testObjectDataBasefunctions();
-    testGetterObjectFromDataBasefunctions();
-    testSearchObjectfunctions();
-    testCheckfunctions();
-    testObjectGettersFromInventoryFuntions();
-    testUtilsFuntions();
-    testChestFunctions();
-    testUpdateWeaponOrToolFunctions();
-    testAddObjectInInventoryFunctions();
-    testInitializePlayer_NewGame();
-    testCraftRecipesDataBaseFunctions();
-    testRepairAndCraftFunctions();
-    testModifyObjectPropertiesFunctions();
-    testAttacksFunctions();
+//     testNewObjectCreatorfunctions();
+//     testObjectDataBasefunctions();
+//     testGetterObjectFromDataBasefunctions();
+//     testSearchObjectfunctions();
+//     testCheckfunctions();
+//     testObjectGettersFromInventoryFuntions();
+//     testUtilsFuntions();
+//     testChestFunctions();
+//     testUpdateWeaponOrToolFunctions();
+//     testAddObjectInInventoryFunctions();
+//     testInitializePlayer_NewGame();
+//     testCraftRecipesDataBaseFunctions();
+//     testRepairAndCraftFunctions();
+//     testModifyObjectPropertiesFunctions();
+//     testAttacksFunctions();
 
-    return 0;
-}
+//     return 0;
+// }
 
 
 
