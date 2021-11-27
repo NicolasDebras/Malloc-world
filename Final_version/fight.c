@@ -162,7 +162,9 @@ int strat_fight(Declaration *d, int level_map) {
 
 
     int d = battle_phase(fighter_monster, dodge, d->p);
-    if (d->p->xp >= (d->p->level *100) )
-        //fonc
+    if (d->p->xp >= (d->p->level *100) ) {
+        updatePlayerHpWithLevel(d->p);
+        d->p->xp = 0;
+    }
     return d;
 }
