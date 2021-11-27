@@ -22,7 +22,13 @@ monster *init_fighter(monster *liste, int nb, int n_fighter) {
             break;  
         i = i + 1;
     }
-    //copie du nombre trouvé dans m
+    m->armor = liste[i].armor;
+    m->level_monster = liste[i].level_monster;
+    m->n = liste[i].n;
+    strcpy(m->name, liste[i].name);
+    m->pv = liste[i].pv;
+    m->degats = liste[i].degats;
+    m->xp_profit = liste[i].xp_profit;
 
     return m;
 }
@@ -100,7 +106,6 @@ int battle_phase(monster *m_fighter, int dodge, Player *p) {
             print_inventory(p->inventory);
             printf("Pour changer d'arme, veuillez saisir l'idée de l'arme : ");
             int d = input(); 
-            selectWeapon(p->inventory); 
             selectObject(p->inventory, d);
             
             /* selectObject(Object* inventory, int objectId);
