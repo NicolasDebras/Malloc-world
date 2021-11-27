@@ -69,7 +69,7 @@ int correct_input_int_4() {
     }
 }
 
-int selected_choose(int c, Player *p)
+int selected_choose(int c, Player *p, Object *chest)
 {
     printf("%d", c);
     if (c == 1) {
@@ -82,26 +82,25 @@ int selected_choose(int c, Player *p)
         return 0;
     }
     else if (c == 3) {
-        //banque @soulte92 
+       int c = correct_input_int();
+    
+        print_inventory(chest);
+        //menu
+        if (c == 1) {
+           print_inventory(p->inventory);
+           int id = input();
+           Object **temp = addObjectToChest(p->inventory, chest, id);
+           chest = temp[0];
+           p->inventory = temp[1];
 
-        /*
-        Stokage: 
-            option1 récupération du coffre:
-            Object** getObjectFromChest(Object* chest, Object* inventory, int objectId)
-            Attention: Retourne un tableau de liste d'object taille 2
-            result (ici notre tableau de retour):
-                result[0] = inventory;
-                result[1] = chest;
-            il faudra bien réaffecter respective l'invetory et le chest
-            !!! Faire attention, ce ne sont pas les indices et valeurs de retour !!!!
-            option2 Déposer dans le coffre:
-            Object** addObjectToChest(Object* inventory,Object* chest, int objectId)
-            Attention: Retourne un tableau de liste d'object taille 2
-            result (ici notre tableau de retour):
-                result[0] = chest;
-                result[1] = inventory;
-            il faudra bien réaffecter respective l'invetory et le chest
-        */
+       } else if (c == 2) {
+            print_inventory(p->inventory);
+           int id = input();
+           Object **temp = getObjectFromChest(chest, p->inventory, id);
+           chest = temp[1];
+           p->inventory = temp[0];
+
+       } 
         return 0;
     }
     else if (c == 4) {
@@ -112,14 +111,14 @@ int selected_choose(int c, Player *p)
 }
 
 //fonction principal
-void png_interaction(Player *p) {
+void png_interaction(Player *p, Object *chest) {
 
     clear();
     read_print_png();
     while(1) {
         print_info();
         int c = correct_input_int_4();
-        if (selected_choose(c, p) == 1)
+        if (selected_choose(c, p, chest) == 1)
             break;
     }
     

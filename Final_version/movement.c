@@ -116,7 +116,7 @@ Declaration *init_d() {
     new->chest = new_Object();
     new->chest = init_inventor();
     new->liste_monster = creation_monster();
-    new->n_fighter = 8; // a changer 
+    new->nb_monster = 8;
 
     return new;
 }
@@ -150,7 +150,7 @@ void movement(map m1, map m2, map m3) {
         if (m->map[d->x][d->y] == 0) {
             movement_player(m, d->movement_tab);
         } else if (m->map[d->x][d->y] == Png) {    
-            png_interaction();
+            png_interaction(d->p, d->chest);
         }
         else if (m->map[d->x][d->y] >= plant_zone1 && m->map[d->x][d->y] <= tree_zone3)
         {
@@ -160,6 +160,7 @@ void movement(map m1, map m2, map m3) {
         } else if (m->map[d->x][d->y] < -1) {
             m = change_map(m,&m1,&m2,&m3, d->x, d->y);  
         } else if (m->map[d->x][d->y] >= 12 && m->map[d->x][d->y] <= 99) {
+            d->n_fighter = m->map[d->x][d->y];
             if (strat_fight(d, m->level) == 0)
                 break;
             movement_player(m, d->movement_tab);

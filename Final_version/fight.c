@@ -128,12 +128,7 @@ int battle_phase(monster *m_fighter, int dodge, Player *p) {
             print_inventory(p->inventory);
             printf("Pour changer d'arme, veuillez saisir l'idée de l'arme : ");
             int d = input(); 
-            selectObject(p->inventory, d);            
-            /* selectObject(Object* inventory, int objectId);
-                voilà le bon prototype, tu mets l'id de ton arme en question, et ça retourne l'inventaire à la fin.
-                je pense que tu pourra ne pas faire un truc du genre p->inventory = selectObject...
-                sinon, retourne null si le process échoue.
-            */
+            selectObject(p->inventory, d);
         }
         else if (c == 2) {
             if(print_fight_action(p, m_fighter) == 1)

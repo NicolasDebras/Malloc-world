@@ -242,7 +242,7 @@ monster *init_monster(char name[50], int pv, int level_monster, int n, int degat
 
 /* - prototype png.c - Nicolas Debras */
 
-void png_interaction();
+void png_interaction(Player *p, Object *chest);
 
 /* - prototype png.c - Nicolas Debras */
 
@@ -363,8 +363,14 @@ void savePlayer(Player* player, char filename[]);
 
 
 int input();
+int correct_input_int();
 
 int calculateLessedByPercent(int number, int nbPercent);
 
 int battle_phase(monster *m_fighter, int dodge, Player *p);
 int strat_fight(Declaration *d, int level_map);
+
+
+Player* extractorPlayerFromSaveFile(char filename[]);
+Object* extractorInventoryFromSaveFile(char filename[]);
+void extractFromSaveFile(Player *p, Object* chest, char filename[]);
