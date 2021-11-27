@@ -614,6 +614,16 @@ Object* objectMemCpy(Object* object){
     return tmp;
 }
 
+int calculateLessedByPercent(int number, int nbPercent){
+    float tmp = number;
+    printf("#### on a %f ####\n",tmp);
+    float tmp2 = nbPercent;
+    printf("#### et %f ####\n",tmp2);
+    int res = roundf((tmp2*number)/100);
+    printf("####### j'ai produit %d #######\n",res);
+    return res;
+}
+
 void print_inventory(Object* inventory){
     Object* tmp = inventory;
 
