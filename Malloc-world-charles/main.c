@@ -11,6 +11,9 @@ void printMap(int** map, int rows, int columns){
     }
 }
 
+    ///SAVE MAPS FUNCTION
+
+///This function save the maps in save_map.txt
 void saveMaps(int rows_1, int columns_1, int** map_1, int rows_2, int columns_2, int** map_2, int rows_3, int columns_3, int** map_3){
     FILE* map_file = fopen("save_files/save_map.txt","w");
     if(map_file != NULL){ //check if file is open
@@ -40,7 +43,6 @@ void saveMaps(int rows_1, int columns_1, int** map_1, int rows_2, int columns_2,
 }
 
 int** createMap(int rows,int columns){
-
     int** map = malloc(sizeof(int**)*rows);
     for(int i = 0; i < rows; i++) map[i] = malloc(sizeof(int*)*columns);
 
@@ -63,7 +65,7 @@ char* getAllCaractersFromFile(char* all_caracters,int count, FILE* map_file){
     return all_caracters;
 }
 
-char* getOneMapInAString(char* map_string, int map_index, char* all_caracters, int count){
+char* getOneMapInAString(int map_index, char* all_caracters, int count){
     ///This function should :
     /// - check where are the caracters that we want with "map_index" from "all_caracters"
     /// - put them in "map" to prepare the map shape like that : 7/8/0/./5/65/-7/./0/0/3 ( "|" -> new column and "." -> new row)
@@ -75,6 +77,8 @@ char* getOneMapInAString(char* map_string, int map_index, char* all_caracters, i
     int zone_3_indicator = 0;
     int can_print = 0;
     int first_line_debug = 0;
+    char* map_string = "";
+
 
     for(int i = 0; i < count; i++){
         if(can_print == 1){
@@ -82,8 +86,8 @@ char* getOneMapInAString(char* map_string, int map_index, char* all_caracters, i
                 if(zone_2_indicator == 1 && zone_3_indicator == 0) zone_3_indicator = 1;
                 if(zone_2_indicator == 0) zone_2_indicator = 1;
             }
-            if(all_caracters[i] != ' '){
-                if(zone_2_indicator == 0 && zone_3_indicator == 0){
+            if(all_caracters[i] != ' '){ ///If the caracter isn't a ' '
+                if(zone_2_indicator == 0 && zone_3_indicator == 0){ ///and we are in the good zone add the caracter in the string
                     if(map_index == 1){
                         if(all_caracters[i] == '\n') map_string = strncat(map_string, "|.|", 3);
                         else map_string = strncat(map_string, &all_caracters[i], 1);
@@ -105,23 +109,20 @@ char* getOneMapInAString(char* map_string, int map_index, char* all_caracters, i
                 }
 
             }
-            else{
+            else{ ///If there is ' ' and that we are in good zone add | in the string
                 if(zone_2_indicator == 0 && zone_3_indicator == 0 && map_index == 1) map_string = strncat(map_string,"|",1);
                 else if(zone_2_indicator == 1 && zone_3_indicator == 0 && map_index == 2) map_string = strncat(map_string,"|",1);
                 else if(zone_2_indicator == 1 && zone_3_indicator == 1 && map_index == 3) map_string = strncat(map_string,"|",1);
             }
         }
+        ///These is the indicators of where to select the zones
         if(all_caracters[i] == '\n' && all_caracters[i - 1] == '-') can_print = 1;
         if(all_caracters[i] == '\n' && all_caracters[i + 1] == '-' && all_caracters[i + 2] == '-' && all_caracters[i - 1] != '=') can_print = 0;
     }
     strncat(map_string,"\0",1);
     if (map_string[0] == '\n') map_string++;
     //printf("\nPremier Character : [%c]",map_string1[0]);
-    printf("\nMAP : %s",map_string);
-    if(map_index == 3){
-        map_string[strlen(map_string)-3] = '\0';
-        //printf("\nMAP : %s",map_string1);
-    }
+    printf("\nMAP : %s\n",map_string);
 
     return map_string;
 }
@@ -181,11 +182,10 @@ int** fillMap(char* map_string, int rows, int columns, int size, int map_index){
     int while_condition = 0;
 
     ///Put every number in an empty map
-    while (map_string[increment+1] != '\0' || map_string[increment] != '\0'){
+    while (map_string[increment] != '\0'){
         int current_number = 0;
         if (map_string[increment] != '.') {
-            while (map_string[increment] != '|' && increment<size-1) {
-                //printf("\n**HERE** %d",increment);
+            while (map_string[increment] != '|' && increment<size) {
                 if (map_string[increment] == '-') {
                     increment++;
                     negative = -1;
@@ -198,6 +198,7 @@ int** fillMap(char* map_string, int rows, int columns, int size, int map_index){
                 power *= 10;
                 increment++;
             }
+            //printf("\n**HERE** %d, size = %d",increment,size);
 
             columns++;
         } else {
@@ -212,10 +213,9 @@ int** fillMap(char* map_string, int rows, int columns, int size, int map_index){
         power = 1;
         negative = 1;
         increment++;
-        //if(map_string1[increment] != '|' && map_string1[increment + 1] != '\0') while_condition = 1;
     }
-    printf("\nMAP %d :\n",map_index);
-    printMap(map, rows + 1, get_columns);
+    //printf("\nMAP %d :\n",map_index);
+    //printMap(map, rows + 1, get_columns);
 
     return map;
 }
@@ -240,14 +240,19 @@ int** getMapFromSaveFile(int map_index){
             count++;
         }
 
-        map_string1 = getOneMapInAString(map_string1, map_index, all_caracters, count);
+        map_string1 = getOneMapInAString(map_index, all_caracters, count);
+        //strcpy(map_string1,getOneMapInAString(map_index, all_caracters, count));
 
         int increment = 0;
         int power = 1;
         int rows = 1;
         int columns = 0;
         int find_columns = 0;
-        int size = strlen(map_string1);
+        int size = 0;
+        while(map_string1[increment] != '\0'){
+            size++;
+            increment++;
+        }
         //printf("\nSize : %d",size);
 
         int* rows_and_columns = getRowsAndColumns(map_string1,rows,columns,size);
@@ -264,6 +269,9 @@ int** getMapFromSaveFile(int map_index){
     return map;
 }
 
+int** getMap1(){
+    return getMapFromSaveFile(1);
+}
 
 
 int main() {
@@ -274,9 +282,18 @@ int main() {
     int rows_3 = 7;
     int columns_3 = 4;
 
-    int** get_map_1 = getMapFromSaveFile(1);
-    //int** get_map_2 = getMapFromSaveFile(2);
-    //int** get_map_3 = getMapFromSaveFile(3);
+    printf("\n=== MAP ===");
+    printf("\n-- ZONE 1 --\n");
+    int** get_map_1 = getMap1();
+    printMap(get_map_1, 3, 5);
+
+    printf("-- ZONE 2 --\n");
+    int** get_map_2 = getMapFromSaveFile(2);
+    printMap(get_map_2, 2, 5);
+
+    printf("-- ZONE 3 --\n");
+    int** get_map_3 = getMapFromSaveFile(3);
+    printMap(get_map_3, 5, 4);
 
     int** map_1 = createMap(rows_1,columns_1);
     int** map_2 = createMap(rows_2,columns_2);
