@@ -60,6 +60,7 @@ int correct_input_int_4() {
     }
 }
 void print_chest(Object *chest) {
+    printf("- - - - - - - VOTRE COFFRE - - - - - - \n");
     printf("***************************************\n");
     printf("*         Options possibles           *\n");
     printf("*                                     *\n");
