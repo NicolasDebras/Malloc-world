@@ -111,8 +111,10 @@ int print_menu_action() {
 int battle_phase(monster *m_fighter, int dodge, Player *p) {
 
     while(1) {
-        if (m_fighter->pv == 0)
+        if (m_fighter->pv == 0 && m_fighter != 99)
             return 1;
+        else if (m_fighter->pv == 0 && m_fighter == 99)
+            return 0;
         printf("---- ATTAQUE DU MONSTRE ---- ");
         printf("\n\n ---- Vous avez %d de chance d'esquiver l'attaque de %s ---- \n\n", dodge, m_fighter->name);
         if (RangedRand(0, 100) < dodge)
@@ -133,8 +135,7 @@ int battle_phase(monster *m_fighter, int dodge, Player *p) {
         else if (c == 2) {
             if(print_fight_action(p, m_fighter) == 1)
                 return 1;
-        }
-        else if (c == 3) {
+        } else if (c == 3) {
             if (print_run_action(dodge, m_fighter) == 2)
                 return 2;
         }
