@@ -373,3 +373,4 @@ Object* extractChestFromSaveFile(char filename[]);
 void extractFromSaveFile(Player *p, Object* chest, char filename[]);
 
 int print_menu_Debut_de_Jeu();
+int correct_input_int_4();
