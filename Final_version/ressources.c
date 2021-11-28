@@ -85,19 +85,15 @@ ressource_collect *collect_ressources(int ressources, map *m, int pos_x, int pos
 
     if (m->level == 1) {
         new = add_element(old, nb, ressources, m->level, pos_x, pos_y, turn);
-        // collectRessourceAndToolUpdate(p->inventory,map_id_to_inv_id(ressources),RangedRand(3,5),mapZone);
-        collectCrafts(p->inventory, RangedRand(3, 5),map_id_to_inv_id(ressources));
-        //fonction qui ajoute des ressources dans l'inventaire @soulte92
+        collectRessourceAndToolUpdate(p->inventory,map_id_to_inv_id(ressources),RangedRand(3,5),m->level);
+        
     } else if (m->level == 2 ) {
         new = add_element(old, nb, ressources, m->level, pos_x, pos_y, turn);
-        // collectRessourceAndToolUpdate(p->inventory,map_id_to_inv_id(ressources),RangedRand(3,5),mapZone);
-        collectCrafts(p->inventory, RangedRand(3, 5),map_id_to_inv_id(ressources));
-        //fonction qui ajoute des ressources dans l'inventaire  @soulte92
+        collectRessourceAndToolUpdate(p->inventory,map_id_to_inv_id(ressources),RangedRand(3,5),m->level);
+
     } else {
         new = add_element(old, nb, ressources, m->level, pos_x, pos_y, turn);
-        // collectRessourceAndToolUpdate(p->inventory,map_id_to_inv_id(ressources),RangedRand(3,5),mapZone);
-        collectCrafts(p->inventory, RangedRand(3, 5),map_id_to_inv_id(ressources));
-        //fonction qui ajoute des ressources dans l'inventaire @soulte92
+        collectRessourceAndToolUpdate(p->inventory,map_id_to_inv_id(ressources),RangedRand(3,5),m->level);
     }
     return new;
 

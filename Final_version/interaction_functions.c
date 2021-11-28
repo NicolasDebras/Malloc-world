@@ -532,3 +532,105 @@ void updatePlayerHpWithLevel(Player* p){
         p->hp_max = p->hp_max +75;
     }
 }
+void extractFromSaveFile(Player *p, Object* chest, char filename[]){
+
+    p = extractorPlayerFromSaveFile(filename);
+    p->inventory = extractorInventoryFromSaveFile(filename);
+    // chest = extractChestFromSaveFile(filename);
+}
+
+Player* extractorPlayerFromSaveFile(char filename[]){
+    FILE* f = fopen(filename,"r");
+
+    if ( f==NULL ){
+        printf("***extractorInventoryFromSaveFile Exception: inventory Save file reading Failed\n");
+        return NULL;
+    }    
+    Player* p = malloc(sizeof(Player));
+
+    while (fgetc(f) != '\n'){}
+    fscanf(f, "{%d}\n",&p->level);
+    fscanf(f, "{%d}/{XP_NEXT}\n", &p->xp);
+    int a, b;
+    fscanf(f, "{%d}/{%d}\n",&a,&b);
+    p->hp_current = a;
+    p->hp_max = b;
+    p->inventory = new_Object();
+    fclose(f);
+    return p;
+}
+
+Object* extractorInventoryFromSaveFile(char filename[]){
+    FILE* f = fopen(filename,"r");
+
+    if ( f==NULL ){
+        printf("***extractorInventoryFromSaveFile Exception: inventory Save file reading Failed\n");
+        return NULL;
+    }    
+    Object* inventory = new_Object();
+    Object* tmp = inventory;
+    
+    int objectQuantity = 0;
+    int objectId = 0;
+    int objectDurability = 0;
+    int stop = 1;
+    int counter =  0;
+    for (int i=0; i<5; i++){
+        while (fgetc(f) != '\n'){}
+    }
+    
+    while(stop != 0 ){
+        if ( feof(f) ){
+            stop = 0;
+            break;
+        }
+        stop = fscanf(f,"{%d}@{%d}@{%d}\n",&objectQuantity,
+            &objectId, &objectDurability);
+        if ( objectId == 0 ){
+            stop = 0;
+            break;
+        }
+
+        int objectType = getDBObjectType(objectId);
+        if ( tmp->type != -1 ) {
+            while(tmp->next != NULL) {
+                tmp = tmp->next;
+            }
+            tmp->next =  new_Object();
+            tmp = tmp->next;
+        }
+        
+        switch (objectType){
+        case ARME_TYPE:
+            tmp->arme = new_arme(objectId, objectQuantity,objectDurability);
+            tmp->category = getDBObjectCategory(objectId);
+            tmp->isSelected = NOT_SELECTED;
+            break;
+        case ARMURE_TYPE:
+            tmp->armure = new_armure(objectId, objectQuantity);
+            break;
+        case OUTIL_TYPE:
+            tmp->outil = new_outil(objectId,objectDurability);
+            tmp->category = getDBObjectCategory(objectId);
+            break;
+        case RDC_TYPE:
+            tmp->ressource_de_craft = new_ressource_de_craft(objectId);
+            tmp->ressource_de_craft->quantity = objectQuantity;
+            break;
+        case SOIN_TYPE:
+            tmp->soin = new_soin(objectId, objectQuantity);
+            break;
+        }
+        tmp->type = objectType;
+        tmp = inventory;
+        //print_inventory(tmp);
+        counter++;
+    }
+    if (counter<10){
+        for (int j=0; j<10-counter; j++){
+            while (fgetc(f) != '\n'){}
+        }
+    }
+    fclose(f);
+    return inventory;
+}
