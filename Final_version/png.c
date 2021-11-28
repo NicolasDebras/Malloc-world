@@ -31,7 +31,7 @@ void print_info() {
     printf("\nVotre choix : \n");
     printf("1 : CRAFTER ELEMENTS\n");
     printf("2 : REPARATION\n");
-    printf("3 : VOTRE BANQUE\n");
+    printf("3 : VOTRE COFFRE\n");
     printf("4 : QUITTER\n");
     printf("\n\n\n");
     printf("Veuillez saisir le numéro de votre choix ");
@@ -60,15 +60,14 @@ int correct_input_int_4() {
     }
 }
 void print_chest(Object *chest) {
-        printf("---- ACTION Possible ---- \n\n\n");
-    printf("**************************************\n");
-    printf("*         Action possible            *\n");
-    printf("*                                    *\n");
-    printf("* 1 : Ajouter                        *\n");
-    printf("*                                    *\n");
-    printf("* 2 : Retirer                        *\n");
-    printf("*                                    *\n");
-    printf("**************************************\n");
+    printf("***************************************\n");
+    printf("*         Options possibles           *\n");
+    printf("*                                     *\n");
+    printf("* 1 : Ajouter un objet dans le coffre *\n");
+    printf("*                                     *\n");
+    printf("* 2 : Retirer un objet du coffre      *\n");
+    printf("*                                     *\n");
+    printf("***************************************\n");
     print_inventory(chest);
 }
 
@@ -87,11 +86,13 @@ int selected_choose(int c, Player *p, Object *chest)
         print_inventory(p->inventory);
         int c = correct_input_int();
         if (c == 1) {
+           printf("\n Saississez l'ID de l'objet a ajouter dans le coffre : ");
            int id = input();
            Object **temp = addObjectToChest(p->inventory, chest, id);
            chest = temp[0];
            p->inventory = temp[1];
        } else if (c == 2) {
+           printf("\n Saississez l'ID de l'objet a retirer du coffre et a mettre dans l'inventaire : ");
            int id = input();
            Object **temp = getObjectFromChest(chest, p->inventory, id);
            chest = temp[1];
