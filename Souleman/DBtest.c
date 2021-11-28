@@ -349,6 +349,35 @@ Object* extractorInventoryFromSaveFile(char filename[]){
     return inventory;
 }
 
+void addNewObjectFromChest(Object* tmp,Object* chest, int objectId, int objectType, int objectQuantity){
+    tmp = getDBObject(objectType, objectId);
+    tmp->type = objectType;
+
+    if ( objectType != RDC_TYPE ){
+        tmp = getDBObject(objectType, objectId);
+    }
+    else {
+        Object* tmp2 = searchObjectById(chest, objectId);
+        if ( tmp2==NULL ){
+            collectCrafts(chest, objectQuantity, objectId);
+        }
+        else if ( tmp2->ressource_de_craft->quantity + objectQuantity < 20 ){
+            tmp2->ressource_de_craft->quantity = tmp2->ressource_de_craft->quantity 
+            + objectQuantity;
+        }
+        else{
+            tmp2->ressource_de_craft->quantity = 20;
+            if ( tmp2->ressource_de_craft->quantity + objectQuantity -20 > 0 ){
+                tmp =  new_Object();
+                tmp->ressource_de_craft = new_ressource_de_craft(objectId);
+                tmp->type = objectType;
+                tmp->ressource_de_craft->quantity = tmp2->ressource_de_craft->quantity 
+                + objectQuantity -20;
+            }
+        }
+    }
+}
+
 Object* extractChestFromSaveFile(char filename[]){
     FILE* f = fopen(filename,"r");
 
@@ -360,18 +389,19 @@ Object* extractChestFromSaveFile(char filename[]){
         while (fgetc(f) != '\n'){}
     }
     Object* chest = new_Object();
+    
     Object* tmp = chest;
     
     int objectQuantity = 0;
     int objectId = 0;
-    
-    
+
     while( !feof(f) ){
 
         fscanf(f,"{%d}@{%d}\n",&objectQuantity,
             &objectId);
 
         int objectType = getDBObjectType(objectId);
+
         if ( tmp->type != -1 ) {
             while(tmp->next != NULL) {
                 tmp = tmp->next;
@@ -379,36 +409,10 @@ Object* extractChestFromSaveFile(char filename[]){
             tmp->next =  new_Object();
             tmp = tmp->next;
         }
-
-        tmp = getDBObject(objectType, objectId);
-        tmp->type = objectType;
-
-        // if ( objectType != RDC_TYPE ){
-        //     tmp = getDBObject(objectType, objectId);
-        // }
-        // else {
-        //     Object* tmp2 = searchObjectById(chest, objectId);
-        //     if ( tmp2==NULL ){
-        //         collectCrafts(chest, objectQuantity, objectId);
-        //     }
-        //     else if ( tmp2->ressource_de_craft->quantity + objectQuantity < 20 ){
-        //         tmp2->ressource_de_craft->quantity = tmp2->ressource_de_craft->quantity 
-        //         + objectQuantity;
-        //     }
-        //     else{
-        //         tmp2->ressource_de_craft->quantity = 20;
-        //         if ( tmp2->ressource_de_craft->quantity + objectQuantity -20 > 0 ){
-        //             tmp =  new_Object();
-        //             tmp->ressource_de_craft = new_ressource_de_craft(objectId);
-        //             tmp->type = objectType;
-        //             tmp->ressource_de_craft->quantity = tmp2->ressource_de_craft->quantity 
-        //             + objectQuantity -20;
-        //         }
-        //     }
-        // }
+        
+        addNewObjectFromChest(tmp, chest, objectId, objectType, objectQuantity);
         
         tmp = chest;
-        //print_inventory(tmp);
     }
     fclose(f);
     return chest;
@@ -489,32 +493,32 @@ Player* initTestPlayer8(){
     return p;
 }
 
-// int main(){
-//     // Object* inventory = initTestInventory8();
-//     // Player* p = initTestPlayer8();
-//     // saveAllGameProperties(p, inventory, "Data_Bases/saveInventory.txt");
+int main(){
+    // Object* inventory = initTestInventory8();
+    // Player* p = initTestPlayer8();
+    // saveAllGameProperties(p, inventory, "Data_Bases/saveInventory.txt");
 
-//     char* map2Str = malloc(14*sizeof(char));
-//     map2Str = "-- ZONE2 --";
+    // char* map2Str = malloc(14*sizeof(char));
+    // map2Str = "-- ZONE2 --";
 
-//     int *res = checkMapSize("test.txt",0,map2Str);
-//     printf("on a %d et %d \n", res[0], res[1]);
+    // int *res = checkMapSize("test.txt",0,map2Str);
+    // printf("on a %d et %d \n", res[0], res[1]);
     
-//     // Object* chest2 = extractChestFromSaveFile("Data_Bases/saveInventory.txt");
-//     // Player* p2 = extractorPlayerFromSaveFile("Data_Bases/saveInventory.txt");
-//     // p2->inventory = extractorInventoryFromSaveFile("Data_Bases/saveInventory.txt");
+    Object* chest2 = extractChestFromSaveFile("Data_Bases/saveInventory.txt");
+    // Player* p2 = extractorPlayerFromSaveFile("Data_Bases/saveInventory.txt");
+    // p2->inventory = extractorInventoryFromSaveFile("Data_Bases/saveInventory.txt");
 
-//     // print_player(p2);
-//     // print_inventory(p2->inventory);
-//     // print_inventory(chest2);
+    // print_player(p2);
+    // print_inventory(p2->inventory);
+    print_inventory(chest2);
 
     
 
-//     //inventoryDBExtractor(inventory);
+    //inventoryDBExtractor(inventory);
 
-//     // char* age_char = " -013.2 ";
-//     // int age_int = atoi(age_char);
-//     // printf("age: %d\n",age_int);
+    // char* age_char = " -013.2 ";
+    // int age_int = atoi(age_char);
+    // printf("age: %d\n",age_int);
 
-//     return 0;
-// }
+    return 0;
+}

@@ -27,7 +27,6 @@ ressource_collect *add_element(ressource_collect *old, int nb, int type, int lev
 
     return new;
 
-
 }
 void delete(ressource_collect *r, int nb){
 

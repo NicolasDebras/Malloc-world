@@ -1231,54 +1231,54 @@ void updatePlayerHpWithLevel(Player* p){
     }
 }
 
-int main(){
+// int main(){
 
-    Player* p = init_player();
-    print_inventory(p->inventory);
-    int i = collectRessourceAndToolUpdate(p->inventory, FIR, 3, 1);
-    i = collectRessourceAndToolUpdate(p->inventory, STONE, 2, 1);
-    i = collectRessourceAndToolUpdate(p->inventory, STONE, 2, 1);
-    print_inventory(p->inventory);
+//     Player* p = init_player();
+//     print_inventory(p->inventory);
+//     int i = collectRessourceAndToolUpdate(p->inventory, FIR, 3, 1);
+//     i = collectRessourceAndToolUpdate(p->inventory, STONE, 2, 1);
+//     i = collectRessourceAndToolUpdate(p->inventory, STONE, 2, 1);
+//     print_inventory(p->inventory);
 
-    // printf("Player before the attack\n\n");
-    // print_player(p);
-    // print_inventory(p->inventory);
-    // selectObject(p->inventory, DIAMOND_HAMMER);
-    // printf("\n\n");
-    // p->inventory->isSelected = SELECTED;
-    // p->inventory = craftObject(p->inventory,WOODEN_PICKAXE);
-    // print_inventory(p->inventory);
+//     // printf("Player before the attack\n\n");
+//     // print_player(p);
+//     // print_inventory(p->inventory);
+//     // selectObject(p->inventory, DIAMOND_HAMMER);
+//     // printf("\n\n");
+//     // p->inventory->isSelected = SELECTED;
+//     // p->inventory = craftObject(p->inventory,WOODEN_PICKAXE);
+//     // print_inventory(p->inventory);
 
-    // Monster* monster1 = malloc(sizeof(Monster));
-    // monster1->degats = 30;
-    // monster1->armor = 0;
-    // monster1->pv = 100;
-    // monster1->xp_profit = 25;
+//     // Monster* monster1 = malloc(sizeof(Monster));
+//     // monster1->degats = 30;
+//     // monster1->armor = 0;
+//     // monster1->pv = 100;
+//     // monster1->xp_profit = 25;
 
-    // attackMonster(p, monster1);
-    // receiveDamage(p, monster1);
+//     // attackMonster(p, monster1);
+//     // receiveDamage(p, monster1);
 
-    // printf("Player after the attack and monsters pv= %d\n\n", monster1->pv);
-    // print_player(p);
+//     // printf("Player after the attack and monsters pv= %d\n\n", monster1->pv);
+//     // print_player(p);
 
-    // Object* chest = new_Object();
-    // print_inventory(chest);
-    // print_inventory(p->inventory);
+//     // Object* chest = new_Object();
+//     // print_inventory(chest);
+//     // print_inventory(p->inventory);
 
-    // printf("en ajoutant dans chest\n\n");
-    // Object** doubleinventory = addObjectToChest(p->inventory, chest, DIAMOND_HAMMER);
-    // chest = doubleinventory[0];
-    // p->inventory = doubleinventory[1];
-    // print_inventory(chest);
-    // print_inventory(p->inventory);
+//     // printf("en ajoutant dans chest\n\n");
+//     // Object** doubleinventory = addObjectToChest(p->inventory, chest, DIAMOND_HAMMER);
+//     // chest = doubleinventory[0];
+//     // p->inventory = doubleinventory[1];
+//     // print_inventory(chest);
+//     // print_inventory(p->inventory);
 
-    // printf("en ajoutant dans inventory\n\n");
-    // doubleinventory = getObjectFromChest(chest,p->inventory, DIAMOND_HAMMER);
-    // chest = doubleinventory[1];
-    // p->inventory = doubleinventory[0];
-    // print_inventory(chest);
-    // print_inventory(p->inventory);
+//     // printf("en ajoutant dans inventory\n\n");
+//     // doubleinventory = getObjectFromChest(chest,p->inventory, DIAMOND_HAMMER);
+//     // chest = doubleinventory[1];
+//     // p->inventory = doubleinventory[0];
+//     // print_inventory(chest);
+//     // print_inventory(p->inventory);
 
-    return 0;
+//     return 0;
 
-}
+// }
