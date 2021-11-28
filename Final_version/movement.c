@@ -226,7 +226,7 @@ char corect_input() {
     
     char c = input_char();
 
-    if (c == 'z'|| c == 's' || c == 'd'|| c == 'q'|| c == 'v') {
+    if (c == 'z'|| c == 's' || c == 'd'|| c == 'q'|| c == 'v' || c == 'i' || c == 'p') {
         return c;
     } else {
         printf("mauvais input \n");
