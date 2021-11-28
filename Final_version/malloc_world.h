@@ -308,8 +308,12 @@ Object* searchObjectByCategory(Object* inventory, int objectCategory);
 Object* selectObject(Object* inventory, int objectId);
 Object* deleteObject(Object* inventory, int objectId);
 Object* objectMemCpy(Object* object);
+int calculateLessedByPercent(int number, int nbPercent);
 void print_inventory(Object* inventory);
 void print_player(Player * player);
+int input();
+int correct_input_int();
+
 
 //---------// Chest Functions //---------// 
 
@@ -349,27 +353,20 @@ int collectRessourceAndToolUpdate(Object* inventory, int objectIdToCollect, int 
 int attackMonster(Player* player, monster* monster);
 int receiveDamage(Player* player, monster* monster);
 void updatePlayerHpWithLevel(Player* p);
+int battle_phase(monster *m_fighter, int dodge, Player *p);
+int strat_fight(Declaration *d, int level_map);
 
 //---------// Initialize the player/ New game //---------// 
 
 Object* init_inventor();
 Player* init_player();
 
+//---------// Save and Extraction from Inventory and Player and Save file //---------// 
 
 void saveAllGameProperties(Player* p, Object* chest, char filename[]);
 void saveChest(Object* chest, char filename[]);
 void saveInventory(Object* inventory, char filename[]);
 void savePlayer(Player* player, char filename[]);
-
-
-int input();
-int correct_input_int();
-
-int calculateLessedByPercent(int number, int nbPercent);
-
-int battle_phase(monster *m_fighter, int dodge, Player *p);
-int strat_fight(Declaration *d, int level_map);
-
 
 Player* extractorPlayerFromSaveFile(char filename[]);
 Object* extractorInventoryFromSaveFile(char filename[]);
