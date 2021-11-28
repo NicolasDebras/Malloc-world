@@ -69,6 +69,7 @@ void print_chest(Object *chest) {
     printf("* 2 : Retirer un objet du coffre      *\n");
     printf("*                                     *\n");
     printf("***************************************\n");
+    printf("\n\nCOFFRE :\n");
     print_inventory(chest);
 }
 
@@ -81,7 +82,6 @@ int selected_choose(int c, Player *p, Object *chest)
         repairAllObject(p->inventory);
         return 0;
     } else if (c == 3) {
-        printf("\nCOFFRE :\n");
         print_chest(chest);
         printf("\nINVENTAIRE :\n");
         print_inventory(p->inventory);
