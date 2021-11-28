@@ -258,12 +258,16 @@ Obj_Arme* new_arme(Arme objectId, int degat, int durabilite);
 Obj_Armure* new_armure(Armure objectId, int resistance);
 Obj_Outil* new_outil(Outil objectId, int durabilite);
 Obj_Ressource_de_craft* new_ressource_de_craft(Ressource_de_craft objectId);
-Obj_Soin* new_soin(Outil objectId, int hp_heal);
+Obj_Soin* new_soin(Soin objectId, int hp_heal); 
 Object* new_Object();
 
 //---------// Object data base //---------// 
 
 Object** Object_list();
+
+//---------// Crafting Recipes Data Bases //---------// 
+
+int* craftObjectRecipe(int objectId);
 
 //---------// Getter Object from data base //---------//
 
@@ -315,11 +319,6 @@ int input();
 int correct_input_int();
 
 
-//---------// Chest Functions //---------// 
-
-Object** addObjectToChest(Object* inventory,Object* chest, int objectId);
-Object** getObjectFromChest(Object* chest, Object* inventory, int objectId);
-
 //---------// Object Getters from inventory functions //---------// 
 
 Object* getPickaxe(Object* inventory);
@@ -327,10 +326,6 @@ Object* getAx(Object* inventory);
 Object* getSerpe(Object* inventory);
 Object* getSelectedWeapon(Object* inventory);
 Player* useHealPotion(Player* p, int objectId);
-
-//---------// Crafting Recipes Data Bases //---------// 
-
-int* craftObjectRecipe(int objectId);
 
 //---------// Repair and Craft //---------// 
 
@@ -347,6 +342,10 @@ int collectAndToolUpdateMap2(Object* inventory, int objectIdToCollect, int quant
 int collectAndToolUpdateMap3(Object* inventory, int objectIdToCollect, int quantity, Object** tools);
 int collectRessourceAndToolUpdate(Object* inventory, int objectIdToCollect, int quantity, int mapZone);
 
+//---------// Chest Functions //---------// 
+
+Object** addObjectToChest(Object* inventory,Object* chest, int objectId);
+Object** getObjectFromChest(Object* chest, Object* inventory, int objectId);
 
 //---------// Attacks player-monster //---------// 
 
@@ -370,4 +369,7 @@ void savePlayer(Player* player, char filename[]);
 
 Player* extractorPlayerFromSaveFile(char filename[]);
 Object* extractorInventoryFromSaveFile(char filename[]);
+Object* extractChestFromSaveFile(char filename[]);
 void extractFromSaveFile(Player *p, Object* chest, char filename[]);
+
+int print_menu_Debut_de_Jeu();

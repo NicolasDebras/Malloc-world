@@ -536,7 +536,7 @@ void extractFromSaveFile(Player *p, Object* chest, char filename[]){
 
     p = extractorPlayerFromSaveFile(filename);
     p->inventory = extractorInventoryFromSaveFile(filename);
-    // chest = extractChestFromSaveFile(filename);
+    chest = extractChestFromSaveFile(filename);
 }
 
 Player* extractorPlayerFromSaveFile(char filename[]){
@@ -633,4 +633,41 @@ Object* extractorInventoryFromSaveFile(char filename[]){
     }
     fclose(f);
     return inventory;
+}
+
+Object* extractChestFromSaveFile(char filename[]){
+    FILE* f = fopen(filename,"r");
+
+    if ( f==NULL ){
+        printf("***extractorInventoryFromSaveFile Exception: inventory Save file reading Failed\n");
+        return NULL;
+    }    
+    for (int i=0; i<16; i++){
+        while (fgetc(f) != '\n'){}
+    }
+    Object* chest = new_Object();
+    
+    
+    int objectQuantity = 0;
+    int objectId = 0;
+
+    while( !feof(f) ){
+
+        fscanf(f,"{%d}@{%d}\n",&objectQuantity,
+            &objectId);
+
+        int objectType = getDBObjectType(objectId);
+        
+        chest = addObject(chest, objectId, objectType);
+        Object* tmp = chest;
+
+        while ( tmp!=NULL ){
+            if ( tmp->ressource_de_craft->objectId == objectId ){
+                tmp->ressource_de_craft->quantity = 20;
+            }
+            tmp = tmp->next;
+        }
+    }
+    fclose(f);
+    return chest;
 }

@@ -33,7 +33,7 @@ Obj_Ressource_de_craft* new_ressource_de_craft(Ressource_de_craft objectId){
     return craft;
 }
 
-Obj_Soin* new_soin(Outil objectId, int hp_heal){
+Obj_Soin* new_soin(Soin objectId, int hp_heal){
     Obj_Soin* potion = malloc(sizeof(Obj_Soin));
     potion->objectId = objectId;
     potion->hp_heal = hp_heal;
@@ -65,7 +65,6 @@ Object* new_Object(){
     }
 
     FILE* f = fopen("Data_Bases/ObjectsDB.txt","r");
-
     char* objectType = malloc(12*sizeof(char));
     char* objectCategory= malloc(17*sizeof(char));
     char* objectIsSelect = malloc(13*sizeof(char));
@@ -287,7 +286,6 @@ Object* addUpdatedObjectType(Object* inventory, int objectId){
         inventory = addObject(inventory, objectId, OBJECT_TYPE);
         return inventory;
     }
-
     int tmpObjectId;
     if ( tmp->type == ARME_TYPE ){
         tmpObjectId = tmp->arme->objectId;
@@ -309,7 +307,6 @@ Object* addUpdatedObjectType(Object* inventory, int objectId){
             inventory = addObject(inventory, objectId, OBJECT_TYPE);
             Object* tmp2 = searchObjectById(inventory,objectId);
         }
-        
         return inventory;
     }
     
@@ -545,26 +542,21 @@ Object* deleteObject(Object* inventory, int objectId){
         if ( tmp->arme->objectId == objectId || tmp->armure->objectId == objectId ||
             tmp->outil->objectId == objectId || tmp->ressource_de_craft->objectId == objectId ||
             tmp->soin->objectId == objectId ){
-             
             //If it is the object
             if ( inventorySize(inventory) == 1 ){
-                
                 inventory = new_Object();
                 return inventory;
-            }
-            //if it is at the end
+            }//if it is at the end
             if ( tmp->next == NULL ){
                 previous->next = NULL;
                 free(tmp);
                 return inventory;    
-            }
-            //it is on the first 
+            }//it is on the first 
             else if( tmp == inventory ){             
                 inventory = inventory->next;
                 free(tmp);
                 return inventory; 
-            } 
-            //it is on the middle
+            } //it is on the middle
             else {
                 previous->next = tmp->next;
                 tmp->next = NULL;
@@ -616,11 +608,8 @@ Object* objectMemCpy(Object* object){
 
 int calculateLessedByPercent(int number, int nbPercent){
     float tmp = number;
-    printf("#### on a %f ####\n",tmp);
     float tmp2 = nbPercent;
-    printf("#### et %f ####\n",tmp2);
     int res = roundf((tmp2*number)/100);
-    printf("####### j'ai produit %d #######\n",res);
     return res;
 }
 
@@ -675,14 +664,11 @@ void print_player(Player* player){
 
 Object* init_inventor(){
     
-
     Object* inventory;
-
     inventory = new_Object();
     
     inventory = addarme(inventory, ARME_TYPE, WOOD_SWORD);
     inventory->isSelected = SELECTED;
-
     inventory = addOtherObject(inventory, OUTIL_TYPE,WOODEN_PICKAXE);
     inventory = addOtherObject(inventory, OUTIL_TYPE,WOODEN_SERPE);
     inventory = addOtherObject(inventory, OUTIL_TYPE,WOODEN_AX);
