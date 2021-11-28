@@ -1,4 +1,4 @@
-#include "inventory.h"
+#include "structures.c"
 
 Object** extractDBObjects(){
     Object** objectsList = malloc(34*sizeof(Object*));
@@ -349,35 +349,6 @@ Object* extractorInventoryFromSaveFile(char filename[]){
     return inventory;
 }
 
-void addNewObjectFromChest(Object* tmp,Object* chest, int objectId, int objectType, int objectQuantity){
-    tmp = getDBObject(objectType, objectId);
-    tmp->type = objectType;
-
-    if ( objectType != RDC_TYPE ){
-        tmp = getDBObject(objectType, objectId);
-    }
-    else {
-        Object* tmp2 = searchObjectById(chest, objectId);
-        if ( tmp2==NULL ){
-            collectCrafts(chest, objectQuantity, objectId);
-        }
-        else if ( tmp2->ressource_de_craft->quantity + objectQuantity < 20 ){
-            tmp2->ressource_de_craft->quantity = tmp2->ressource_de_craft->quantity 
-            + objectQuantity;
-        }
-        else{
-            tmp2->ressource_de_craft->quantity = 20;
-            if ( tmp2->ressource_de_craft->quantity + objectQuantity -20 > 0 ){
-                tmp =  new_Object();
-                tmp->ressource_de_craft = new_ressource_de_craft(objectId);
-                tmp->type = objectType;
-                tmp->ressource_de_craft->quantity = tmp2->ressource_de_craft->quantity 
-                + objectQuantity -20;
-            }
-        }
-    }
-}
-
 Object* extractChestFromSaveFile(char filename[]){
     FILE* f = fopen(filename,"r");
 
@@ -390,7 +361,6 @@ Object* extractChestFromSaveFile(char filename[]){
     }
     Object* chest = new_Object();
     
-    Object* tmp = chest;
     
     int objectQuantity = 0;
     int objectId = 0;
@@ -401,81 +371,79 @@ Object* extractChestFromSaveFile(char filename[]){
             &objectId);
 
         int objectType = getDBObjectType(objectId);
+        
+        chest = addObject(chest, objectId, objectType);
+        Object* tmp = chest;
 
-        if ( tmp->type != -1 ) {
-            while(tmp->next != NULL) {
-                tmp = tmp->next;
+        while ( tmp!=NULL ){
+            if ( tmp->ressource_de_craft->objectId == objectId ){
+                tmp->ressource_de_craft->quantity = 20;
             }
-            tmp->next =  new_Object();
             tmp = tmp->next;
         }
-        
-        addNewObjectFromChest(tmp, chest, objectId, objectType, objectQuantity);
-        
-        tmp = chest;
     }
     fclose(f);
     return chest;
 }
 
-int* checkMapSize(char filename[], int map1Index, char* mapStr){
-    FILE *f = fopen(filename, "r");
-    int a = fseek(f, map1Index, SEEK_SET);
+// int* checkMapSize(char filename[], int map1Index, char* mapStr){
+//     FILE *f = fopen(filename, "r");
+//     int a = fseek(f, map1Index, SEEK_SET);
     
-    // char* tmpStr = malloc(14*sizeof(char));
-    // tmpStr = fgets(tmpStr, 14,f);
-    // printf("on a trouvé %d\n %s %s\n", strcmp(tmpStr,mapStr)==10, tmpStr, mapStr);
-    int columns = 0;
-    int rows = 0;
-    int totalNumber = 0;
-    int tmp;
-    while (fgetc(f)!=atoi('-')){
-        printf("error here %d\n", a);
-        fseek(f, -13, SEEK_CUR);
-        while (fgetc(f) != '\n'){}
-        rows++;
-    }
-    // fseek(f, map1Index, SEEK_SET);
-    // while ( strcmp(fgets(tmpStr, 14,f),mapStr) == 0){
-    //     fseek(f, -13, SEEK_CUR);
-    //     fscanf(f, "%d", &tmp);
-    //     totalNumber++;
-    // }
-    // columns = totalNumber/rows;
-    int *tab = malloc(2*sizeof(int));
-    // tab[0] = rows;
-    // tab[1] = columns;
-    // fclose(f);
-    return tab;
-}
+//     // char* tmpStr = malloc(14*sizeof(char));
+//     // tmpStr = fgets(tmpStr, 14,f);
+//     // printf("on a trouvé %d\n %s %s\n", strcmp(tmpStr,mapStr)==10, tmpStr, mapStr);
+//     int columns = 0;
+//     int rows = 0;
+//     int totalNumber = 0;
+//     int tmp;
+//     while (fgetc(f)!=atoi('-')){
+//         printf("error here %d\n", a);
+//         fseek(f, -13, SEEK_CUR);
+//         while (fgetc(f) != '\n'){}
+//         rows++;
+//     }
+//     // fseek(f, map1Index, SEEK_SET);
+//     // while ( strcmp(fgets(tmpStr, 14,f),mapStr) == 0){
+//     //     fseek(f, -13, SEEK_CUR);
+//     //     fscanf(f, "%d", &tmp);
+//     //     totalNumber++;
+//     // }
+//     // columns = totalNumber/rows;
+//     int *tab = malloc(2*sizeof(int));
+//     // tab[0] = rows;
+//     // tab[1] = columns;
+//     // fclose(f);
+//     return tab;
+// }
 
-int* checkMap2Size(char filename[], int map2Index){
+// int* checkMap2Size(char filename[], int map2Index){
     
-}
+// }
 
-int* checkMap3Size(char filename[], int map3Index){
+// int* checkMap3Size(char filename[], int map3Index){
     
-}
+// }
 
 
 
-void extractMapFromSaveFile(char filename[]){
-    FILE *f = fopen(filename, "r");
+// void extractMapFromSaveFile(char filename[]){
+//     FILE *f = fopen(filename, "r");
 
-    char* mapStr = malloc(12*sizeof(char));
-    char* map1Str = malloc(13*sizeof(char));
-    char* map2Str = malloc(13*sizeof(char));
-    map2Str = "-- ZONE 2 --\n";
-    char* map3Str = malloc(13*sizeof(char));
-    map3Str = "-- ZONE 3 --\n";
+//     char* mapStr = malloc(12*sizeof(char));
+//     char* map1Str = malloc(13*sizeof(char));
+//     char* map2Str = malloc(13*sizeof(char));
+//     map2Str = "-- ZONE 2 --\n";
+//     char* map3Str = malloc(13*sizeof(char));
+//     map3Str = "-- ZONE 3 --\n";
 
-    while (fgetc(f) != '\n'){}
-    while (fgetc(f) != '\n'){}
+//     while (fgetc(f) != '\n'){}
+//     while (fgetc(f) != '\n'){}
 
-    int currenIndex = ftell(f);
+//     int currenIndex = ftell(f);
     
 
-}
+// }
 
 
 Player* initTestPlayer8(){
