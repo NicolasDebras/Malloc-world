@@ -80,10 +80,12 @@ int selected_choose(int c, Player *p, Object *chest)
     } else if (c == 2) {
         repairAllObject(p->inventory);
         return 0;
-    } else if (c == 3) {   
+    } else if (c == 3) {
+        printf("\nCOFFRE :\n");
         print_chest(chest);
-        int c = correct_input_int();
+        printf("\nINVENTAIRE :\n");
         print_inventory(p->inventory);
+        int c = correct_input_int();
         if (c == 1) {
            int id = input();
            Object **temp = addObjectToChest(p->inventory, chest, id);
@@ -94,7 +96,11 @@ int selected_choose(int c, Player *p, Object *chest)
            Object **temp = getObjectFromChest(chest, p->inventory, id);
            chest = temp[1];
            p->inventory = temp[0];
-       } 
+       }
+        printf("\nCOFFRE APRES CHANGEMENT :\n");
+        print_chest(chest);
+        printf("\nINVENTAIRE APRES CHANGEMENT :\n");
+        print_inventory(p->inventory);
         return 0;
     } else if (c == 4) {
         return 1;
