@@ -20,8 +20,10 @@ int print_menu_Affichages() {
     printf("*                                       *\n");
     printf("* 3 : Tables des références inventaires *\n");
     printf("* (option 3: indisponible)              *\n");
+    printf("*                                       *\n");
+    printf("* 4 : Revenir à la map                  *\n");
     printf("*****************************************\n");
-    return correct_input_int();
+    return correct_input_int_4();
 
 }
 
@@ -30,14 +32,16 @@ void interation_menu_Affichage(Declaration *d){
         int status;
         while (validStatus){
             status = print_menu_Affichages();
-            if ( status==1 || status==2 || status==3 ){
+            if ( status==1 || status==2 || status==3 || status==4){
                 validStatus = 0;
             }
         }
         if ( status == 1 ){
+            printf("\nVoici votre inventaire :\n");
             print_inventory(d->p->inventory);
         }
         else if ( status == 2){
+            printf("\nVoici le status actuel du joueur :\n");
             print_player(d->p);
         }
         else if ( status == 3){
@@ -57,8 +61,10 @@ int print_menu_fonctionnalites() {
     printf("*                                       *\n");
     printf("* 3 : Supprimer un objet                *\n");
     printf("*                                       *\n");
+    printf("* 4 : Revenir sur la map                *\n");
+    printf("*                                       *\n");
     printf("*****************************************\n");
-    return correct_input_int();
+    return correct_input_int_4();
 
 }
 void interation_menu_Fonctionnalites(Declaration *d){
@@ -66,7 +72,7 @@ void interation_menu_Fonctionnalites(Declaration *d){
         int status;
         while (validStatus){
             status = print_menu_fonctionnalites();
-            if ( status==1 || status==2 || status==3 ){
+            if ( status==1 || status==2 || status==3 || status==4){
                 validStatus = 0;
             }
         }
