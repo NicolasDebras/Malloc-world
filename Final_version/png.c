@@ -80,9 +80,9 @@ int selected_choose(int c, Player *p, Object *chest)
     } else if (c == 2) {
         repairAllObject(p->inventory);
         return 0;
-    } else if (c == 3) {
-       int c = correct_input_int();   
+    } else if (c == 3) {   
         print_chest(chest);
+        int c = correct_input_int();
         print_inventory(p->inventory);
         if (c == 1) {
            int id = input();
